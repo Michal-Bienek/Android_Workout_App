@@ -2,7 +2,10 @@ package com.example.workout_appv1.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.Date;
 
 @Entity(tableName = "routines", foreignKeys = {@ForeignKey(entity =Plan.class,
         parentColumns = "planId",
@@ -14,6 +17,55 @@ public class Routine {
     private int routineId;
     private String routineName;
     private int dayOfWeek;
-    //Last workout data field
+    private Date lastWorkoutDate;
     private int fk_planId;
+
+    @Ignore
+    public Routine(int routineId, String routineName, int dayOfWeek, Date lastWorkoutDate, int fk_planId) {
+        this.routineId = routineId;
+        this.routineName = routineName;
+        this.dayOfWeek = dayOfWeek;
+        this.lastWorkoutDate = lastWorkoutDate;
+        this.fk_planId = fk_planId;
+    }
+
+    public int getRoutineId() {
+        return routineId;
+    }
+
+    public void setRoutineId(int routineId) {
+        this.routineId = routineId;
+    }
+
+    public String getRoutineName() {
+        return routineName;
+    }
+
+    public void setRoutineName(String routineName) {
+        this.routineName = routineName;
+    }
+
+    public int getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(int dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public Date getLastWorkoutDate() {
+        return lastWorkoutDate;
+    }
+
+    public void setLastWorkoutDate(Date lastWorkoutDate) {
+        this.lastWorkoutDate = lastWorkoutDate;
+    }
+
+    public int getFk_planId() {
+        return fk_planId;
+    }
+
+    public void setFk_planId(int fk_planId) {
+        this.fk_planId = fk_planId;
+    }
 }
