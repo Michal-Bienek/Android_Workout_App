@@ -6,9 +6,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "series",foreignKeys = {
-        @ForeignKey(entity = ExercisesInRoutine.class,
-        parentColumns = "exerciseInRoutineId",
-        childColumns = "fk_exerciseInRoutineId",
+        @ForeignKey(entity = WorkoutParams.class,
+        parentColumns ="workoutParamsId",
+        childColumns = "fk_workoutParamsId",
         onDelete = ForeignKey.CASCADE)
 })
 public class Series {
@@ -19,17 +19,18 @@ public class Series {
     private String rate;
     private int restTime;
     private String note;
-    private int fk_exerciseInRoutineId;
+    private int fk_workoutParamsId;
+
 
     @Ignore
-    public Series(int seriesId, int reps, double weight, String rate, int restTime, String note, int fk_exerciseInRoutineId) {
+    public Series(int seriesId, int reps, double weight, String rate, int restTime, String note, int fk_exerciseInRoutineId, int fk_workoutParamsId) {
         this.seriesId = seriesId;
         this.reps = reps;
         this.weight = weight;
         this.rate = rate;
         this.restTime = restTime;
         this.note = note;
-        this.fk_exerciseInRoutineId = fk_exerciseInRoutineId;
+        this.fk_workoutParamsId = fk_workoutParamsId;
     }
 
     public int getSeriesId() {
@@ -80,11 +81,11 @@ public class Series {
         this.note = note;
     }
 
-    public int getFk_exerciseInRoutineId() {
-        return fk_exerciseInRoutineId;
+    public int getFk_workoutParamsId() {
+        return fk_workoutParamsId;
     }
 
-    public void setFk_exerciseInRoutineId(int fk_exerciseInRoutineId) {
-        this.fk_exerciseInRoutineId = fk_exerciseInRoutineId;
+    public void setFk_workoutParamsId(int fk_workoutParamsId) {
+        this.fk_workoutParamsId = fk_workoutParamsId;
     }
 }
