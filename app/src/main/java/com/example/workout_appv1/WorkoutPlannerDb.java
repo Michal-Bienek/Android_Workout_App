@@ -12,6 +12,7 @@ import com.example.workout_appv1.entities.ExercisesInRoutine;
 import com.example.workout_appv1.entities.Plan;
 import com.example.workout_appv1.entities.Routine;
 import com.example.workout_appv1.entities.Series;
+import com.example.workout_appv1.entities.WorkoutParams;
 import com.example.workout_appv1.type_converters.DateConverter;
 
 @Database(entities = {
@@ -19,6 +20,7 @@ import com.example.workout_appv1.type_converters.DateConverter;
         Routine.class,
         Exercise.class,
         ExercisesInRoutine.class,
+        WorkoutParams.class,
         Series.class
 },version = 1)
 @TypeConverters({DateConverter.class})
