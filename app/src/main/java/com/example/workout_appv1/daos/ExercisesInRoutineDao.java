@@ -5,9 +5,11 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.workout_appv1.entities.ExercisesInRoutine;
+import com.example.workout_appv1.relations.ExercisesInRoutineWithWorkoutParams;
 
 import java.util.List;
 
@@ -33,6 +35,10 @@ public interface ExercisesInRoutineDao {
 
     @Query("SELECT * FROM exercises_in_routine WHERE fk_exerciseId=:exerciseId")
     List<ExercisesInRoutine>getExercisesInRoutineByExerciseId(int exerciseId);
+
+    @Transaction
+    @Query("SELECT * FROM exercises_in_routine WHERE exerciseInRoutineId=:exerciseInRoutineId")
+    List<ExercisesInRoutineWithWorkoutParams>exercisesWithParams(int exerciseInRoutineId);
 
 
 
