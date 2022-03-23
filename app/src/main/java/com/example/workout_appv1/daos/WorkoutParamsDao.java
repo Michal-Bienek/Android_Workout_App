@@ -5,9 +5,11 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.workout_appv1.entities.WorkoutParams;
+import com.example.workout_appv1.relations.WorkoutParamsWithSeries;
 
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,10 @@ public interface WorkoutParamsDao {
 
     @Query("SELECT * FROM workout_params WHERE fk_exerciseInRoutineId=:ExerciseInRoutineId ORDER BY workout_date DESC LIMIT 1")
     List<WorkoutParams>getLatestWorkoutParamsInExerciseInRoutine(int ExerciseInRoutineId);
+
+    @Transaction
+    @Query("SELECT * FROM workout_params WHERE workoutParamsId=:workoutParamsId")
+    List<WorkoutParamsWithSeries>workoutParamsWithSeries(int workoutParamsId);
 
 
 
