@@ -1,5 +1,6 @@
 package com.example.workout_appv1.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -11,6 +12,8 @@ public class Exercise {
     private String description;
     private String muscleGroup;
 
+    public Exercise(){}
+
     @Ignore
     public Exercise(int exerciseId, String name, String description, String muscleGroup) {
         this.exerciseId = exerciseId;
@@ -18,6 +21,18 @@ public class Exercise {
         this.description = description;
         this.muscleGroup = muscleGroup;
     }
+    
+    @Ignore
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "exerciseId=" + exerciseId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", muscleGroup='" + muscleGroup + '\'' +
+                '}';
+    }
+
 
     public int getExerciseId() {
         return exerciseId;

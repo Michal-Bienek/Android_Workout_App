@@ -3,6 +3,7 @@ package com.example.workout_appv1.entities;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
         parentColumns = "planId",
         childColumns = "fk_planId",
         onDelete = ForeignKey.CASCADE
-)} )
+)} ,indices = {@Index(value = {"fk_planId"})})
 public class Routine {
     @PrimaryKey(autoGenerate = true)
     private int routineId;
@@ -20,6 +21,8 @@ public class Routine {
     private Date lastWorkoutDate;
     private int fk_planId;
 
+    public Routine(){}
+
     @Ignore
     public Routine(int routineId, String routineName, int dayOfWeek, Date lastWorkoutDate, int fk_planId) {
         this.routineId = routineId;
@@ -27,6 +30,18 @@ public class Routine {
         this.dayOfWeek = dayOfWeek;
         this.lastWorkoutDate = lastWorkoutDate;
         this.fk_planId = fk_planId;
+    }
+
+    @Ignore
+    @Override
+    public String toString() {
+        return "Routine{" +
+                "routineId=" + routineId +
+                ", routineName='" + routineName + '\'' +
+                ", dayOfWeek=" + dayOfWeek +
+                ", lastWorkoutDate=" + lastWorkoutDate +
+                ", fk_planId=" + fk_planId +
+                '}';
     }
 
     public int getRoutineId() {

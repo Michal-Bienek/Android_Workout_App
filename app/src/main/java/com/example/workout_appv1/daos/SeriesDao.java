@@ -27,6 +27,6 @@ public interface SeriesDao {
     void updateSeries(Series series);
 
     @Query("Select * FROM series where fk_workoutParamsId=:workoutParamsId")
-    void getAllSeriesInWorkoutParams(int workoutParamsId);
+    List<Series> getAllSeriesInWorkoutParams(int workoutParamsId);
 
 }

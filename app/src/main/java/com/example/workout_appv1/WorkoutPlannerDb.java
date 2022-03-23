@@ -7,6 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.workout_appv1.daos.ExerciseDao;
+import com.example.workout_appv1.daos.ExercisesInRoutineDao;
+import com.example.workout_appv1.daos.PlanDao;
+import com.example.workout_appv1.daos.RoutineDao;
+import com.example.workout_appv1.daos.SeriesDao;
+import com.example.workout_appv1.daos.WorkoutParamsDao;
 import com.example.workout_appv1.entities.Exercise;
 import com.example.workout_appv1.entities.ExercisesInRoutine;
 import com.example.workout_appv1.entities.Plan;
@@ -37,4 +43,10 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
     }
 
     //Daos
+    public abstract PlanDao planDao();
+    public abstract RoutineDao routineDao();
+    public abstract ExerciseDao exerciseDao();
+    public abstract ExercisesInRoutineDao exercisesInRoutineDao();
+    public abstract WorkoutParamsDao workoutParamsDao();
+    public abstract SeriesDao seriesDao();
 }

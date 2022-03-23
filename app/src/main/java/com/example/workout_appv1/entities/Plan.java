@@ -12,12 +12,25 @@ public class Plan {
     private String goal;
     private boolean isActive;
 
+    public Plan(){}
+
     @Ignore
     public Plan(int planId, String planName, String goal, boolean isActive) {
         this.planId = planId;
         this.planName = planName;
         this.goal = goal;
         this.isActive = isActive;
+    }
+
+    @Ignore
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "planId=" + planId +
+                ", planName='" + planName + '\'' +
+                ", goal='" + goal + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 
     public int getPlanId() {

@@ -3,6 +3,7 @@ package com.example.workout_appv1.entities;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "series",foreignKeys = {
@@ -10,7 +11,7 @@ import androidx.room.PrimaryKey;
         parentColumns ="workoutParamsId",
         childColumns = "fk_workoutParamsId",
         onDelete = ForeignKey.CASCADE)
-})
+},indices = {@Index(value = "fk_workoutParamsId")})
 public class Series {
     @PrimaryKey(autoGenerate = true)
     private int seriesId;
@@ -21,6 +22,8 @@ public class Series {
     private String note;
     private int fk_workoutParamsId;
 
+    public Series() {
+    }
 
     @Ignore
     public Series(int seriesId, int reps, double weight, String rate, int restTime, String note, int fk_exerciseInRoutineId, int fk_workoutParamsId) {
@@ -31,6 +34,20 @@ public class Series {
         this.restTime = restTime;
         this.note = note;
         this.fk_workoutParamsId = fk_workoutParamsId;
+    }
+
+    @Ignore
+    @Override
+    public String toString() {
+        return "Series{" +
+                "seriesId=" + seriesId +
+                ", reps=" + reps +
+                ", weight=" + weight +
+                ", rate='" + rate + '\'' +
+                ", restTime=" + restTime +
+                ", note='" + note + '\'' +
+                ", fk_workoutParamsId=" + fk_workoutParamsId +
+                '}';
     }
 
     public int getSeriesId() {
