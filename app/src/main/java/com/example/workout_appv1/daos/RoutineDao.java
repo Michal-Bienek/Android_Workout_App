@@ -34,6 +34,11 @@ public interface RoutineDao {
     @Query("SELECT * FROM routines where fk_planId=:planId")
     List<Routine>GetAllPlanRoutines(int planId);
 
+    @Query("SELECT routines.* from routines " +
+            "INNER JOIN plans ON plans.planId=routines.fk_planId " +
+            "WHERE plans.isActive=1")
+    List<Routine>getRoutinesFromActivePlans();
+
 
 
 }
