@@ -5,9 +5,11 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.workout_appv1.entities.Routine;
+import com.example.workout_appv1.relations.RoutineWithExercisesInRoutine;
 
 import java.util.List;
 
@@ -38,6 +40,10 @@ public interface RoutineDao {
             "INNER JOIN plans ON plans.planId=routines.fk_planId " +
             "WHERE plans.isActive=1")
     List<Routine>getRoutinesFromActivePlans();
+
+    @Transaction
+    @Query("SELECT * FROM routines WHERE routineId=:routineId")
+    List<RoutineWithExercisesInRoutine>routineWithExercisesInRoutineList(int routineId);
 
 
 
