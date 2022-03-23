@@ -5,9 +5,11 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.workout_appv1.entities.Plan;
+import com.example.workout_appv1.relations.PlanWithRoutines;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public interface PlanDao {
     @Query("SELECT * FROM plans ORDER BY isActive DESC")
     List<Plan>getSortedPlans();
 
-
-
+    @Transaction
+    @Query("Select * FROM plans WHERE planId=:planId")
+    List<PlanWithRoutines>getPlanWithRoutines(int planId);
 }
