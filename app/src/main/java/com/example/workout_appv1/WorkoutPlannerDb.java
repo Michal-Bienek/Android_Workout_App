@@ -22,7 +22,7 @@ import com.example.workout_appv1.type_converters.DateConverter;
         ExercisesInRoutine.class,
         WorkoutParams.class,
         Series.class
-},version = 1)
+},version = 1,exportSchema = true)
 @TypeConverters({DateConverter.class})
 public abstract class WorkoutPlannerDb extends RoomDatabase {
     private static WorkoutPlannerDb workoutPlannerDb;
