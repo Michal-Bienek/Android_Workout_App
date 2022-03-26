@@ -21,7 +21,7 @@ public class Exercise {
         this.description = description;
         this.muscleGroup = muscleGroup;
     }
-    
+
     @Ignore
     @Override
     public String toString() {
