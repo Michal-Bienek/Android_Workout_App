@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">workout_appv1</string>
+    <string name="home_page">STRONA GŁÓWNA</string>
+    <string name="workout_plans">PLANY TRENINGOWE</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="program_header">TWOJE PLANY TRENINGOWE</string>
+    <string name="program_add_butto">DODAJ PLAN</string>
+    <string name="program_item_hint">Nazwa planu treningowego</string>
 </resources>
