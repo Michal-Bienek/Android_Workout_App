@@ -24,7 +24,7 @@
         android:layout_marginEnd="16dp"
         android:hint="@string/program_item_hint"
         android:textColorHint="#757575"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/switchProgram"
         app:layout_constraintHorizontal_bias="0.5"
