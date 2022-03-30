@@ -6,4 +6,16 @@
     <string name="program_header">TWOJE PLANY TRENINGOWE</string>
     <string name="program_add_butto">DODAJ PLAN</string>
     <string name="program_item_hint">Nazwa planu treningowego</string>
+    <string name="btnAddRoutine">Dodaj rutyne</string>
+    <string name="menu_edit_option">Edytuj</string>
+    <string name="miDeleteOption">Usuń</string>
+    <string-array name="day_shortcuts_array">
+        <item>Pn</item>
+        <item>Wt</item>
+        <item>Sr</item>
+        <item>Cz</item>
+        <item>Pt</item>
+        <item>S</item>
+        <item>N</item>
+    </string-array>
 </resources>

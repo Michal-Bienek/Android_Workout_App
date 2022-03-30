@@ -1,6 +1,7 @@
 package com.example.workout_appv1.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import java.util.List;
 public class FragmentProgram extends Fragment {
 
     //Declare variables
+    Context context;
     WorkoutPlannerDb database;
     List<Plan> planList=new ArrayList<>();
     RecyclerView rvProgram;
@@ -51,6 +53,14 @@ public class FragmentProgram extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context=context;
+        this.database=WorkoutPlannerDb.getInstance(context);
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -62,19 +72,16 @@ public class FragmentProgram extends Fragment {
         View view= inflater.inflate(R.layout.fragment_program, container, false);
 
         //Initialize variables
-        database=WorkoutPlannerDb.getInstance(getActivity());
         planList=database.planDao().getSortedPlans();
         rvProgram=view.findViewById(R.id.rvProgram);
         btnAddPlan=view.findViewById(R.id.btnAddPlan);
 
         //Set recyclerView
-        ProgramAdapter programAdapter=new ProgramAdapter(getActivity(),planList);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        programAdapter=new ProgramAdapter(context,planList);
+        layoutManager=new LinearLayoutManager(context);
         rvProgram.setLayoutManager(layoutManager);
         rvProgram.setAdapter(programAdapter);
 
-
-        //Set listener on button add
 
         return view;
     }
@@ -86,12 +93,12 @@ public class FragmentProgram extends Fragment {
     }
 
     private void setBtnAddPlanListener(View v){
-        btnAddPlan.setOnClickListener(view -> showCustomDialog());
+        btnAddPlan.setOnClickListener(view -> showAddDialog());
     }
 
-    private void showCustomDialog(){
+    private void showAddDialog(){
         //Initialize dialog
-        Dialog dialog = new Dialog(getActivity());
+        Dialog dialog = new Dialog(context);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.program_dialog);
         //Initialize Window Manager
@@ -114,10 +121,14 @@ public class FragmentProgram extends Fragment {
                 p.setGoal(goal);
                 p.setActive(cbProgramDialog.isChecked());
                 database.planDao().insertPlan(p);
-                Toast.makeText(getActivity(), "Dodano plan", Toast.LENGTH_SHORT).show();
+                planList.clear();
+                planList.addAll(database.planDao().getSortedPlans());
+                programAdapter.notifyDataSetChanged();
+
+                Toast.makeText(context, "Dodano plan", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(getActivity(), "Nie dodano planu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Nie dodano planu", Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
         });
