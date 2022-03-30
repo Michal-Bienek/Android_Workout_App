@@ -2,6 +2,7 @@ package com.example.workout_appv1.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.workout_appv1.PlanActivity;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.WorkoutPlannerDb;
 import com.example.workout_appv1.adapters.ProgramAdapter;
@@ -32,7 +34,7 @@ import java.util.List;
  * Use the {@link FragmentProgram#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentProgram extends Fragment {
+public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanListener {
 
     //Declare variables
     Context context;
@@ -77,7 +79,7 @@ public class FragmentProgram extends Fragment {
         btnAddPlan=view.findViewById(R.id.btnAddPlan);
 
         //Set recyclerView
-        programAdapter=new ProgramAdapter(context,planList);
+        programAdapter=new ProgramAdapter(context,planList,this);
         layoutManager=new LinearLayoutManager(context);
         rvProgram.setLayoutManager(layoutManager);
         rvProgram.setAdapter(programAdapter);
@@ -137,4 +139,11 @@ public class FragmentProgram extends Fragment {
         dialog.getWindow().setAttributes(lp);
     }
 
+    @Override
+    public void onPlanClick(int position) {
+        int planId=planList.get(position).getPlanId();
+        Intent intent=new Intent(getActivity(), PlanActivity.class);
+        intent.putExtra("planId",planId);
+        startActivity(intent);
+    }
 }
