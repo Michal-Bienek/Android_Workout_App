@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -43,6 +45,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
         Routine routine=routines.get(position);
         holder.tvNamePlanItem.setText(routine.getRoutineName());
         holder.tvDayPlanItem.setText(getDayShortcut(routine.getDayOfWeek()));
+        holder.btnMorePlanItem.setOnClickListener(view -> {
+            showPopupMenu(holder);
+        });
     }
 
     @Override
@@ -56,6 +61,33 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
             shortcut=dayShortCuts[day_of_week];
         return shortcut;
 
+    }
+
+    private void showPopupMenu(MyViewHolder holder){
+        PopupMenu menu=new PopupMenu(context,holder.btnMorePlanItem);
+        menu.inflate(R.menu.item_popup_menu);
+        menu.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getItemId()){
+                case R.id.miEdit:
+                    Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.miDelete:
+                    delete(holder);
+                    return true;
+                default:
+                    return false;
+            }
+        });
+        menu.show();
+    }
+
+    private void delete(MyViewHolder holder){
+        int position=holder.getAdapterPosition();
+        Routine r=routines.get(position);
+        database.routineDao().deleteRoutine(r);
+        routines.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,routines.size());
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
