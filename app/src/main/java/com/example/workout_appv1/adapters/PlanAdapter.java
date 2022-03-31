@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
@@ -42,9 +43,6 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
         Routine routine=routines.get(position);
         holder.tvNamePlanItem.setText(routine.getRoutineName());
         holder.tvDayPlanItem.setText(getDayShortcut(routine.getDayOfWeek()));
-
-
-
     }
 
     @Override
@@ -63,11 +61,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvDayPlanItem, tvNamePlanItem;
         ImageView btnMorePlanItem;
+        ConstraintLayout clPlanItem;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tvDayPlanItem=itemView.findViewById(R.id.tvDayPlanItem);
             this.tvNamePlanItem=itemView.findViewById(R.id.tvNamePlanItem);
             this.btnMorePlanItem=itemView.findViewById(R.id.btnMorePlanItem);
+            this.clPlanItem=itemView.findViewById(R.id.clPlanItem);
         }
     }
 }

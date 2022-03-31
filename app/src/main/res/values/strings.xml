@@ -9,6 +9,7 @@
     <string name="btnAddRoutine">Dodaj rutyne</string>
     <string name="menu_edit_option">Edytuj</string>
     <string name="miDeleteOption">Usuń</string>
+    <string name="fbtn_add_routine_to_plan">Add routine to plan</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>
