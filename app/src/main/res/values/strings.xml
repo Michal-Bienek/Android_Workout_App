@@ -10,6 +10,8 @@
     <string name="menu_edit_option">Edytuj</string>
     <string name="miDeleteOption">Usuń</string>
     <string name="fbtn_add_routine_to_plan">Add routine to plan</string>
+    <string name="etAddRoutineName">Nazwa rutyny treningowej</string>
+    <string name="day_spinner_content_desc">Dni tygodnia</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>
@@ -18,5 +20,14 @@
         <item>Pt</item>
         <item>S</item>
         <item>N</item>
+    </string-array>
+    <string-array name="day_spinner_array">
+        <item>Poniedziałek</item>
+        <item>Wtorek</item>
+        <item>Sroda</item>
+        <item>Czwartek</item>
+        <item>Piątek</item>
+        <item>Sobota</item>
+        <item>Niedziela</item>
     </string-array>
 </resources>
