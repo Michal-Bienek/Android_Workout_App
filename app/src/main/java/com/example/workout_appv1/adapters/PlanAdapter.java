@@ -52,8 +52,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
 
     private String getDayShortcut(int day_of_week){
         String shortcut="";
-        if(day_of_week<=7&&day_of_week>=1)
-            shortcut=dayShortCuts[day_of_week-1];
+        if(day_of_week<=6&&day_of_week>=0)
+            shortcut=dayShortCuts[day_of_week];
         return shortcut;
 
     }
