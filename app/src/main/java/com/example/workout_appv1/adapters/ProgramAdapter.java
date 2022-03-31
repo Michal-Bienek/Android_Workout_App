@@ -28,7 +28,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     Context context;
     List<Plan> planList;
     WorkoutPlannerDb database;
-    private OnPlanListener mOnPlanListener;
+    private final OnPlanListener mOnPlanListener;
 
     public ProgramAdapter(Context context, List<Plan> planList, OnPlanListener mOnPlanListener) {
         this.context = context;

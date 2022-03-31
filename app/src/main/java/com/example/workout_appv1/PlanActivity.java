@@ -35,7 +35,7 @@ public class PlanActivity extends AppCompatActivity {
             Toast.makeText(this, "planId: "+planId, Toast.LENGTH_SHORT).show();
         }
 
-/*        //Initialize variables
+        //Initialize variables
         rvPlan=findViewById(R.id.rvPlan);
         btnAddRoutine=findViewById(R.id.btnAddRoutine);
         database=WorkoutPlannerDb.getInstance(this);
@@ -47,7 +47,7 @@ public class PlanActivity extends AppCompatActivity {
         layoutManager=new LinearLayoutManager(this);
         planAdapter= new PlanAdapter(routineList,this,dayShortcuts);
         rvPlan.setLayoutManager(layoutManager);
-        rvPlan.setAdapter(planAdapter);*/
+        rvPlan.setAdapter(planAdapter);
 
 
 
