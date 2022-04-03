@@ -1,6 +1,8 @@
 package com.example.workout_appv1.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.workout_appv1.PlanActivity;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.WorkoutPlannerDb;
 import com.example.workout_appv1.adapters.ProgramAdapter;
@@ -31,9 +34,10 @@ import java.util.List;
  * Use the {@link FragmentProgram#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentProgram extends Fragment {
+public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanListener {
 
     //Declare variables
+    Context context;
     WorkoutPlannerDb database;
     List<Plan> planList=new ArrayList<>();
     RecyclerView rvProgram;
@@ -51,6 +55,14 @@ public class FragmentProgram extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context=context;
+        this.database=WorkoutPlannerDb.getInstance(context);
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -62,19 +74,16 @@ public class FragmentProgram extends Fragment {
         View view= inflater.inflate(R.layout.fragment_program, container, false);
 
         //Initialize variables
-        database=WorkoutPlannerDb.getInstance(getActivity());
         planList=database.planDao().getSortedPlans();
         rvProgram=view.findViewById(R.id.rvProgram);
         btnAddPlan=view.findViewById(R.id.btnAddPlan);
 
         //Set recyclerView
-        ProgramAdapter programAdapter=new ProgramAdapter(getActivity(),planList);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        programAdapter=new ProgramAdapter(context,planList,this);
+        layoutManager=new LinearLayoutManager(context);
         rvProgram.setLayoutManager(layoutManager);
         rvProgram.setAdapter(programAdapter);
 
-
-        //Set listener on button add
 
         return view;
     }
@@ -86,12 +95,12 @@ public class FragmentProgram extends Fragment {
     }
 
     private void setBtnAddPlanListener(View v){
-        btnAddPlan.setOnClickListener(view -> showCustomDialog());
+        btnAddPlan.setOnClickListener(view -> showAddDialog());
     }
 
-    private void showCustomDialog(){
+    private void showAddDialog(){
         //Initialize dialog
-        Dialog dialog = new Dialog(getActivity());
+        Dialog dialog = new Dialog(context);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.program_dialog);
         //Initialize Window Manager
@@ -114,10 +123,14 @@ public class FragmentProgram extends Fragment {
                 p.setGoal(goal);
                 p.setActive(cbProgramDialog.isChecked());
                 database.planDao().insertPlan(p);
-                Toast.makeText(getActivity(), "Dodano plan", Toast.LENGTH_SHORT).show();
+                planList.clear();
+                planList.addAll(database.planDao().getSortedPlans());
+                programAdapter.notifyDataSetChanged();
+
+                Toast.makeText(context, "Dodano plan", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(getActivity(), "Nie dodano planu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Nie dodano planu", Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
         });
@@ -126,4 +139,11 @@ public class FragmentProgram extends Fragment {
         dialog.getWindow().setAttributes(lp);
     }
 
+    @Override
+    public void onPlanClick(int position) {
+        int planId=planList.get(position).getPlanId();
+        Intent intent=new Intent(getActivity(), PlanActivity.class);
+        intent.putExtra("planId",planId);
+        startActivity(intent);
+    }
 }
