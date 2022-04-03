@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     ActivityMainBinding binding;
 
+    //texts
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
