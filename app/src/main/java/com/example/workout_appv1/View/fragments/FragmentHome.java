@@ -1,9 +1,7 @@
-package com.example.workout_appv1.fragments;
+package com.example.workout_appv1.View.fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.WorkoutPlannerDb;
+import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.adapters.HomeAdapter;
-import com.example.workout_appv1.entities.Routine;
+import com.example.workout_appv1.data.entities.entities.Routine;
 
 import java.util.ArrayList;
 import java.util.Date;

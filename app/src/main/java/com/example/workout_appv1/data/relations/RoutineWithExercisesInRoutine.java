@@ -1,10 +1,10 @@
-package com.example.workout_appv1.relations;
+package com.example.workout_appv1.data.relations;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import com.example.workout_appv1.entities.ExercisesInRoutine;
-import com.example.workout_appv1.entities.Routine;
+import com.example.workout_appv1.data.entities.entities.ExercisesInRoutine;
+import com.example.workout_appv1.data.entities.entities.Routine;
 
 import java.util.List;
 

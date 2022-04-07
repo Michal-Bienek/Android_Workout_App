@@ -1,4 +1,4 @@
-package com.example.workout_appv1.fragments;
+package com.example.workout_appv1.View.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -22,9 +22,9 @@ import android.widget.Toast;
 
 import com.example.workout_appv1.PlanActivity;
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.WorkoutPlannerDb;
+import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.adapters.ProgramAdapter;
-import com.example.workout_appv1.entities.Plan;
+import com.example.workout_appv1.data.entities.entities.Plan;
 
 import java.util.ArrayList;
 import java.util.List;

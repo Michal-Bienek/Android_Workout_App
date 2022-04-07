@@ -1,6 +1,5 @@
-package com.example.workout_appv1.entities;
+package com.example.workout_appv1.data.entities.entities;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;

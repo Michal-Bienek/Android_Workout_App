@@ -1,4 +1,4 @@
-package com.example.workout_appv1.type_converters;
+package com.example.workout_appv1.data.type_converters;
 
 import androidx.room.TypeConverter;
 

@@ -9,13 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.workout_appv1.databinding.ActivityMainBinding;
-import com.example.workout_appv1.entities.Plan;
-import com.example.workout_appv1.fragments.FragmentHome;
-import com.example.workout_appv1.fragments.FragmentProgram;
+import com.example.workout_appv1.View.fragments.FragmentHome;
+import com.example.workout_appv1.View.fragments.FragmentProgram;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navigationView;
@@ -53,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
     private void setCurrentFragment(Fragment fragment){
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();

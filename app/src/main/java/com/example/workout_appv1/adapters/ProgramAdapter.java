@@ -19,8 +19,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.WorkoutPlannerDb;
-import com.example.workout_appv1.entities.Plan;
+import com.example.workout_appv1.data.WorkoutPlannerDb;
+import com.example.workout_appv1.data.entities.entities.Plan;
 
 import java.util.List;
 

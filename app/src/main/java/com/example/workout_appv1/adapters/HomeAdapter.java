@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.WorkoutPlannerDb;
-import com.example.workout_appv1.entities.Routine;
+import com.example.workout_appv1.data.WorkoutPlannerDb;
+import com.example.workout_appv1.data.entities.entities.Routine;
 
 import java.util.List;
 

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,7 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.workout_appv1.adapters.PlanAdapter;
-import com.example.workout_appv1.entities.Routine;
+import com.example.workout_appv1.data.WorkoutPlannerDb;
+import com.example.workout_appv1.data.entities.entities.Routine;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -48,7 +48,7 @@ public class PlanActivity extends AppCompatActivity {
         //Initialize variables
         rvPlan=findViewById(R.id.rvPlan);
         btnAddRoutine=findViewById(R.id.btnAddRoutine);
-        database=WorkoutPlannerDb.getInstance(this);
+        database= WorkoutPlannerDb.getInstance(this);
         routineList=database.routineDao().GetAllPlanRoutines(planId);
         dayShortcuts=getResources().getStringArray(R.array.day_shortcuts_array);
 
