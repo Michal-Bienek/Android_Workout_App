@@ -7,18 +7,18 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.workout_appv1.data.daos.daos.ExerciseDao;
-import com.example.workout_appv1.data.daos.daos.ExercisesInRoutineDao;
-import com.example.workout_appv1.data.daos.daos.PlanDao;
-import com.example.workout_appv1.data.daos.daos.RoutineDao;
-import com.example.workout_appv1.data.daos.daos.SeriesDao;
-import com.example.workout_appv1.data.daos.daos.WorkoutParamsDao;
-import com.example.workout_appv1.data.entities.entities.Exercise;
-import com.example.workout_appv1.data.entities.entities.ExercisesInRoutine;
-import com.example.workout_appv1.data.entities.entities.Plan;
-import com.example.workout_appv1.data.entities.entities.Routine;
-import com.example.workout_appv1.data.entities.entities.Series;
-import com.example.workout_appv1.data.entities.entities.WorkoutParams;
+import com.example.workout_appv1.data.daos.ExerciseDao;
+import com.example.workout_appv1.data.daos.ExercisesInRoutineDao;
+import com.example.workout_appv1.data.daos.PlanDao;
+import com.example.workout_appv1.data.daos.RoutineDao;
+import com.example.workout_appv1.data.daos.SeriesDao;
+import com.example.workout_appv1.data.daos.WorkoutParamsDao;
+import com.example.workout_appv1.data.entities.Exercise;
+import com.example.workout_appv1.data.entities.ExercisesInRoutine;
+import com.example.workout_appv1.data.entities.Plan;
+import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.data.entities.Series;
+import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.type_converters.DateConverter;
 
 @Database(entities = {

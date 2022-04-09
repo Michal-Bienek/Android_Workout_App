@@ -3,8 +3,8 @@ package com.example.workout_appv1.data.relations;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import com.example.workout_appv1.data.entities.entities.Plan;
-import com.example.workout_appv1.data.entities.entities.Routine;
+import com.example.workout_appv1.data.entities.Plan;
+import com.example.workout_appv1.data.entities.Routine;
 
 import java.util.List;
 

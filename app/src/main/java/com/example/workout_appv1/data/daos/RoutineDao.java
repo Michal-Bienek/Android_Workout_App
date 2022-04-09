@@ -1,4 +1,4 @@
-package com.example.workout_appv1.data.daos.daos;
+package com.example.workout_appv1.data.daos;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,7 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.example.workout_appv1.data.entities.entities.Routine;
+import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.data.relations.RoutineWithExercisesInRoutine;
 
 import java.util.List;

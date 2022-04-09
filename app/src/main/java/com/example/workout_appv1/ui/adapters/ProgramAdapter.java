@@ -1,4 +1,4 @@
-package com.example.workout_appv1.adapters;
+package com.example.workout_appv1.ui.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
-import com.example.workout_appv1.data.entities.entities.Plan;
+import com.example.workout_appv1.data.entities.Plan;
 
 import java.util.List;
 

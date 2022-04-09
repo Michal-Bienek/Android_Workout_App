@@ -1,4 +1,4 @@
-package com.example.workout_appv1.data.entities.entities;
+package com.example.workout_appv1.data.entities;
 
 
 import androidx.room.Entity;

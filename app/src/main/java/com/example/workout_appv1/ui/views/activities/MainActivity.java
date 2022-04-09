@@ -1,4 +1,4 @@
-package com.example.workout_appv1;
+package com.example.workout_appv1.ui.views.activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.workout_appv1.R;
 import com.example.workout_appv1.databinding.ActivityMainBinding;
-import com.example.workout_appv1.View.fragments.FragmentHome;
-import com.example.workout_appv1.View.fragments.FragmentProgram;
+import com.example.workout_appv1.ui.views.fragments.FragmentHome;
+import com.example.workout_appv1.ui.views.fragments.FragmentProgram;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

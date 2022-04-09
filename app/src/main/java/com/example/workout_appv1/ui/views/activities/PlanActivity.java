@@ -1,4 +1,4 @@
-package com.example.workout_appv1;
+package com.example.workout_appv1.ui.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,9 +15,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.workout_appv1.adapters.PlanAdapter;
+import com.example.workout_appv1.R;
+import com.example.workout_appv1.ui.adapters.PlanAdapter;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
-import com.example.workout_appv1.data.entities.entities.Routine;
+import com.example.workout_appv1.data.entities.Routine;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 

@@ -1,4 +1,4 @@
-package com.example.workout_appv1.adapters;
+package com.example.workout_appv1.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
-import com.example.workout_appv1.data.entities.entities.Routine;
+import com.example.workout_appv1.data.entities.Routine;
 
 import java.util.ArrayList;
 import java.util.List;

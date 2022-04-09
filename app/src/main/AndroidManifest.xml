@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workout_appv1">
         <activity
-            android:name=".PlanActivity"
+            android:name=".ui.views.activities.PlanActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.views.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

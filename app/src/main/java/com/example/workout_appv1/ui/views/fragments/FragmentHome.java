@@ -1,4 +1,4 @@
-package com.example.workout_appv1.View.fragments;
+package com.example.workout_appv1.ui.views.fragments;
 
 import android.os.Bundle;
 
@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
-import com.example.workout_appv1.adapters.HomeAdapter;
-import com.example.workout_appv1.data.entities.entities.Routine;
+import com.example.workout_appv1.ui.adapters.HomeAdapter;
+import com.example.workout_appv1.data.entities.Routine;
 
 import java.util.ArrayList;
 import java.util.Date;
