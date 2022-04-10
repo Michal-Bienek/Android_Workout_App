@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,7 +26,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.List;
 import java.util.Objects;
 
-public class PlanActivity extends AppCompatActivity {
+public class PlanActivity extends AppCompatActivity implements PlanAdapter.OnRoutineClickListener {
     private int planId;
     private RecyclerView rvPlan;
     private WorkoutPlannerDb database;
@@ -56,7 +57,7 @@ public class PlanActivity extends AppCompatActivity {
 
         //Initialize recycler view
         layoutManager=new LinearLayoutManager(this);
-        planAdapter= new PlanAdapter(routineList,this,dayShortcuts);
+        planAdapter= new PlanAdapter(routineList,this,dayShortcuts, this);
         rvPlan.setLayoutManager(layoutManager);
         rvPlan.setAdapter(planAdapter);
 
@@ -114,5 +115,12 @@ public class PlanActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void OnRoutineClick(int position) {
+        int routineId=routineList.get(position).getRoutineId();
+        Toast.makeText(this, ""+routineId, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, RoutineActivity.class);
+        intent.putExtra("routineId",routineId);
+        startActivity(intent);
+    }
 }

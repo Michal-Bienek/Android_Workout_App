@@ -25,19 +25,21 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
     Context context;
     WorkoutPlannerDb database;
     String[]dayShortCuts;
+    private final OnRoutineClickListener onRoutineClickListener;
 
-    public PlanAdapter(List<Routine> routines, Context context, String[] dayShortCuts) {
+    public PlanAdapter(List<Routine> routines, Context context, String[] dayShortCuts,OnRoutineClickListener onRoutineClickListener) {
         this.routines = routines;
         this.context = context;
         this.database = WorkoutPlannerDb.getInstance(context);
         this.dayShortCuts = dayShortCuts;
+        this.onRoutineClickListener=onRoutineClickListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item,parent,false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view,onRoutineClickListener);
     }
 
     @Override
@@ -90,16 +92,29 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
         notifyItemRangeChanged(position,routines.size());
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvDayPlanItem, tvNamePlanItem;
         ImageView btnMorePlanItem;
         ConstraintLayout clPlanItem;
-        public MyViewHolder(@NonNull View itemView) {
+        OnRoutineClickListener onRoutineClickListener;
+
+        public MyViewHolder(@NonNull View itemView,OnRoutineClickListener onRoutineClickListener) {
             super(itemView);
             this.tvDayPlanItem=itemView.findViewById(R.id.tvDayPlanItem);
             this.tvNamePlanItem=itemView.findViewById(R.id.tvNamePlanItem);
             this.btnMorePlanItem=itemView.findViewById(R.id.btnMorePlanItem);
             this.clPlanItem=itemView.findViewById(R.id.clPlanItem);
+            this.onRoutineClickListener=onRoutineClickListener;
+            this.clPlanItem.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+
+            onRoutineClickListener.OnRoutineClick(getAdapterPosition());
+        }
+    }
+    public interface OnRoutineClickListener{
+        void OnRoutineClick(int position);
     }
 }

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workout_appv1">
         <activity
+            android:name=".ui.views.activities.RoutineActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.views.activities.PlanActivity"
             android:exported="false" />
         <activity
