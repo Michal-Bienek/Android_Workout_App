@@ -25,6 +25,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.ui.adapters.ProgramAdapter;
 import com.example.workout_appv1.data.entities.Plan;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
     WorkoutPlannerDb database;
     List<Plan> planList=new ArrayList<>();
     RecyclerView rvProgram;
-    Button btnAddPlan;
+    FloatingActionButton btnAddPlan;
     LinearLayoutManager layoutManager;
     ProgramAdapter programAdapter;
 

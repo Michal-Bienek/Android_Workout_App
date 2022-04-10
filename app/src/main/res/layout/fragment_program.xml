@@ -11,7 +11,6 @@
         android:id="@+id/tvProgramHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:text="@string/program_header"
         android:textAlignment="textStart"
         android:textSize="15sp"
@@ -23,23 +22,28 @@
         android:id="@+id/rvProgram"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddPlan"
+        tools:listitem="@layout/item_program"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProgramHeader"
-        tools:listitem="@layout/item_program"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvProgramHeader" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/program_add_butto"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.939"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="TODO"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
