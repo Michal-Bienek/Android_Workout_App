@@ -33,5 +33,13 @@
         <argument
             android:name="routineId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentRoutine_to_fragmentExercise"
+            app:destination="@id/fragmentExercise" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentExercise"
+        android:name="com.example.workout_appv1.ui.views.fragments.FragmentExercise"
+        android:label="fragment_exercise"
+        tools:layout="@layout/fragment_exercise" />
 </navigation>

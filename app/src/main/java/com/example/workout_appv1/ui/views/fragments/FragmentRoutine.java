@@ -17,9 +17,9 @@ import com.example.workout_appv1.R;
 public class FragmentRoutine extends Fragment {
 
     //variables
-    int routineId;
-    Context context;
-    Button btnStartWorkout;
+    private int routineId;
+    private Context context;
+    private Button btnStartWorkout;
 
 
 
