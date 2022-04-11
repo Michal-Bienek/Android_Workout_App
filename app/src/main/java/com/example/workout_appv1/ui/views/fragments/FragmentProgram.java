@@ -2,15 +2,14 @@ package com.example.workout_appv1.ui.views.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +22,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.workout_appv1.ui.views.activities.PlanActivity;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.ui.adapters.ProgramAdapter;
@@ -32,7 +30,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +40,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
 
     //Declare variables
     Context context;
+    NavController navController;
     WorkoutPlannerDb database;
     List<Plan> planList=new ArrayList<>();
     RecyclerView rvProgram;
@@ -96,6 +94,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        navController=NavHostFragment.findNavController(this);
         setBtnAddPlanListener(view);
     }
 
@@ -148,7 +147,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
     public void onPlanClick(int position) {
         int planId=planList.get(position).getPlanId();
         Toast.makeText(context, ""+planId, Toast.LENGTH_SHORT).show();
-        NavDirections action=FragmentProgramDirections.actionFragmentProgramToFragmentPlan();
-
+        NavDirections action=FragmentProgramDirections.actionFragmentProgramToFragmentPlan(planId);
+        navController.navigate(action);
     }
 }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragmentProgram">
-
     <fragment
         android:id="@+id/fragmentProgram"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentProgram"
@@ -18,5 +17,21 @@
         android:id="@+id/fragmentPlan"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentPlan"
         android:label="fragment_plan"
-        tools:layout="@layout/fragment_plan" />
+        tools:layout="@layout/fragment_plan" >
+        <argument
+            android:name="planId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentPlan_to_fragmentRoutine"
+            app:destination="@id/fragmentRoutine" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRoutine"
+        android:name="com.example.workout_appv1.ui.views.fragments.FragmentRoutine"
+        android:label="fragment_routine"
+        tools:layout="@layout/fragment_routine" >
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

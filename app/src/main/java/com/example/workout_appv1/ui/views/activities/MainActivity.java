@@ -28,34 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initialize variables
-        navigationView=findViewById(R.id.bottomNavigationView);
-        homeFragment=FragmentHome.newInstance();
-        programFragment= FragmentProgram.newInstance();
-        fragmentManager=getSupportFragmentManager();
-
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        setCurrentFragment(homeFragment);
-
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case R.id.miHome:
-                    setCurrentFragment(new FragmentHome());
-                    break;
-                case R.id.miPlan:
-                    setCurrentFragment(new FragmentProgram());
-                    break;
-            }
-            return true;
-        });
 
     }
-    private void setCurrentFragment(Fragment fragment){
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.FragmentContainer1,fragment);
-        fragmentTransaction.commit();
-    }
-
-
 }
