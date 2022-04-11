@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExercise(Exercise exercise);
+    long insertExercise(Exercise exercise);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExercises(List<Exercise> exerciseList);
