@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.workout_appv1.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FragmentRoutine extends Fragment {
 
@@ -20,6 +25,8 @@ public class FragmentRoutine extends Fragment {
     private int routineId;
     private Context context;
     private Button btnStartWorkout;
+    private RecyclerView rvRoutine;
+    private FloatingActionButton fabAddExerciseToPlan;
 
 
 
@@ -29,8 +36,7 @@ public class FragmentRoutine extends Fragment {
     }
 
     public static FragmentRoutine newInstance() {
-        FragmentRoutine fragment = new FragmentRoutine();
-        return fragment;
+        return new FragmentRoutine();
     }
 
     @Override
@@ -52,11 +58,26 @@ public class FragmentRoutine extends Fragment {
         FragmentRoutineArgs args= FragmentRoutineArgs.fromBundle(getArguments());
         routineId=args.getRoutineId();
 
+        initViews(view);
+
+        fabAddExerciseToPlan.setOnClickListener(view1 -> {
+            NavController navController= NavHostFragment.findNavController(this);
+            NavDirections action= FragmentRoutineDirections.actionFragmentRoutineToFragmentExercise(routineId);
+            navController.navigate(action);
+
+        });
+
+
+
+
+
         Toast.makeText(context, ""+routineId, Toast.LENGTH_SHORT).show();
         return view;
     }
 
-    private void initVariables(){
-
+    private void initViews(View view){
+        btnStartWorkout=view.findViewById(R.id.btnStartWorkout);
+        rvRoutine=view.findViewById(R.id.rvRoutine);
+        fabAddExerciseToPlan=view.findViewById(R.id.fabAddExerciseToPlan);
     }
 }

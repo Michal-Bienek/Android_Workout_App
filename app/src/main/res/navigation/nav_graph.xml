@@ -41,5 +41,9 @@
         android:id="@+id/fragmentExercise"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentExercise"
         android:label="fragment_exercise"
-        tools:layout="@layout/fragment_exercise" />
+        tools:layout="@layout/fragment_exercise" >
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
