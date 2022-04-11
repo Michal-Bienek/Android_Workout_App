@@ -21,5 +21,17 @@
         <argument
             android:name="planId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentPlan_to_fragmentRoutine"
+            app:destination="@id/fragmentRoutine" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRoutine"
+        android:name="com.example.workout_appv1.ui.views.fragments.FragmentRoutine"
+        android:label="fragment_routine"
+        tools:layout="@layout/fragment_routine" >
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
     </fragment>
 </navigation>

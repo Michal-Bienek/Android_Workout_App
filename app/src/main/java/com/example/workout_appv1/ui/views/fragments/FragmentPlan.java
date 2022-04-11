@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +44,7 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
     private FloatingActionButton btnAddRoutine;
     private LinearLayoutManager layoutManager;
     private PlanAdapter planAdapter;
+    NavController navController;
 
 
     public FragmentPlan() {
@@ -69,7 +73,8 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
         //Dodać pobieranie id z poprzedniego fragment
         FragmentPlanArgs args=FragmentPlanArgs.fromBundle(getArguments());
         planId=args.getPlanId();
-        Toast.makeText(context, ""+planId, Toast.LENGTH_SHORT).show();
+
+        navController= NavHostFragment.findNavController(this);
 
         initializeVariables(view);
         initializeRecyclerView();
@@ -145,6 +150,7 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
     @Override
     public void OnRoutineClick(int position) {
         int routineId=routineList.get(position).getRoutineId();
-        Toast.makeText(context, ""+routineId, Toast.LENGTH_SHORT).show();
+        NavDirections action= FragmentPlanDirections.actionFragmentPlanToFragmentRoutine(routineId);
+        navController.navigate(action);
     }
 }
