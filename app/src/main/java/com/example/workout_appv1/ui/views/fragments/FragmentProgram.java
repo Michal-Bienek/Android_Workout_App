@@ -8,6 +8,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +32,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -143,8 +147,8 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
     @Override
     public void onPlanClick(int position) {
         int planId=planList.get(position).getPlanId();
-        Intent intent=new Intent(getActivity(), PlanActivity.class);
-        intent.putExtra("planId",planId);
-        startActivity(intent);
+        Toast.makeText(context, ""+planId, Toast.LENGTH_SHORT).show();
+        NavDirections action=FragmentProgramDirections.actionFragmentProgramToFragmentPlan();
+
     }
 }
