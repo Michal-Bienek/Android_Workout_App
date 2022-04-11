@@ -8,8 +8,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +45,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
 
     //Declare variables
     Context context;
+    NavController navController;
     WorkoutPlannerDb database;
     List<Plan> planList=new ArrayList<>();
     RecyclerView rvProgram;
@@ -96,6 +99,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        navController=NavHostFragment.findNavController(this);
         setBtnAddPlanListener(view);
     }
 
@@ -148,7 +152,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
     public void onPlanClick(int position) {
         int planId=planList.get(position).getPlanId();
         Toast.makeText(context, ""+planId, Toast.LENGTH_SHORT).show();
-        NavDirections action=FragmentProgramDirections.actionFragmentProgramToFragmentPlan();
-
+        NavDirections action=FragmentProgramDirections.actionFragmentProgramToFragmentPlan(planId);
+        navController.navigate(action);
     }
 }
