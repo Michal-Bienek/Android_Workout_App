@@ -67,10 +67,6 @@ public class FragmentRoutine extends Fragment {
 
         });
 
-
-
-
-
         Toast.makeText(context, ""+routineId, Toast.LENGTH_SHORT).show();
         return view;
     }
