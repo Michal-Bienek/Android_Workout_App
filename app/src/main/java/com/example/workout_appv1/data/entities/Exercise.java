@@ -14,8 +14,7 @@ public class Exercise {
     public Exercise(){}
 
     @Ignore
-    public Exercise(int exerciseId, String name, String description, String muscleGroup) {
-        this.exerciseId = exerciseId;
+    public Exercise(String name, String description, String muscleGroup) {
         this.name = name;
         this.description = description;
         this.muscleGroup = muscleGroup;

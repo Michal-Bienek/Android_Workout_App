@@ -1,11 +1,14 @@
 package com.example.workout_appv1.data;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.workout_appv1.data.daos.ExerciseDao;
 import com.example.workout_appv1.data.daos.ExercisesInRoutineDao;
@@ -36,8 +39,12 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
 
     public synchronized static WorkoutPlannerDb getInstance(Context context){
         if(workoutPlannerDb==null){
-            workoutPlannerDb=Room.databaseBuilder(context.getApplicationContext(),WorkoutPlannerDb.class,DATABASE_NAME)
-                    .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+            workoutPlannerDb=Room.databaseBuilder(context.getApplicationContext(),
+                    WorkoutPlannerDb.class,DATABASE_NAME)
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
+                    .build();
         }
         return workoutPlannerDb;
     }
@@ -49,4 +56,35 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
     public abstract ExercisesInRoutineDao exercisesInRoutineDao();
     public abstract WorkoutParamsDao workoutParamsDao();
     public abstract SeriesDao seriesDao();
+
+    //Na potrzeby projektu wstępne zapełnienie bazy z ćwiczeniami
+    private static RoomDatabase.Callback roomCallback= new RoomDatabase.Callback(){
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbExerciseAsyncTask(workoutPlannerDb).execute();
+        }
+    };
+
+    private static class PopulateDbExerciseAsyncTask extends AsyncTask<Void,Void,Void>{
+        private ExerciseDao exerciseDao;
+
+        private PopulateDbExerciseAsyncTask(WorkoutPlannerDb db){
+            exerciseDao=db.exerciseDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids){
+            exerciseDao.insertExercise(new Exercise("Wyciskanie leząć","","Klata"));
+            exerciseDao.insertExercise(new Exercise("Przysiady","","Nogi"));
+            exerciseDao.insertExercise(new Exercise("Dipy na poręczach","","Triceps"));
+            exerciseDao.insertExercise(new Exercise("Podciąganie","","Plecy"));
+            exerciseDao.insertExercise(new Exercise("Pompki","","Klata"));
+            exerciseDao.insertExercise(new Exercise("Allahy","","Brzuch"));
+            exerciseDao.insertExercise(new Exercise("Unoszenie na biceps","","Biceps"));
+            exerciseDao.insertExercise(new Exercise("Wyciskanie na suwnicy Smitha","","Nogi "));
+            exerciseDao.insertExercise(new Exercise("Wznosy tułowia","","Prostowniki grzbietu"));
+            return null;
+        }
+    }
 }
