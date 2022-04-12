@@ -12,6 +12,7 @@
     <string name="fbtn_add_routine_to_plan">Add routine to plan</string>
     <string name="etAddRoutineName">Nazwa rutyny treningowej</string>
     <string name="day_spinner_content_desc">Dni tygodnia</string>
+    <string name="cnt_desc_fabAddExercisesToRoutine">Add exercise list to routine</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>

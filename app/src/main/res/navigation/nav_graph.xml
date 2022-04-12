@@ -45,5 +45,8 @@
         <argument
             android:name="routineId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentExercise_to_fragmentRoutine"
+            app:destination="@id/fragmentRoutine" />
     </fragment>
 </navigation>
