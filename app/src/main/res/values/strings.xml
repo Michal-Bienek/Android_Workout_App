@@ -13,6 +13,9 @@
     <string name="etAddRoutineName">Nazwa rutyny treningowej</string>
     <string name="day_spinner_content_desc">Dni tygodnia</string>
     <string name="cnt_desc_fabAddExercisesToRoutine">Add exercise list to routine</string>
+    <string name="etReps">1</string>
+    <string name="etWeight">40</string>
+    <string name="etRest">120</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>

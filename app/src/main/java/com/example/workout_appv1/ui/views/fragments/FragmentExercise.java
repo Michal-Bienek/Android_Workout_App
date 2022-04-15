@@ -26,7 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class FragmentExercise extends Fragment {
+public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExerciseListener{
 
     private int routineId;
     private Context context;
@@ -75,7 +75,7 @@ public class FragmentExercise extends Fragment {
     private void initRecyclerView(){
         WorkoutPlannerDb database= WorkoutPlannerDb.getInstance(context);
         this.exerciseList= database.exerciseDao().getAllExercises();
-        ExerciseAdapter adapter=new ExerciseAdapter(context,exerciseList);
+        ExerciseAdapter adapter=new ExerciseAdapter(context,exerciseList,this::onExerciseClick);
         LinearLayoutManager layoutManager= new LinearLayoutManager(context);
         this.rvExercise.setLayoutManager(layoutManager);
         this.rvExercise.setAdapter(adapter);
@@ -88,5 +88,13 @@ public class FragmentExercise extends Fragment {
             NavDirections action=FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
             navController.navigate(action);
         });
+    }
+
+    @Override
+    public void onExerciseClick(int position) {
+        Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
+        NavController navController=NavHostFragment.findNavController(this);
+        NavDirections action= FragmentExerciseDirections.actionFragmentExerciseToDialogFragmentAddExerciseWithParams();
+        navController.navigate(action);
     }
 }
