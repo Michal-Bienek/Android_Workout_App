@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="65dp">
+
+    <EditText
+        android:id="@+id/etRepsDialogExercise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etReps"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/etWeightDialogAddExercise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etWeight"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/etRestTimeDialogAddExercise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/etRest"
+        android:inputType="numberSigned" />
+</LinearLayout>
