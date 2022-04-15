@@ -7,14 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
+import com.example.workout_appv1.ui.adapters.ExerciseParamsAdapter;
 
 public class DialogFragmentAddExerciseWithParams extends DialogFragment {
     Context context;
@@ -22,6 +25,8 @@ public class DialogFragmentAddExerciseWithParams extends DialogFragment {
     EditText etNumberOfSeries;
     ImageView btnMinusSeries,btnPlusSeries;
     RecyclerView  rvFragmentDialogExercise;
+
+
 
 
 
@@ -41,6 +46,7 @@ public class DialogFragmentAddExerciseWithParams extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view= inflater.inflate(R.layout.fragment_dialog_add_exercise_with_params,container,false);
        initViews(view);
+       initRecyclerView();
 
        return view;
     }
@@ -51,5 +57,12 @@ public class DialogFragmentAddExerciseWithParams extends DialogFragment {
         btnMinusSeries=view.findViewById(R.id.btnMinusSeries);
         btnPlusSeries=view.findViewById(R.id.btnPlusSeries);
         rvFragmentDialogExercise= view.findViewById(R.id.rvFragmentDialogExercise);
+    }
+
+    private void initRecyclerView(){
+        LinearLayoutManager layoutManager= new LinearLayoutManager(context);
+        ExerciseParamsAdapter adapter= new ExerciseParamsAdapter(context);
+        this.rvFragmentDialogExercise.setLayoutManager(layoutManager);
+        this.rvFragmentDialogExercise.setAdapter(adapter);
     }
 }
