@@ -1,5 +1,6 @@
 package com.example.workout_appv1.data.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -31,19 +32,19 @@ public interface RoutineDao {
     void updateRoutineDate(int routineId, long date);
 
     @Query("SELECT * FROM routines")
-    List<Routine>GetAllRoutines();
+    LiveData<List<Routine>>GetAllRoutines();
 
     @Query("SELECT * FROM routines where fk_planId=:planId")
-    List<Routine>GetAllPlanRoutines(int planId);
+    LiveData<List<Routine>>GetAllPlanRoutines(int planId);
 
     @Query("SELECT routines.* from routines " +
             "INNER JOIN plans ON plans.planId=routines.fk_planId " +
             "WHERE plans.isActive=1")
-    List<Routine>getRoutinesFromActivePlans();
+    LiveData<List<Routine>>getRoutinesFromActivePlans();
 
     @Transaction
     @Query("SELECT * FROM routines WHERE routineId=:routineId")
-    List<RoutineWithExercisesInRoutine>routineWithExercisesInRoutineList(int routineId);
+    LiveData<List<RoutineWithExercisesInRoutine>>routineWithExercisesInRoutineList(int routineId);
 
 
 

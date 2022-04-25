@@ -1,5 +1,6 @@
 package com.example.workout_appv1.data.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -26,5 +27,5 @@ public interface ExerciseDao {
     void updateExercise(Exercise exercise);
 
     @Query("SELECT * FROM exercises")
-    List<Exercise>getAllExercises();
+    LiveData<List<Exercise>>getAllExercises();
 }

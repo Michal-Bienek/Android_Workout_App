@@ -74,7 +74,7 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
 
     private void initRecyclerView(){
         WorkoutPlannerDb database= WorkoutPlannerDb.getInstance(context);
-        this.exerciseList= database.exerciseDao().getAllExercises();
+        //this.exerciseList= database.exerciseDao().getAllExercises();
         ExerciseAdapter adapter=new ExerciseAdapter(context,exerciseList,this::onExerciseClick);
         LinearLayoutManager layoutManager= new LinearLayoutManager(context);
         this.rvExercise.setLayoutManager(layoutManager);

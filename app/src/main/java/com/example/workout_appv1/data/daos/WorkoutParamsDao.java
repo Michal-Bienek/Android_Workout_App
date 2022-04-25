@@ -1,5 +1,6 @@
 package com.example.workout_appv1.data.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,10 +18,10 @@ import java.util.List;
 @Dao
 public interface WorkoutParamsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWorkoutParams(WorkoutParams workoutParams);
+    long insertWorkoutParams(WorkoutParams workoutParams);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWorkoutParamsList(List<WorkoutParams> workoutParamsList);
+    long[] insertWorkoutParamsList(List<WorkoutParams> workoutParamsList);
 
     @Delete
     void deleteWorkoutParams(WorkoutParams workoutParams);
@@ -32,17 +33,17 @@ public interface WorkoutParamsDao {
     void updateWorkoutParamsDate(int workoutParamsId, Date lastWorkoutDate);
 
     @Query("SELECT * FROM workout_params")
-    List<WorkoutParams>getAllWorkoutParams();
+    LiveData<List<WorkoutParams>>getAllWorkoutParams();
 
     @Query("SELECT * FROM workout_params WHERE fk_exerciseInRoutineId=:exerciseInRoutineId ORDER BY workoutParamsId ASC")
-    List<WorkoutParams>getWorkoutParamsInExerciseInRoutine(int exerciseInRoutineId);
+    LiveData<List<WorkoutParams>>getWorkoutParamsInExerciseInRoutine(int exerciseInRoutineId);
 
     @Query("SELECT * FROM workout_params WHERE fk_exerciseInRoutineId=:ExerciseInRoutineId ORDER BY workout_date DESC LIMIT 1")
-    List<WorkoutParams>getLatestWorkoutParamsInExerciseInRoutine(int ExerciseInRoutineId);
+    LiveData<List<WorkoutParams>>getLatestWorkoutParamsInExerciseInRoutine(int ExerciseInRoutineId);
 
     @Transaction
     @Query("SELECT * FROM workout_params WHERE workoutParamsId=:workoutParamsId")
-    List<WorkoutParamsWithSeries>workoutParamsWithSeries(int workoutParamsId);
+    LiveData<List<WorkoutParamsWithSeries>>workoutParamsWithSeries(int workoutParamsId);
 
 
 

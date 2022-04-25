@@ -89,7 +89,7 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
         rvPlan=view.findViewById(R.id.rvPlan);
         btnAddRoutine=view.findViewById(R.id.btnAddRoutine);
         database=WorkoutPlannerDb.getInstance(context);
-        routineList=database.routineDao().GetAllPlanRoutines(planId);
+        //routineList=database.routineDao().GetAllPlanRoutines(planId);
         dayShortcuts=getResources().getStringArray(R.array.day_shortcuts_array);
 
     }
@@ -135,7 +135,7 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
                 r.setDayOfWeek(spinner.getSelectedItemPosition());
                 database.routineDao().insertRoutine(r);
                 routineList.clear();
-                routineList.addAll(database.routineDao().GetAllPlanRoutines(planId));
+                //routineList.addAll(database.routineDao().GetAllPlanRoutines(planId));
                 planAdapter.notifyDataSetChanged();
             }
             dialog.dismiss();
