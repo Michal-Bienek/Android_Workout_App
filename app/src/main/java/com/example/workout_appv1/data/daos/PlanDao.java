@@ -1,5 +1,6 @@
 package com.example.workout_appv1.data.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -31,9 +32,9 @@ public interface PlanDao {
     void updatePlanStatus(int id, boolean status);
 
     @Query("SELECT * FROM plans ORDER BY isActive DESC")
-    List<Plan>getSortedPlans();
+    LiveData<List<Plan>>getSortedPlans();
 
     @Transaction
     @Query("Select * FROM plans WHERE planId=:planId")
-    List<PlanWithRoutines>getPlanWithRoutines(int planId);
+    LiveData<List<PlanWithRoutines>>getPlanWithRoutines(int planId);
 }

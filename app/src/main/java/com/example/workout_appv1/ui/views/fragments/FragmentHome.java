@@ -52,15 +52,15 @@ public class FragmentHome extends Fragment {
 
 
     private void initRecyclerView(View view){
-        WorkoutPlannerDb database=WorkoutPlannerDb.getInstance(getActivity());
-        List<Routine> routineList = database.routineDao().getRoutinesFromActivePlans();
-        HomeAdapter adapter=new HomeAdapter(getActivity(),routineList);
-        Toast.makeText(getActivity(), ""+routineList.size(), Toast.LENGTH_SHORT).show();
-
-        RecyclerView recyclerView=view.findViewById(R.id.rvHome);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+//        WorkoutPlannerDb database=WorkoutPlannerDb.getInstance(getActivity());
+//        //List<Routine> routineList = database.routineDao().getRoutinesFromActivePlans();
+//        HomeAdapter adapter=new HomeAdapter(getActivity(),routineList);
+//        Toast.makeText(getActivity(), ""+routineList.size(), Toast.LENGTH_SHORT).show();
+//
+//        RecyclerView recyclerView=view.findViewById(R.id.rvHome);
+//        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
 
     }
 }

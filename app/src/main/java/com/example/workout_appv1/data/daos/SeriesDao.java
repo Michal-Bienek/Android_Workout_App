@@ -1,5 +1,6 @@
 package com.example.workout_appv1.data.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface SeriesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertSeries(Series series);
+    long insertSeries(Series series);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSeriesList(List<Series> seriesList);
@@ -27,6 +28,6 @@ public interface SeriesDao {
     void updateSeries(Series series);
 
     @Query("Select * FROM series where fk_workoutParamsId=:workoutParamsId")
-    List<Series> getAllSeriesInWorkoutParams(int workoutParamsId);
+    LiveData<List<Series>> getAllSeriesInWorkoutParams(int workoutParamsId);
 
 }

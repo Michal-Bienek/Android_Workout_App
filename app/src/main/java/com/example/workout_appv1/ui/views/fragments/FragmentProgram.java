@@ -77,7 +77,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
         View view= inflater.inflate(R.layout.fragment_program, container, false);
 
         //Initialize variables
-        planList=database.planDao().getSortedPlans();
+        //planList=database.planDao().getSortedPlans();
         rvProgram=view.findViewById(R.id.rvProgram);
         btnAddPlan=view.findViewById(R.id.btnAddPlan);
 
@@ -128,7 +128,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
                 p.setActive(cbProgramDialog.isChecked());
                 database.planDao().insertPlan(p);
                 planList.clear();
-                planList.addAll(database.planDao().getSortedPlans());
+                //planList.addAll(database.planDao().getSortedPlans());
                 programAdapter.notifyDataSetChanged();
 
                 Toast.makeText(context, "Dodano plan", Toast.LENGTH_SHORT).show();
