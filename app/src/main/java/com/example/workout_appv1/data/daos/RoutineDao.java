@@ -32,10 +32,10 @@ public interface RoutineDao {
     void updateRoutineDate(int routineId, long date);
 
     @Query("SELECT * FROM routines")
-    LiveData<List<Routine>>GetAllRoutines();
+    LiveData<List<Routine>> getAllRoutines();
 
     @Query("SELECT * FROM routines where fk_planId=:planId")
-    LiveData<List<Routine>>GetAllPlanRoutines(int planId);
+    LiveData<List<Routine>> getAllPlanRoutines(int planId);
 
     @Query("SELECT routines.* from routines " +
             "INNER JOIN plans ON plans.planId=routines.fk_planId " +
@@ -44,7 +44,7 @@ public interface RoutineDao {
 
     @Transaction
     @Query("SELECT * FROM routines WHERE routineId=:routineId")
-    LiveData<List<RoutineWithExercisesInRoutine>>routineWithExercisesInRoutineList(int routineId);
+    LiveData<List<RoutineWithExercisesInRoutine>>getRoutineWithExercisesInRoutineList(int routineId);
 
 
 

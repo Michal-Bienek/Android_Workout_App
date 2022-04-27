@@ -16,7 +16,7 @@ import java.util.List;
 public interface SeriesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertSeries(Series series);
+    void insertSeries(Series series);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSeriesList(List<Series> seriesList);

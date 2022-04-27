@@ -18,10 +18,10 @@ import java.util.List;
 @Dao
 public interface WorkoutParamsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertWorkoutParams(WorkoutParams workoutParams);
+    void insertWorkoutParams(WorkoutParams workoutParams);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertWorkoutParamsList(List<WorkoutParams> workoutParamsList);
+    void insertWorkoutParamsList(List<WorkoutParams> workoutParamsList);
 
     @Delete
     void deleteWorkoutParams(WorkoutParams workoutParams);
@@ -43,7 +43,7 @@ public interface WorkoutParamsDao {
 
     @Transaction
     @Query("SELECT * FROM workout_params WHERE workoutParamsId=:workoutParamsId")
-    LiveData<List<WorkoutParamsWithSeries>>workoutParamsWithSeries(int workoutParamsId);
+    LiveData<List<WorkoutParamsWithSeries>>getWorkoutParamsWithSeries(int workoutParamsId);
 
 
 

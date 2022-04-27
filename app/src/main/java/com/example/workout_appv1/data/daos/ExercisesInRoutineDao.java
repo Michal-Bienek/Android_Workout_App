@@ -17,7 +17,7 @@ import java.util.List;
 @Dao
 public interface ExercisesInRoutineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertExerciseInRoutine(ExercisesInRoutine exerciseInRoutine);
+    void insertExerciseInRoutine(ExercisesInRoutine exerciseInRoutine);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList);
@@ -39,7 +39,7 @@ public interface ExercisesInRoutineDao {
 
     @Transaction
     @Query("SELECT * FROM exercises_in_routine WHERE exerciseInRoutineId=:exerciseInRoutineId")
-    LiveData<List<ExercisesInRoutineWithWorkoutParams>>exercisesWithParams(int exerciseInRoutineId);
+    LiveData<List<ExercisesInRoutineWithWorkoutParams>>getExercisesWithParams(int exerciseInRoutineId);
 
 
 
