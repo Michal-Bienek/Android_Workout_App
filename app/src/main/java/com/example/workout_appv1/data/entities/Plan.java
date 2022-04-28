@@ -15,8 +15,7 @@ public class Plan {
     public Plan(){}
 
     @Ignore
-    public Plan(int planId, String planName, String goal, boolean isActive) {
-        this.planId = planId;
+    public Plan(String planName, String goal, boolean isActive) {
         this.planName = planName;
         this.goal = goal;
         this.isActive = isActive;

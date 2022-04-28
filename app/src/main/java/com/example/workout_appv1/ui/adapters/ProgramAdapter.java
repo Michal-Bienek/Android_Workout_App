@@ -16,23 +16,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Plan;
+import com.example.workout_appv1.viewmodels.ProgramViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHolder> {
-    Context context;
-    List<Plan> planList = new ArrayList<>();
+    private Context context;
+    private List<Plan> planList = new ArrayList<>();
+    public ProgramViewModel programViewModel;
     private final OnPlanListener mOnPlanListener;
+
 
     public ProgramAdapter(Context context, OnPlanListener mOnPlanListener) {
         this.context = context;
         this.mOnPlanListener = mOnPlanListener;
+        programViewModel = new ViewModelProvider((FragmentActivity)context).get(ProgramViewModel.class);
     }
 
     @NonNull
@@ -46,25 +52,25 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Plan p=planList.get(position);
         holder.tvProgramItem.setText(p.getPlanName());
-//        holder.btnMoreProgramItem.setOnClickListener(view -> {
-//            PopupMenu popup=new PopupMenu(context,holder.btnMoreProgramItem);
-//            popup.inflate(R.menu.item_popup_menu);
-//            popup.setOnMenuItemClickListener(item -> {
-//                switch (item.getItemId()){
-//                    case R.id.miEdit:
-//                        update(holder);
-//                        Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
-//                        return true;
-//                    case R.id.miDelete:
-//                        delete(holder);
-//                        Toast.makeText(context, "Usuń", Toast.LENGTH_SHORT).show();
-//                        return true;
-//                    default:
-//                        return false;
-//                }
-//            });
-//            popup.show();
-//        });
+        holder.btnMoreProgramItem.setOnClickListener(view -> {
+            PopupMenu popup=new PopupMenu(context,holder.btnMoreProgramItem);
+            popup.inflate(R.menu.item_popup_menu);
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()){
+                    case R.id.miEdit:
+                        update(holder);
+                        Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.miDelete:
+                        delete(holder);
+                        Toast.makeText(context, "Usuń", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            });
+            popup.show();
+        });
 
     }
 
@@ -79,8 +85,8 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     }
 
     private void delete(ViewHolder holder){
-//        Plan plan=planList.get(holder.getAdapterPosition());
-//        database.planDao().deletePlan(plan);
+        Plan plan=planList.get(holder.getAdapterPosition());
+        programViewModel.deletePlan(plan);
 //        int position=holder.getAdapterPosition();
 //        planList.remove(position);
 //        notifyItemRemoved(position);
