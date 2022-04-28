@@ -90,10 +90,6 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     private void delete(ViewHolder holder){
         Plan plan=planList.get(holder.getAdapterPosition());
         programViewModel.deletePlan(plan);
-//        int position=holder.getAdapterPosition();
-//        planList.remove(position);
-//        notifyItemRemoved(position);
-//        notifyItemRangeChanged(position,planList.size());
     }
 
     private void update(ViewHolder holder){
@@ -103,42 +99,6 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
         DialogAddEditPlan dialogAddEditPlan = DialogAddEditPlan.newEditInstance(plan.getPlanId());
         FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
         dialogAddEditPlan.show(fragmentManager, "DialogEditPlan");
-//
-//        //Initialize dialog
-//        Dialog dialog = new Dialog(context);
-//        dialog.setCancelable(true);
-//        dialog.setContentView(R.layout.program_dialog);
-//        //Initialize Window Manager
-//        WindowManager.LayoutParams lp=new WindowManager.LayoutParams();
-//        lp.copyFrom(dialog.getWindow().getAttributes());
-//        lp.width=WindowManager.LayoutParams.MATCH_PARENT;
-//        //Initialize dialog Variables
-//        EditText etNameProgramDialog=dialog.findViewById(R.id.etNameProgramDialog);
-//        EditText etGoalProgramDialog= dialog.findViewById(R.id.etGoalProgramDialog);
-//        CheckBox cbProgramDialog=dialog.findViewById(R.id.cbProgramDialog);
-//        Button btnCancelDialogProgram=dialog.findViewById(R.id.btnCancelDialogProgram);
-//        Button btnAddDialogProgram= dialog.findViewById(R.id.btnAddDialogProgram);
-//        btnAddDialogProgram.setText("Aktualizuj");
-//        etNameProgramDialog.setText(plan.getPlanName());
-//        etGoalProgramDialog.setText(plan.getGoal());
-//        cbProgramDialog.setChecked(plan.isActive());
-//        btnAddDialogProgram.setOnClickListener(view -> {
-//            String name=etNameProgramDialog.getText().toString();
-//            String goal=etGoalProgramDialog.getText().toString();
-//            if(!name.equals("")&&!goal.equals("")){
-//                plan.setPlanName(name);
-//                plan.setGoal(goal);
-//                plan.setActive(cbProgramDialog.isChecked());
-//                planList.set(position,plan);
-//                database.planDao().updatePlan(plan);
-//                notifyItemChanged(position);
-//            }
-//            dialog.dismiss();
-//        });
-//        btnCancelDialogProgram.setOnClickListener(view -> dialog.dismiss());
-//        dialog.show();
-//        dialog.getWindow().setAttributes(lp);
-
     }
 
 
