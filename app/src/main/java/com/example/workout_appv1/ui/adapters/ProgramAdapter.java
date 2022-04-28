@@ -15,14 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Plan;
+import com.example.workout_appv1.ui.views.dialogs.DialogAddEditPlan;
 import com.example.workout_appv1.viewmodels.ProgramViewModel;
 
 import java.util.ArrayList;
@@ -94,8 +97,12 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     }
 
     private void update(ViewHolder holder){
-//        int position=holder.getAdapterPosition();
-//        Plan plan=planList.get(position);
+        int position=holder.getAdapterPosition();
+        Plan plan=planList.get(position);
+
+        DialogAddEditPlan dialogAddEditPlan = DialogAddEditPlan.newEditInstance(plan.getPlanId());
+        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+        dialogAddEditPlan.show(fragmentManager, "DialogEditPlan");
 //
 //        //Initialize dialog
 //        Dialog dialog = new Dialog(context);
@@ -155,7 +162,6 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
         @Override
         public void onClick(View view) {
             onPlanListener.onPlanClick(planList.get(getAdapterPosition()));
-
         }
     }
 

@@ -43,6 +43,9 @@ public class PlanRepository {
     public  LiveData<List<PlanWithRoutines>>getPlanWithRoutines(int planId){
         return this.planDao.getPlanWithRoutines(planId);
     }
+    public LiveData<Plan>getPlanById(int planId){
+        return this.planDao.getPlanById(planId);
+    }
 
 
 }

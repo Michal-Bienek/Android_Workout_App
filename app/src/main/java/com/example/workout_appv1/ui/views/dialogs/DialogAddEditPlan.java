@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -80,8 +81,15 @@ public class DialogAddEditPlan extends DialogFragment {
         viewModel = new ViewModelProvider(this).get(DialogAddEditPlanViewModel.class);
 
         if (getArguments() != null) {
-            editPlan();
+            int planId = getArguments().getInt(PLAN_ID);
+            viewModel.getPlanById(planId).observe(getViewLifecycleOwner(), new Observer<Plan>() {
+                @Override
+                public void onChanged(Plan plan) {
+                    editPlan(plan);
+                }
+            });
         } else {
+
             addPlan();
         }
 
@@ -89,22 +97,39 @@ public class DialogAddEditPlan extends DialogFragment {
         return view;
     }
 
-    private void editPlan() {
-
-    }
-
-    private void addPlan() {
+    private void editPlan(Plan plan) {
+        etName.setText(plan.getPlanName());
+        etGoal.setText(plan.getGoal());
+        cbActive.setChecked(plan.isActive());
+        btnConfirm.setText("ZAPISZ");
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = etName.getText().toString().trim();
                 String goal = etGoal.getText().toString().trim();
                 boolean isActive = cbActive.isChecked();
-                if (!name.equals("")) {
-                    Plan plan = new Plan(name, goal, isActive);
-                    boolean success = viewModel.insertPlan(plan);
+                if(!name.equals("")){
+                    plan.setPlanName(name);
+                    plan.setGoal(goal);
+                    plan.setActive(isActive);
+                    viewModel.updatePlan(plan);
                     dismiss();
                 }
+            }
+        });
+
+    }
+
+    private void addPlan() {
+        btnConfirm.setOnClickListener(view -> {
+            String name = etName.getText().toString().trim();
+            String goal = etGoal.getText().toString().trim();
+            boolean isActive = cbActive.isChecked();
+            if (!name.equals("")) {
+                Plan plan = new Plan(name, goal, isActive);
+                boolean success = viewModel.insertPlan(plan);
+                dismiss();
+                Toast.makeText(context, "Dodano nowy plan", Toast.LENGTH_SHORT).show();
             }
         });
     }
