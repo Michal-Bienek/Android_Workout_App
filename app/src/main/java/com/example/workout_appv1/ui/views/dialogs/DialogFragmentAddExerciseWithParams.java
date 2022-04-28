@@ -1,4 +1,4 @@
-package com.example.workout_appv1.ui.views.fragments;
+package com.example.workout_appv1.ui.views.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -55,7 +55,7 @@
     </fragment>
     <dialog
         android:id="@+id/dialogFragmentAddExerciseWithParams"
-        android:name="com.example.workout_appv1.ui.views.fragments.DialogFragmentAddExerciseWithParams"
+        android:name="com.example.workout_appv1.ui.views.dialogs.DialogFragmentAddExerciseWithParams"
         android:label="fragment_dialog_add_exercise_with_params"
         tools:layout="@layout/fragment_dialog_add_exercise_with_params" />
 </navigation>
