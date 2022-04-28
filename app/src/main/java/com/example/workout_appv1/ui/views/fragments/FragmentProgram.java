@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
@@ -26,6 +28,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.ui.adapters.ProgramAdapter;
 import com.example.workout_appv1.data.entities.Plan;
+import com.example.workout_appv1.viewmodels.ProgramViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -40,9 +43,8 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
 
     //Declare variables
     Context context;
-    NavController navController;
+    ProgramViewModel programViewModel;
     WorkoutPlannerDb database;
-    List<Plan> planList=new ArrayList<>();
     RecyclerView rvProgram;
     FloatingActionButton btnAddPlan;
     LinearLayoutManager layoutManager;
@@ -75,78 +77,82 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_program, container, false);
-
         //Initialize variables
-        //planList=database.planDao().getSortedPlans();
         rvProgram=view.findViewById(R.id.rvProgram);
         btnAddPlan=view.findViewById(R.id.btnAddPlan);
 
+        //Initialize ViewModel
+        programViewModel = new ViewModelProvider(this).get(ProgramViewModel.class);
+
         //Set recyclerView
-        programAdapter=new ProgramAdapter(context,planList,this);
+        programAdapter=new ProgramAdapter(context,this);
         layoutManager=new LinearLayoutManager(context);
         rvProgram.setLayoutManager(layoutManager);
         rvProgram.setAdapter(programAdapter);
 
 
+        programViewModel.getSortedPlans().observe(getViewLifecycleOwner(), plans -> programAdapter.setPlanList(plans));
+
         return view;
     }
 
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        navController=NavHostFragment.findNavController(this);
+//        setBtnAddPlanListener(view);
+//    }
+//
+//    private void setBtnAddPlanListener(View v){
+//        btnAddPlan.setOnClickListener(view -> showAddDialog());
+//    }
+
+//    private void showAddDialog(){
+//        //Initialize dialog
+//        Dialog dialog = new Dialog(context);
+//        dialog.setCancelable(true);
+//        dialog.setContentView(R.layout.program_dialog);
+//        //Initialize Window Manager
+//        WindowManager.LayoutParams lp=new WindowManager.LayoutParams();
+//        lp.copyFrom(dialog.getWindow().getAttributes());
+//        lp.width=WindowManager.LayoutParams.MATCH_PARENT;
+//
+//        //Initialize dialog Variables
+//        EditText etNameProgramDialog=dialog.findViewById(R.id.etNameProgramDialog);
+//        EditText etGoalProgramDialog= dialog.findViewById(R.id.etGoalProgramDialog);
+//        CheckBox cbProgramDialog=dialog.findViewById(R.id.cbProgramDialog);
+//        Button btnCancelDialogProgram=dialog.findViewById(R.id.btnCancelDialogProgram);
+//        Button btnAddDialogProgram= dialog.findViewById(R.id.btnAddDialogProgram);
+//        btnAddDialogProgram.setOnClickListener(view -> {
+//            String name=etNameProgramDialog.getText().toString();
+//            String goal=etGoalProgramDialog.getText().toString();
+//            if(!name.equals("")&&!goal.equals("")){
+//                Plan p=new Plan();
+//                p.setPlanName(name);
+//                p.setGoal(goal);
+//                p.setActive(cbProgramDialog.isChecked());
+//                database.planDao().insertPlan(p);
+//                planList.clear();
+//                //planList.addAll(database.planDao().getSortedPlans());
+//                programAdapter.notifyDataSetChanged();
+//
+//                Toast.makeText(context, "Dodano plan", Toast.LENGTH_SHORT).show();
+//            }
+//            else{
+//                Toast.makeText(context, "Nie dodano planu", Toast.LENGTH_SHORT).show();
+//            }
+//            dialog.dismiss();
+//        });
+//        btnCancelDialogProgram.setOnClickListener(view -> dialog.dismiss());
+//        dialog.show();
+//        dialog.getWindow().setAttributes(lp);
+//    }
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController=NavHostFragment.findNavController(this);
-        setBtnAddPlanListener(view);
-    }
-
-    private void setBtnAddPlanListener(View v){
-        btnAddPlan.setOnClickListener(view -> showAddDialog());
-    }
-
-    private void showAddDialog(){
-        //Initialize dialog
-        Dialog dialog = new Dialog(context);
-        dialog.setCancelable(true);
-        dialog.setContentView(R.layout.program_dialog);
-        //Initialize Window Manager
-        WindowManager.LayoutParams lp=new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width=WindowManager.LayoutParams.MATCH_PARENT;
-
-        //Initialize dialog Variables
-        EditText etNameProgramDialog=dialog.findViewById(R.id.etNameProgramDialog);
-        EditText etGoalProgramDialog= dialog.findViewById(R.id.etGoalProgramDialog);
-        CheckBox cbProgramDialog=dialog.findViewById(R.id.cbProgramDialog);
-        Button btnCancelDialogProgram=dialog.findViewById(R.id.btnCancelDialogProgram);
-        Button btnAddDialogProgram= dialog.findViewById(R.id.btnAddDialogProgram);
-        btnAddDialogProgram.setOnClickListener(view -> {
-            String name=etNameProgramDialog.getText().toString();
-            String goal=etGoalProgramDialog.getText().toString();
-            if(!name.equals("")&&!goal.equals("")){
-                Plan p=new Plan();
-                p.setPlanName(name);
-                p.setGoal(goal);
-                p.setActive(cbProgramDialog.isChecked());
-                database.planDao().insertPlan(p);
-                planList.clear();
-                //planList.addAll(database.planDao().getSortedPlans());
-                programAdapter.notifyDataSetChanged();
-
-                Toast.makeText(context, "Dodano plan", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Toast.makeText(context, "Nie dodano planu", Toast.LENGTH_SHORT).show();
-            }
-            dialog.dismiss();
-        });
-        btnCancelDialogProgram.setOnClickListener(view -> dialog.dismiss());
-        dialog.show();
-        dialog.getWindow().setAttributes(lp);
-    }
-
-    @Override
-    public void onPlanClick(int position) {
-        int planId=planList.get(position).getPlanId();
+    public void onPlanClick(Plan plan) {
+        int planId=plan.getPlanId();
         Toast.makeText(context, ""+planId, Toast.LENGTH_SHORT).show();
+        NavController navController = NavHostFragment.findNavController(FragmentProgram.this);
         NavDirections action=FragmentProgramDirections.actionFragmentProgramToFragmentPlan(planId);
         navController.navigate(action);
     }

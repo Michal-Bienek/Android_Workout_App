@@ -71,16 +71,16 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
         View view= inflater.inflate(R.layout.fragment_plan, container, false);
 
         //Dodać pobieranie id z poprzedniego fragment
-        FragmentPlanArgs args=FragmentPlanArgs.fromBundle(getArguments());
-        planId=args.getPlanId();
-
-        navController= NavHostFragment.findNavController(this);
-
-        initializeVariables(view);
-        initializeRecyclerView();
-        btnAddRoutine.setOnClickListener(view1 -> {
-            showAddDialog();
-        });
+//        FragmentPlanArgs args=FragmentPlanArgs.fromBundle(getArguments());
+//        planId=args.getPlanId();
+//
+//        navController= NavHostFragment.findNavController(this);
+//
+//        initializeVariables(view);
+//        initializeRecyclerView();
+//        btnAddRoutine.setOnClickListener(view1 -> {
+//            showAddDialog();
+//        });
         return view;
     }
 
