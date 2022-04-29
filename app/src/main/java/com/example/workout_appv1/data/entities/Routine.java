@@ -24,8 +24,7 @@ public class Routine {
     public Routine(){}
 
     @Ignore
-    public Routine(int routineId, String routineName, int dayOfWeek, Date lastWorkoutDate, int fk_planId) {
-        this.routineId = routineId;
+    public Routine(String routineName, int dayOfWeek, Date lastWorkoutDate, int fk_planId) {
         this.routineName = routineName;
         this.dayOfWeek = dayOfWeek;
         this.lastWorkoutDate = lastWorkoutDate;

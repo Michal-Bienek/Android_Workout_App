@@ -29,6 +29,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.ui.adapters.PlanAdapter;
+import com.example.workout_appv1.ui.views.dialogs.DialogAddEditRoutine;
 import com.example.workout_appv1.viewmodels.FragmentPlanViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -85,10 +86,15 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
 
 
 
-//        btnAddRoutine.setOnClickListener(view1 -> {
-//            showAddDialog();
-//        });
+        btnAddRoutine.setOnClickListener(view1 -> {
+            showDialog(planId);
+        });
         return view;
+    }
+
+    private void showDialog(int planId){
+        DialogAddEditRoutine dialogAddEditRoutine = DialogAddEditRoutine.newAddInstance(planId);
+        dialogAddEditRoutine.show(getChildFragmentManager(),"AddRoutine");
     }
 
 //    private void showAddDialog(){
