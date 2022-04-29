@@ -23,14 +23,11 @@ import java.util.List;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> {
     List<Routine>routines=new ArrayList<>();
     Context context;
-    WorkoutPlannerDb database;
     String[]dayShortCuts;
     private final OnRoutineClickListener onRoutineClickListener;
 
-    public PlanAdapter(List<Routine> routines, Context context, String[] dayShortCuts,OnRoutineClickListener onRoutineClickListener) {
-        this.routines = routines;
+    public PlanAdapter( Context context, String[] dayShortCuts,OnRoutineClickListener onRoutineClickListener) {
         this.context = context;
-        this.database = WorkoutPlannerDb.getInstance(context);
         this.dayShortCuts = dayShortCuts;
         this.onRoutineClickListener=onRoutineClickListener;
     }
@@ -83,16 +80,21 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
         menu.show();
     }
 
-    private void delete(MyViewHolder holder){
-        int position=holder.getAdapterPosition();
-        Routine r=routines.get(position);
-        database.routineDao().deleteRoutine(r);
-        routines.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position,routines.size());
+    public void setRoutines(List<Routine>routines){
+        this.routines = routines;
+        notifyDataSetChanged();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private void delete(MyViewHolder holder){
+//        int position=holder.getAdapterPosition();
+//        Routine r=routines.get(position);
+//        database.routineDao().deleteRoutine(r);
+//        routines.remove(position);
+//        notifyItemRemoved(position);
+//        notifyItemRangeChanged(position,routines.size());
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvDayPlanItem, tvNamePlanItem;
         ImageView btnMorePlanItem;
         ConstraintLayout clPlanItem;
@@ -110,11 +112,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View view) {
-
-            onRoutineClickListener.OnRoutineClick(getAdapterPosition());
+            onRoutineClickListener.OnRoutineClick(routines.get(getAdapterPosition()));
         }
     }
     public interface OnRoutineClickListener{
-        void OnRoutineClick(int position);
+        void OnRoutineClick(Routine routine);
     }
 }
