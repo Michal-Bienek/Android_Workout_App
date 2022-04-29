@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
@@ -27,6 +29,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.ui.adapters.PlanAdapter;
+import com.example.workout_appv1.viewmodels.FragmentPlanViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -36,22 +39,10 @@ import java.util.Objects;
 public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClickListener {
     //Variables
     Context context;
-    private int planId;
-    private RecyclerView rvPlan;
-    private WorkoutPlannerDb database;
-    private List<Routine> routineList;
-    private String[]dayShortcuts;
-    private FloatingActionButton btnAddRoutine;
-    private LinearLayoutManager layoutManager;
     private PlanAdapter planAdapter;
-    NavController navController;
 
 
     public FragmentPlan() {
-    }
-
-    public static FragmentPlan newInstance() {
-        return new FragmentPlan();
     }
 
     @Override
@@ -70,35 +61,34 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_plan, container, false);
 
-        //Dodać pobieranie id z poprzedniego fragment
-//        FragmentPlanArgs args=FragmentPlanArgs.fromBundle(getArguments());
-//        planId=args.getPlanId();
-//
-//        navController= NavHostFragment.findNavController(this);
-//
-//        initializeVariables(view);
-//        initializeRecyclerView();
+        //Initialize  ViewModel
+        FragmentPlanViewModel viewModel = new ViewModelProvider(this).get(FragmentPlanViewModel.class);
+
+        //Get passed planId
+        FragmentPlanArgs args=FragmentPlanArgs.fromBundle(getArguments());
+        int planId = args.getPlanId();
+        Toast.makeText(context, ""+ planId, Toast.LENGTH_SHORT).show();
+
+        //Initialize views
+        RecyclerView rvPlan = view.findViewById(R.id.rvPlan);
+        FloatingActionButton btnAddRoutine = view.findViewById(R.id.btnAddRoutine);
+        String[] dayShortcuts = getResources().getStringArray(R.array.day_shortcuts_array);
+
+        //Initialize RecyclerView
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        planAdapter=new PlanAdapter(context, dayShortcuts, this);
+        rvPlan.setLayoutManager(layoutManager);
+        rvPlan.setAdapter(planAdapter);
+
+        //Set observer
+        viewModel.getAllPlanRoutines(planId).observe(getViewLifecycleOwner(), routines -> planAdapter.setRoutines(routines));
+
+
+
 //        btnAddRoutine.setOnClickListener(view1 -> {
 //            showAddDialog();
 //        });
         return view;
-    }
-
-
-    private void initializeVariables(View view){
-        rvPlan=view.findViewById(R.id.rvPlan);
-        btnAddRoutine=view.findViewById(R.id.btnAddRoutine);
-        database=WorkoutPlannerDb.getInstance(context);
-        //routineList=database.routineDao().GetAllPlanRoutines(planId);
-        dayShortcuts=getResources().getStringArray(R.array.day_shortcuts_array);
-
-    }
-
-    private void initializeRecyclerView(){
-        layoutManager=new LinearLayoutManager(context);
-        planAdapter=new PlanAdapter(routineList,context,dayShortcuts, this);
-        rvPlan.setLayoutManager(layoutManager);
-        rvPlan.setAdapter(planAdapter);
     }
 
 //    private void showAddDialog(){
@@ -148,9 +138,9 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
 //    }
 
     @Override
-    public void OnRoutineClick(int position) {
-        int routineId=routineList.get(position).getRoutineId();
-        NavDirections action= FragmentPlanDirections.actionFragmentPlanToFragmentRoutine(routineId);
+    public void OnRoutineClick(Routine routine) {
+        NavController navController = NavHostFragment.findNavController(FragmentPlan.this);
+        NavDirections action= FragmentPlanDirections.actionFragmentPlanToFragmentRoutine(routine.getRoutineId());
         navController.navigate(action);
     }
 }
