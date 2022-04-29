@@ -1,6 +1,5 @@
 package com.example.workout_appv1.ui.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddEditRoutine;
 import com.example.workout_appv1.viewmodels.FragmentPlanViewModel;
@@ -44,7 +41,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_plan,parent,false);
         return new MyViewHolder(view,onRoutineClickListener);
     }
 
@@ -53,9 +50,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
         Routine routine=routines.get(position);
         holder.tvNamePlanItem.setText(routine.getRoutineName());
         holder.tvDayPlanItem.setText(getDayShortcut(routine.getDayOfWeek()));
-        holder.btnMorePlanItem.setOnClickListener(view -> {
-            showPopupMenu(holder);
-        });
+        holder.btnMorePlanItem.setOnClickListener(view -> showPopupMenu(holder));
     }
 
     @Override

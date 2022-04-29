@@ -41,7 +41,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_program,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_program,parent,false);
         return new ViewHolder(view,mOnPlanListener);
     }
 
@@ -49,6 +49,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Plan p=planList.get(position);
         holder.tvProgramItem.setText(p.getPlanName());
+        holder.tvGoal.setText(p.getGoal());
         holder.btnMoreProgramItem.setOnClickListener(view -> {
             PopupMenu popup=new PopupMenu(context,holder.btnMoreProgramItem);
             popup.inflate(R.menu.item_popup_menu);
@@ -99,15 +100,17 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView btnProgramItem;
         TextView tvProgramItem;
+        TextView tvGoal;
         ImageView btnMoreProgramItem;
         ConstraintLayout clProgramItem;
         OnPlanListener onPlanListener;
         public ViewHolder(@NonNull View itemView, OnPlanListener onPlanListener) {
             super(itemView);
-            btnProgramItem=itemView.findViewById(R.id.btnProgramItem);
+            btnProgramItem=itemView.findViewById(R.id.imgProgramIcon);
             tvProgramItem=itemView.findViewById(R.id.tvProgramItem);
             btnMoreProgramItem=itemView.findViewById(R.id.btnMoreProgramItem);
             clProgramItem=itemView.findViewById(R.id.clProgramItem);
+            tvGoal = itemView.findViewById(R.id.tvProgramGoal);
             this.onPlanListener=onPlanListener;
 
             clProgramItem.setOnClickListener(this);

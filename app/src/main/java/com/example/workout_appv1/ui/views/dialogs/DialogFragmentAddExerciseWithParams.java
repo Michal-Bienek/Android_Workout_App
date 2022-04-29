@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,7 +43,7 @@ public class DialogFragmentAddExerciseWithParams extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view= inflater.inflate(R.layout.fragment_dialog_add_exercise_with_params,container,false);
+       View view= inflater.inflate(R.layout.dialog_fragment_add_exercise_with_params,container,false);
        initViews(view);
        initRecyclerView();
 

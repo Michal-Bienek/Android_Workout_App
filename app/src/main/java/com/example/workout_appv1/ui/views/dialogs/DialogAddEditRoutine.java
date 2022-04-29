@@ -6,26 +6,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.viewmodels.DialogAddEditRoutineViewModel;
 import com.google.android.material.textfield.TextInputEditText;
-
-import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -84,7 +77,7 @@ public class DialogAddEditRoutine extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dialog_add_edit_routine, container, false);
+        View view = inflater.inflate(R.layout.dialog_fragment_add_edit_routine, container, false);
         viewModel = new ViewModelProvider(this).get(DialogAddEditRoutineViewModel.class);
 
         //Initialize views
@@ -130,17 +123,14 @@ public class DialogAddEditRoutine extends DialogFragment {
         etDialogRoutineName.setText(routine.getRoutineName());
         spinnerDayOfWeek.setSelection(routine.getDayOfWeek());
         tvOkDialogRoutine.setText("Edytuj");
-        tvOkDialogRoutine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String routineName = Objects.requireNonNull(etDialogRoutineName.getText()).toString().trim();
-                int day_of_week = spinnerDayOfWeek.getSelectedItemPosition();
-                if (!routineName.equals("")) {
-                    routine.setRoutineName(routineName);
-                    routine.setDayOfWeek(day_of_week);
-                    viewModel.updateRoutine(routine);
-                    dismiss();
-                }
+        tvOkDialogRoutine.setOnClickListener(view -> {
+            String routineName = Objects.requireNonNull(etDialogRoutineName.getText()).toString().trim();
+            int day_of_week = spinnerDayOfWeek.getSelectedItemPosition();
+            if (!routineName.equals("")) {
+                routine.setRoutineName(routineName);
+                routine.setDayOfWeek(day_of_week);
+                viewModel.updateRoutine(routine);
+                dismiss();
             }
         });
 

@@ -5,11 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -18,14 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Plan;
 import com.example.workout_appv1.viewmodels.DialogAddEditPlanViewModel;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class DialogAddEditPlan extends DialogFragment {
     public static final String PLAN_ID = "PLAN_ID";
@@ -79,7 +73,7 @@ public class DialogAddEditPlan extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dialog_add_edit_plan, container, false);
+        View view = inflater.inflate(R.layout.dialog_fragment_add_edit_plan, container, false);
         this.etName = view.findViewById(R.id.etNamePlanDialog);
         this.etGoal = view.findViewById(R.id.etGoalPlanDialog);
         this.cbActive = view.findViewById(R.id.cbPlanDialog);
@@ -91,12 +85,7 @@ public class DialogAddEditPlan extends DialogFragment {
 
         if (getArguments() != null) {
             int planId = getArguments().getInt(PLAN_ID);
-            viewModel.getPlanById(planId).observe(getViewLifecycleOwner(), new Observer<Plan>() {
-                @Override
-                public void onChanged(Plan plan) {
-                    editPlan(plan);
-                }
-            });
+            viewModel.getPlanById(planId).observe(getViewLifecycleOwner(), this::editPlan);
         } else {
 
             addPlan();
@@ -111,19 +100,16 @@ public class DialogAddEditPlan extends DialogFragment {
         etGoal.setText(plan.getGoal());
         cbActive.setChecked(plan.isActive());
         btnConfirm.setText("ZAPISZ");
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = etName.getText().toString().trim();
-                String goal = etGoal.getText().toString().trim();
-                boolean isActive = cbActive.isChecked();
-                if(!name.equals("")){
-                    plan.setPlanName(name);
-                    plan.setGoal(goal);
-                    plan.setActive(isActive);
-                    viewModel.updatePlan(plan);
-                    dismiss();
-                }
+        btnConfirm.setOnClickListener(view -> {
+            String name = etName.getText().toString().trim();
+            String goal = etGoal.getText().toString().trim();
+            boolean isActive = cbActive.isChecked();
+            if(!name.equals("")){
+                plan.setPlanName(name);
+                plan.setGoal(goal);
+                plan.setActive(isActive);
+                viewModel.updatePlan(plan);
+                dismiss();
             }
         });
 

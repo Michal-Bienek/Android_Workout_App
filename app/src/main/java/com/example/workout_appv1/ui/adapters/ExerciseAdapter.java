@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Exercise;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
@@ -31,7 +29,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_exercise,parent,false);
         return new ExerciseViewHolder(view,this.onExerciseListener);
     }
 
