@@ -12,10 +12,10 @@ import com.example.workout_appv1.data.repositories.PlanRepository;
 
 import java.util.List;
 
-public class ProgramViewModel extends AndroidViewModel {
+public class FragmentProgramViewModel extends AndroidViewModel {
     PlanRepository planRepository;
 
-    public ProgramViewModel(@NonNull Application application) {
+    public FragmentProgramViewModel(@NonNull Application application) {
         super(application);
         planRepository = new PlanRepository(application);
     }

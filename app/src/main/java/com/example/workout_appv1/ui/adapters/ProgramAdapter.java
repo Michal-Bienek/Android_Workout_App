@@ -1,14 +1,9 @@
 package com.example.workout_appv1.ui.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -23,10 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Plan;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddEditPlan;
-import com.example.workout_appv1.viewmodels.ProgramViewModel;
+import com.example.workout_appv1.viewmodels.FragmentProgramViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +28,14 @@ import java.util.List;
 public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHolder> {
     private Context context;
     private List<Plan> planList = new ArrayList<>();
-    public ProgramViewModel programViewModel;
+    public FragmentProgramViewModel fragmentProgramViewModel;
     private final OnPlanListener mOnPlanListener;
 
 
     public ProgramAdapter(Context context, OnPlanListener mOnPlanListener) {
         this.context = context;
         this.mOnPlanListener = mOnPlanListener;
-        programViewModel = new ViewModelProvider((FragmentActivity)context).get(ProgramViewModel.class);
+        fragmentProgramViewModel = new ViewModelProvider((FragmentActivity)context).get(FragmentProgramViewModel.class);
     }
 
     @NonNull
@@ -89,7 +83,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
 
     private void delete(ViewHolder holder){
         Plan plan=planList.get(holder.getAdapterPosition());
-        programViewModel.deletePlan(plan);
+        fragmentProgramViewModel.deletePlan(plan);
     }
 
     private void update(ViewHolder holder){

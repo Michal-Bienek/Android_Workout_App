@@ -1,13 +1,10 @@
 package com.example.workout_appv1.ui.views.fragments;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -18,28 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.ui.adapters.ProgramAdapter;
 import com.example.workout_appv1.data.entities.Plan;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddEditPlan;
-import com.example.workout_appv1.viewmodels.ProgramViewModel;
+import com.example.workout_appv1.viewmodels.FragmentProgramViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanListener {
 
     //Declare variables
     Context context;
-    ProgramViewModel programViewModel;
+    FragmentProgramViewModel fragmentProgramViewModel;
     RecyclerView rvProgram;
     FloatingActionButton btnAddPlan;
     LinearLayoutManager layoutManager;
@@ -72,7 +61,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
         btnAddPlan = view.findViewById(R.id.btnAddPlan);
 
         //Initialize ViewModel
-        programViewModel = new ViewModelProvider(this).get(ProgramViewModel.class);
+        fragmentProgramViewModel = new ViewModelProvider(this).get(FragmentProgramViewModel.class);
 
         //Set recyclerView
         programAdapter = new ProgramAdapter(context, this);
@@ -81,7 +70,7 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
         rvProgram.setAdapter(programAdapter);
 
 
-        programViewModel.getSortedPlans().observe(getViewLifecycleOwner(), plans -> programAdapter.setPlanList(plans));
+        fragmentProgramViewModel.getSortedPlans().observe(getViewLifecycleOwner(), plans -> programAdapter.setPlanList(plans));
         btnAddPlan.setOnClickListener(view1 -> showAddDialog());
 
         return view;
