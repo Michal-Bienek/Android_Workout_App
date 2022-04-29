@@ -48,4 +48,8 @@ public class RoutineRepository {
     public LiveData<List<RoutineWithExercisesInRoutine>>getRoutineWithExercisesInRoutineList(int routineId){
         return routineDao.getRoutineWithExercisesInRoutineList(routineId);
     }
+
+    public LiveData<Routine>getRoutineById(int routineId){
+        return routineDao.getRoutineById(routineId);
+    }
 }

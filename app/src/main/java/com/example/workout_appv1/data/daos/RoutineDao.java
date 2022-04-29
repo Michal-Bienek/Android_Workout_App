@@ -42,6 +42,9 @@ public interface RoutineDao {
             "WHERE plans.isActive=1")
     LiveData<List<Routine>>getRoutinesFromActivePlans();
 
+    @Query("SELECT * FROM routines WHERE routineId = :routineId LIMIT 1")
+    LiveData<Routine>getRoutineById(int routineId);
+
     @Transaction
     @Query("SELECT * FROM routines WHERE routineId=:routineId")
     LiveData<List<RoutineWithExercisesInRoutine>>getRoutineWithExercisesInRoutineList(int routineId);
