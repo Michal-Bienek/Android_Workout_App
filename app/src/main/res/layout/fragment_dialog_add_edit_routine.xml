@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:contentDescription="@string/day_spinner_content_desc"
             android:minHeight="30dp" />
         <LinearLayout
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="end"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp">
             <TextView
@@ -40,14 +41,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#8b0000"
+                android:textSize="18sp"
                 android:letterSpacing="0.01"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="18dp"
                 android:text="ANULUJ"/>
             <TextView
                 android:id="@+id/tvOkDialogRoutine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#006400"
+                android:textSize="18sp"
                 android:letterSpacing="0.01"
                 android:text="DODAJ"/>
 
