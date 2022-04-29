@@ -23,15 +23,11 @@ public class ExerciseParamsAdapter extends RecyclerView.Adapter<ExerciseParamsAd
         this.context=context;
         this.series =new ArrayList<>();
     }
-    public ExerciseParamsAdapter(Context context, List<Series>seriesList){
-        this.context=context;
-        this.series=seriesList;
-    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dialog_add_exercise,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dialog_add_exercise_to_routine,parent,false);
         return new MyViewHolder(view);
     }
 

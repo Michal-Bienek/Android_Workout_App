@@ -48,14 +48,5 @@
         <action
             android:id="@+id/action_fragmentExercise_to_fragmentRoutine"
             app:destination="@id/fragmentRoutine" />
-        <action
-            android:id="@+id/action_fragmentExercise_to_dialogFragmentAddExerciseWithParams"
-            app:destination="@id/dialogFragmentAddExerciseWithParams"
-            app:popUpToInclusive="false" />
     </fragment>
-    <dialog
-        android:id="@+id/dialogFragmentAddExerciseWithParams"
-        android:name="com.example.workout_appv1.ui.views.dialogs.DialogFragmentAddExerciseWithParams"
-        android:label="fragment_dialog_add_exercise_with_params"
-        tools:layout="@layout/dialog_fragment_add_exercise_with_params" />
 </navigation>
