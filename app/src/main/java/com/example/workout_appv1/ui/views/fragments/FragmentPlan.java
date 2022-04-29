@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -95,53 +96,8 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
     private void showDialog(int planId){
         DialogAddEditRoutine dialogAddEditRoutine = DialogAddEditRoutine.newAddInstance(planId);
         dialogAddEditRoutine.show(getChildFragmentManager(),"AddRoutine");
-    }
 
-//    private void showAddDialog(){
-//        Dialog dialog=new Dialog(context);
-//        dialog.setCancelable(true);
-//        dialog.setContentView(R.layout.plan_add_dialog);
-//
-//        WindowManager.LayoutParams lp= new WindowManager.LayoutParams();
-//        lp.copyFrom(dialog.getWindow().getAttributes());
-//        lp.width=WindowManager.LayoutParams.MATCH_PARENT;
-//
-//        TextInputEditText etName=dialog.findViewById(R.id.etAddRoutineName);
-//        Spinner spinner=dialog.findViewById(R.id.spinnerDayOfWeek);
-//        ImageView btnConfirm=dialog.findViewById(R.id.btnConfirmPlanAddDialog);
-//        ImageView btnCancel=dialog.findViewById(R.id.btnCancelPlanAddDialog);
-//
-//        ArrayAdapter<CharSequence> spinnerAdapter=ArrayAdapter.createFromResource(context,R.array.day_spinner_array, android.R.layout.simple_spinner_item);
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(spinnerAdapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) { }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) { }
-//        });
-//
-//        btnConfirm.setOnClickListener(view -> {
-//            String routineName= Objects.requireNonNull(etName.getText()).toString();
-//            if(!routineName.equals("")){
-//                Routine r = new Routine();
-//                r.setFk_planId(planId);
-//                r.setRoutineName(routineName);
-//                r.setDayOfWeek(spinner.getSelectedItemPosition());
-//                database.routineDao().insertRoutine(r);
-//                routineList.clear();
-//                //routineList.addAll(database.routineDao().GetAllPlanRoutines(planId));
-//                planAdapter.notifyDataSetChanged();
-//            }
-//            dialog.dismiss();
-//
-//        });
-//        btnCancel.setOnClickListener(view -> {dialog.dismiss();});
-//
-//        dialog.show();
-//        dialog.getWindow().setAttributes(lp);
-//    }
+    }
 
     @Override
     public void OnRoutineClick(Routine routine) {

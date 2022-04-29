@@ -1,5 +1,6 @@
 package com.example.workout_appv1.ui.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.ui.views.dialogs.DialogAddEditRoutine;
+import com.example.workout_appv1.viewmodels.FragmentPlanViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +31,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
     List<Routine>routines=new ArrayList<>();
     Context context;
     String[]dayShortCuts;
+    FragmentPlanViewModel viewModel;
     private final OnRoutineClickListener onRoutineClickListener;
 
     public PlanAdapter( Context context, String[] dayShortCuts,OnRoutineClickListener onRoutineClickListener) {
         this.context = context;
         this.dayShortCuts = dayShortCuts;
         this.onRoutineClickListener=onRoutineClickListener;
+        this.viewModel = new ViewModelProvider((FragmentActivity)context).get(FragmentPlanViewModel.class);
     }
 
     @NonNull
@@ -68,7 +77,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
         menu.setOnMenuItemClickListener(menuItem -> {
             switch (menuItem.getItemId()){
                 case R.id.miEdit:
-                    Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
+                    editRoutine(routines.get(holder.getAdapterPosition()));
                     return true;
                 case R.id.miDelete:
                     delete(holder);
@@ -86,12 +95,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
     }
 
     private void delete(MyViewHolder holder){
-//        int position=holder.getAdapterPosition();
-//        Routine r=routines.get(position);
-//        database.routineDao().deleteRoutine(r);
-//        routines.remove(position);
-//        notifyItemRemoved(position);
-//        notifyItemRangeChanged(position,routines.size());
+        int position=holder.getAdapterPosition();
+        Routine r=routines.get(position);
+        viewModel.deleteRoutine(r);
+    }
+    private void editRoutine(Routine routine){
+        DialogAddEditRoutine dialog = DialogAddEditRoutine.newEditInstance(routine.getFk_planId(),routine.getRoutineId());
+        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+        dialog.show(fragmentManager,"EditRoutine");
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
