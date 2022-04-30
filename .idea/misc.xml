@@ -28,7 +28,7 @@
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/activity_plan.xml" value="0.33" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/activity_routine.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/dialog_fragment_add_edit_routine.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/dialog_fragment_add_exercise_to_routine.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/dialog_fragment_add_exercise_to_routine.xml" value="0.32710280373831774" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/fragment_dialog_add_edit_plan.xml" value="0.33" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/fragment_dialog_add_edit_routine.xml" value="0.5" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/fragment_dialog_add_exercise_with_params.xml" value="0.36666666666666664" />
@@ -44,6 +44,7 @@
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/plan_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/program_dialog.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_dialog_add_exercise.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_dialog_add_exercise_to_routine.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_fragment_exercise.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_fragment_plan.xml" value="0.264945652173913" />

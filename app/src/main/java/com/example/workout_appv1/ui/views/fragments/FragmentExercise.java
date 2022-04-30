@@ -99,8 +99,7 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
 
     @Override
     public void onExerciseClick(Exercise exercise) {
-        int exerciseId = exercise.getExerciseId();
-        DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newAddInstance(routineId,exerciseId);
+        DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newAddInstance(routineId,exercise.getName());
         dialog.show(getChildFragmentManager(),"AddExerciseToRoutine");
     }
 }

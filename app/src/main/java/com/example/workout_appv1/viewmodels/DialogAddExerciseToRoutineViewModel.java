@@ -9,4 +9,5 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
     public DialogAddExerciseToRoutineViewModel(@NonNull Application application) {
         super(application);
     }
+
 }
