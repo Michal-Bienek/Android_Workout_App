@@ -13,17 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Exercise;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
-    List<Exercise> exerciseList;
+    List<Exercise> exerciseList = new ArrayList<>();
     Context context;
     OnExerciseListener onExerciseListener;
 
-    public ExerciseAdapter( Context context, List<Exercise> exerciseList,OnExerciseListener onExerciseListener) {
-        this.exerciseList = exerciseList;
+    public ExerciseAdapter( Context context,OnExerciseListener onExerciseListener) {
         this.context = context;
         this.onExerciseListener=onExerciseListener;
     }
@@ -31,7 +29,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_exercise,parent,false);
         return new ExerciseViewHolder(view,this.onExerciseListener);
     }
 
@@ -44,6 +42,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @Override
     public int getItemCount() {
         return exerciseList.size();
+    }
+
+    public void setExerciseList(List<Exercise>exerciseList){
+        this.exerciseList = exerciseList;
+        notifyDataSetChanged();
     }
 
     public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -60,11 +63,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
         @Override
         public void onClick(View view) {
-            this.onExerciseListener.onExerciseClick(getAdapterPosition());
+            this.onExerciseListener.onExerciseClick(exerciseList.get(getAdapterPosition()));
         }
     }
 
     public interface OnExerciseListener{
-       void onExerciseClick(int position);
+       void onExerciseClick(Exercise position);
     }
 }
