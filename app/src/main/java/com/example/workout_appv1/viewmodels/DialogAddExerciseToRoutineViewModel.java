@@ -43,7 +43,7 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
 
 
     private void initializeLivedata(){
-        Series series = new Series(5,40,"1/2/3",120,"",0,0 );
+        Series series = new Series(5,40,"1/2/3",120,"",0 );
         List<Series>initList = new ArrayList<>();
         initList.add(series);
         this.exerciseSeries = new MutableLiveData<>(initList);
