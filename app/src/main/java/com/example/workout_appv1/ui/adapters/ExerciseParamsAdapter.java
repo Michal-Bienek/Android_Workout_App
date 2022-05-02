@@ -17,11 +17,11 @@ import java.util.List;
 
 public class ExerciseParamsAdapter extends RecyclerView.Adapter<ExerciseParamsAdapter.MyViewHolder> {
     Context context;
-    List<Series> series;
+    List<Series> seriesList;
 
     public ExerciseParamsAdapter(Context context){
         this.context=context;
-        this.series =new ArrayList<>();
+        this.seriesList =new ArrayList<>();
     }
 
     @NonNull
@@ -33,12 +33,25 @@ public class ExerciseParamsAdapter extends RecyclerView.Adapter<ExerciseParamsAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Series series = this.seriesList.get(position);
+        holder.etReps.setText(String.valueOf(series.getReps()));
+        holder.etRestTime.setText(String.valueOf(series.getRestTime()));
+        holder.etWeight.setText(String.valueOf(series.getWeight()));
 
+    }
+
+    public void setSeriesList(List<Series> seriesList) {
+        this.seriesList = seriesList;
+        notifyDataSetChanged();
+    }
+
+    public List<Series> getSeriesList() {
+        return seriesList;
     }
 
     @Override
     public int getItemCount() {
-        return series.size();
+        return seriesList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

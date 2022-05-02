@@ -26,8 +26,7 @@ public class Series {
     }
 
     @Ignore
-    public Series(int seriesId, int reps, double weight, String rate, int restTime, String note, int fk_exerciseInRoutineId, int fk_workoutParamsId) {
-        this.seriesId = seriesId;
+    public Series(int reps, double weight, String rate, int restTime, String note, int fk_exerciseInRoutineId, int fk_workoutParamsId) {
         this.reps = reps;
         this.weight = weight;
         this.rate = rate;
