@@ -40,6 +40,9 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
             this.exerciseSeries.setValue(seriesList);
         }
     }
+    public void updateSeries(List<Series>seriesList){
+        this.exerciseSeries.setValue(seriesList);
+    }
 
 
     private void initializeLivedata(){

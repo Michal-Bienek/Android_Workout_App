@@ -27,7 +27,7 @@ import com.example.workout_appv1.viewmodels.DialogAddExerciseToRoutineViewModel;
 
 import java.util.List;
 
-public class DialogAddExerciseToRoutine extends DialogFragment {
+public class DialogAddExerciseToRoutine extends DialogFragment implements ExerciseParamsAdapter.OnEtParamsChanged{
     public static final String ARG_ROUTINE_ID = "ROUTINE_ID";
     public static final String ARG_EXERCISE_Name = "EXERCISE_ID";
     Context context;
@@ -82,7 +82,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment {
 
         //Initialize RecyclerView
         LinearLayoutManager layoutManager= new LinearLayoutManager(context);
-        adapter = new ExerciseParamsAdapter(context);
+        adapter = new ExerciseParamsAdapter(context, this);
         this.rvFragmentDialogExercise.setLayoutManager(layoutManager);
         this.rvFragmentDialogExercise.setAdapter(adapter);
 
@@ -110,18 +110,8 @@ public class DialogAddExerciseToRoutine extends DialogFragment {
                         tvNumberOfSeries.setText(String.valueOf(seriesList.size()));
                     }
                 });
-                btnPlusSeries.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        viewModel.addSeries(adapter.getSeriesList());
-                    }
-                });
-                btnMinusSeries.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        viewModel.removeSeries(adapter.getSeriesList());
-                    }
-                });
+                btnPlusSeries.setOnClickListener(view1 -> viewModel.addSeries(adapter.getSeriesList()));
+                btnMinusSeries.setOnClickListener(view12 -> viewModel.removeSeries(adapter.getSeriesList()));
             }
             else{
                 dismiss();
@@ -130,4 +120,8 @@ public class DialogAddExerciseToRoutine extends DialogFragment {
        return view;
     }
 
+    @Override
+    public void onParamsChanged(List<Series> seriesList) {
+        viewModel.updateSeries(seriesList);
+    }
 }
