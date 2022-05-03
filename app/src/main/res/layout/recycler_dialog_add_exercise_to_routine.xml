@@ -15,7 +15,8 @@
         android:ems="10"
         android:gravity="center"
         android:hint="@string/etReps"
-        android:inputType="numberSigned" />
+        android:digits="123456789"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/etWeightDialogAddExercise"
@@ -25,7 +26,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="@string/etWeight"
-        android:inputType="numberSigned" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/etRestTimeDialogAddExercise"
@@ -35,5 +36,6 @@
         android:ems="10"
         android:gravity="center"
         android:hint="@string/etRest"
-        android:inputType="numberSigned" />
+        android:digits="123456789"
+        android:inputType="number" />
 </LinearLayout>
