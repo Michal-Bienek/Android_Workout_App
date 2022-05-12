@@ -23,20 +23,24 @@ public class WorkoutParamsRepository {
     }
 
     public void insertWorkoutParams(WorkoutParams workoutParams){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(()->workoutParamsDao.insertWorkoutParams(workoutParams));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.insertWorkoutParams(workoutParams));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(()->workoutParamsDao.insertWorkoutParams(workoutParams));
     }
     public void insertWorkoutParamsList(List<WorkoutParams> workoutParamsList){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(()->workoutParamsDao.insertWorkoutParamsList(workoutParamsList));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.insertWorkoutParamsList(workoutParamsList));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(()->workoutParamsDao.insertWorkoutParamsList(workoutParamsList));
     }
     public void deleteWorkoutParams(WorkoutParams workoutParams){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(()->workoutParamsDao.deleteWorkoutParams(workoutParams));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.deleteWorkoutParams(workoutParams));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(()->workoutParamsDao.deleteWorkoutParams(workoutParams));
     }
     public void updateWorkoutParams(WorkoutParams workoutParams){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(()->workoutParamsDao.updateWorkoutParams(workoutParams));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.updateWorkoutParams(workoutParams));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(()->workoutParamsDao.updateWorkoutParams(workoutParams));
     }
     public LiveData<List<WorkoutParams>> getAllWorkoutParams(){
         return workoutParamsDao.getAllWorkoutParams();
