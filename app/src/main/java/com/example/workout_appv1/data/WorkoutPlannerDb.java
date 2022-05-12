@@ -24,6 +24,9 @@ import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.type_converters.DateConverter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {
         Plan.class,
         Routine.class,
@@ -36,15 +39,18 @@ import com.example.workout_appv1.data.type_converters.DateConverter;
 public abstract class WorkoutPlannerDb extends RoomDatabase {
     private static WorkoutPlannerDb workoutPlannerDb;
     private static final String DATABASE_NAME="workout_plannerDB";
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public synchronized static WorkoutPlannerDb getInstance(Context context){
         if(workoutPlannerDb==null){
             workoutPlannerDb=Room.databaseBuilder(context.getApplicationContext(),
                     WorkoutPlannerDb.class,DATABASE_NAME)
                     .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
+            //.fallbackToDestructiveMigration()
         }
         return workoutPlannerDb;
     }
@@ -67,7 +73,7 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
     };
 
     private static class PopulateDbExerciseAsyncTask extends AsyncTask<Void,Void,Void>{
-        private ExerciseDao exerciseDao;
+        private final ExerciseDao exerciseDao;
 
         private PopulateDbExerciseAsyncTask(WorkoutPlannerDb db){
             exerciseDao=db.exerciseDao();
