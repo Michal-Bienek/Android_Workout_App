@@ -21,20 +21,24 @@ public class RoutineRepository {
     }
 
     public void insertRoutine(Routine routine){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> routineDao.insertRoutine(routine));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> routineDao.insertRoutine(routine));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute();
     }
     public void insertRoutines(List<Routine>routines){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> routineDao.insertRoutines(routines));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> routineDao.insertRoutines(routines));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(() -> routineDao.insertRoutines(routines));
     }
     public void updateRoutine(Routine routine){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(()->routineDao.updateRoutine(routine));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->routineDao.updateRoutine(routine));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(()->routineDao.updateRoutine(routine));
     }
     public void deleteRoutine(Routine routine){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(()->routineDao.deleteRoutine(routine));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->routineDao.deleteRoutine(routine));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(()->routineDao.deleteRoutine(routine));
     }
     public LiveData<List<Routine>>getAllRoutines(){
         return routineDao.getAllRoutines();
