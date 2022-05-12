@@ -7,16 +7,21 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.workout_appv1.data.entities.ExercisesInRoutine;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.data.entities.Series;
+import com.example.workout_appv1.data.repositories.ExerciseInRoutineRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
+    private ExerciseInRoutineRepository exerciseInRoutineRepository;
     private MutableLiveData<List<Series>>exerciseSeries;
     public DialogAddExerciseToRoutineViewModel(@NonNull Application application) {
         super(application);
+        exerciseInRoutineRepository = new ExerciseInRoutineRepository(application);
     }
 
     public LiveData<List<Series>>getExerciseSeriesList(){
@@ -51,6 +56,17 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
         initList.add(series);
         this.exerciseSeries = new MutableLiveData<>(initList);
 
+    }
+
+    public void addExerciseWithParameters(int routineId,int exerciseId,List<Series>seriesList){
+        if(seriesList.size()>=1){
+            ExercisesInRoutine exercises = new ExercisesInRoutine(0,routineId,exerciseId);
+            try {
+                exerciseInRoutineRepository.insertExerciseInRoutineWithParameters(exercises,seriesList);
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

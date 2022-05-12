@@ -5,32 +5,49 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.workout_appv1.data.WorkoutPlannerDb;
+import com.example.workout_appv1.data.daos.ExerciseDao;
 import com.example.workout_appv1.data.daos.ExercisesInRoutineDao;
 import com.example.workout_appv1.data.entities.ExercisesInRoutine;
+import com.example.workout_appv1.data.entities.Series;
+import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.relations.ExercisesInRoutineWithWorkoutParams;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class ExerciseInRoutineRepository {
     private final ExercisesInRoutineDao exercisesInRoutineDao;
+    private final WorkoutPlannerDb database;
+
     public ExerciseInRoutineRepository(Application application){
-        WorkoutPlannerDb database = WorkoutPlannerDb.getInstance(application);
+        database = WorkoutPlannerDb.getInstance(application);
         this.exercisesInRoutineDao = database.exercisesInRoutineDao();
     }
 
     public void insertExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->this.exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
-//
-////        Future<Long>future = executorService.submit(()->this.exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
-//        Future<Long> submit = executorService.submit((Callable<Long>) () -> this.exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
-//        executorService.shutdown();
 
+    }
+    public void insertExerciseInRoutineWithParameters(ExercisesInRoutine exercisesInRoutine,List<Series>seriesList) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<Long>future = null;
+
+        future = executorService.submit(() -> exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
+        long exerciseInRoutineId = future.get();
+        WorkoutParams workoutParams = new WorkoutParams(0,null,(int)exerciseInRoutineId);
+        future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
+        long workoutParamsId = future.get();
+        int wpId = (int)workoutParamsId;
+        for(int i=0;i<seriesList.size();i++){
+            seriesList.get(i).setFk_workoutParamsId(wpId);
+        }
+        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
+
+        executorService.shutdown();
     }
 
     public void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList){

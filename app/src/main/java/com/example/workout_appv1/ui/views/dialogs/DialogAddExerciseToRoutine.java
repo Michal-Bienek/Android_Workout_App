@@ -29,7 +29,8 @@ import java.util.List;
 
 public class DialogAddExerciseToRoutine extends DialogFragment implements ExerciseParamsAdapter.OnEtParamsChanged{
     public static final String ARG_ROUTINE_ID = "ROUTINE_ID";
-    public static final String ARG_EXERCISE_Name = "EXERCISE_ID";
+    public static final String ARG_EXERCISE_Name = "EXERCISE_NAME";
+    public static final String ARG_EXERCISE_ID = "EXERCISE_ID";
     Context context;
     TextView tvExNameDialogAddExercise;
     TextView tvNumberOfSeries;
@@ -38,10 +39,11 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
     private DialogAddExerciseToRoutineViewModel viewModel;
     private ExerciseParamsAdapter adapter;
 
-    public static DialogAddExerciseToRoutine newAddInstance(int routineId, String exerciseName){
+    public static DialogAddExerciseToRoutine newAddInstance(int routineId,int exerciseId, String exerciseName){
         DialogAddExerciseToRoutine dialog = new DialogAddExerciseToRoutine();
         Bundle args = new Bundle();
         args.putInt(ARG_ROUTINE_ID,routineId);
+        args.putInt(ARG_EXERCISE_ID,exerciseId);
         args.putString(ARG_EXERCISE_Name,exerciseName);
         dialog.setArguments(args);
         return dialog;
@@ -79,6 +81,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
         btnPlusSeries=view.findViewById(R.id.btnPlusSeries);
         rvFragmentDialogExercise= view.findViewById(R.id.rvFragmentDialogExercise);
         Button btnCancel = view.findViewById(R.id.btnCancelDialogAddExerciseWithParams);
+        Button btnAdd = view.findViewById(R.id.btnOkDialogAddExerciseWithParams);
 
         //Initialize RecyclerView
         LinearLayoutManager layoutManager= new LinearLayoutManager(context);
@@ -99,19 +102,21 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
             dismiss();
         }
         else {
-            if (args.containsKey(ARG_ROUTINE_ID)&&args.containsKey(ARG_EXERCISE_Name)){
+            if (args.containsKey(ARG_ROUTINE_ID)&&args.containsKey(ARG_EXERCISE_Name)&&args.containsKey(ARG_EXERCISE_ID)){
                 int routineId = args.getInt(ARG_ROUTINE_ID);
+                int exerciseId = args.getInt(ARG_EXERCISE_ID);
                 String exerciseName = args.getString(ARG_EXERCISE_Name);
                 tvExNameDialogAddExercise.setText(exerciseName);
-                viewModel.getExerciseSeriesList().observe(this, new Observer<List<Series>>() {
-                    @Override
-                    public void onChanged(List<Series> seriesList) {
-                        adapter.setSeriesList(seriesList);
-                        tvNumberOfSeries.setText(String.valueOf(seriesList.size()));
-                    }
+                viewModel.getExerciseSeriesList().observe(this, seriesList -> {
+                    adapter.setSeriesList(seriesList);
+                    tvNumberOfSeries.setText(String.valueOf(seriesList.size()));
                 });
                 btnPlusSeries.setOnClickListener(view1 -> viewModel.addSeries(adapter.getSeriesList()));
                 btnMinusSeries.setOnClickListener(view12 -> viewModel.removeSeries(adapter.getSeriesList()));
+                btnAdd.setOnClickListener(view13 -> {
+                    viewModel.addExerciseWithParameters(routineId,exerciseId,adapter.getSeriesList());
+                    dismiss();
+                });
             }
             else{
                 dismiss();
