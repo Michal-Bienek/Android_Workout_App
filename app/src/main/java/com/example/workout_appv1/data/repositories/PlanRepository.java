@@ -15,27 +15,31 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PlanRepository {
-    private PlanDao planDao;
+    private final PlanDao planDao;
+    private final WorkoutPlannerDb database;
+
     public PlanRepository(Application application){
-        WorkoutPlannerDb database = WorkoutPlannerDb.getInstance(application);
+        database = WorkoutPlannerDb.getInstance(application);
         this.planDao = database.planDao();
     }
 
     public void insertPlan(Plan plan){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> planDao.insertPlan(plan));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> planDao.insertPlan(plan));
     }
     public void insertPlans(List<Plan>plans){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> planDao.insertPlans(plans));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->planDao.insertPlans(plans));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(() -> planDao.insertPlans(plans));
     }
     public void deletePlan(Plan plan){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> planDao.deletePlan(plan));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> planDao.deletePlan(plan));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(() -> planDao.deletePlan(plan));
     }
     public void updatePlan(Plan plan){
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> planDao.updatePlan(plan));
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->planDao.updatePlan(plan));
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.execute(() -> planDao.updatePlan(plan));
     }
     public LiveData<List<Plan>>getSortedPlans(){
         return this.planDao.getSortedPlans();

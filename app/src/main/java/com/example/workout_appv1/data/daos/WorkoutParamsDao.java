@@ -18,7 +18,7 @@ import java.util.List;
 @Dao
 public interface WorkoutParamsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertWorkoutParams(WorkoutParams workoutParams);
+    long insertWorkoutParams(WorkoutParams workoutParams);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertWorkoutParamsList(List<WorkoutParams> workoutParamsList);

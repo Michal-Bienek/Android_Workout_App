@@ -13,11 +13,12 @@ import com.example.workout_appv1.data.entities.ExercisesInRoutine;
 import com.example.workout_appv1.data.relations.ExercisesInRoutineWithWorkoutParams;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @Dao
 public interface ExercisesInRoutineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExerciseInRoutine(ExercisesInRoutine exerciseInRoutine);
+    long insertExerciseInRoutine(ExercisesInRoutine exerciseInRoutine);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList);
