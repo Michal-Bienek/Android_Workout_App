@@ -72,7 +72,12 @@ public class FragmentRoutine extends Fragment {
         initViews(view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        RoutineAdapter adapter = new RoutineAdapter(context);
+        RoutineAdapter adapter = new RoutineAdapter(context, new RoutineAdapter.IOnExerciseInRoutine() {
+            @Override
+            public void onDelete(int exerciseInRoutineId) {
+                viewModel.deleteExerciseInRoutineById(exerciseInRoutineId);
+            }
+        });
         rvRoutine.setLayoutManager(layoutManager);
         rvRoutine.setAdapter(adapter);
 

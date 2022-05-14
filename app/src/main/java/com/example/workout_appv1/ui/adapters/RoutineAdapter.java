@@ -22,9 +22,11 @@ import java.util.List;
 public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder> {
     private List<ExerciseInRoutineExercise> exerciseInRoutineExerciseList = new ArrayList<>();
     private Context context;
+    private IOnExerciseInRoutine onExerciseInRoutine;
 
-    public RoutineAdapter(Context context) {
+    public RoutineAdapter(Context context, IOnExerciseInRoutine onExerciseInRoutine) {
         this.context = context;
+        this.onExerciseInRoutine = onExerciseInRoutine;
     }
 
     @NonNull
@@ -48,7 +50,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
                         Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.miDelete:
-                        //delete(holder);
+                        delete(holder);
                         Toast.makeText(context, "Usuń", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
@@ -70,6 +72,11 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         notifyDataSetChanged();
     }
 
+    private void delete(RoutineAdapter.RoutineViewHolder holder){
+        ExerciseInRoutineExercise exercise = this.exerciseInRoutineExerciseList.get(holder.getAdapterPosition());
+        onExerciseInRoutine.onDelete(exercise.exInRoutineId);
+    }
+
     public class RoutineViewHolder extends RecyclerView.ViewHolder{
         ConstraintLayout clRoutineItem;
         TextView tvExerciseNameItemRoutine;
@@ -80,5 +87,9 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
             this.tvExerciseNameItemRoutine = itemView.findViewById(R.id.tvExerciseNameItemRoutine);
             this.btnMoreItemRoutine = itemView.findViewById(R.id.btnMoreItemRoutine);
         }
+    }
+
+    public interface IOnExerciseInRoutine{
+        void onDelete(int exerciseInRoutineId);
     }
 }
