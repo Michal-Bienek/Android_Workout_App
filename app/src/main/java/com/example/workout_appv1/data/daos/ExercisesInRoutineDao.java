@@ -31,23 +31,22 @@ public interface ExercisesInRoutineDao {
     void updateExerciseInRoutine(ExercisesInRoutine exercisesInRoutine);
 
     @Query("SELECT * FROM exercises_in_routine")
-    LiveData<List<ExercisesInRoutine>>getAllExercisesInRoutine();
+    LiveData<List<ExercisesInRoutine>> getAllExercisesInRoutine();
 
     @Query("SELECT * FROM exercises_in_routine WHERE fk_routineId=:routineId")
-    LiveData<List<ExercisesInRoutine>>getExercisesInRoutineByRoutineId(int routineId);
+    LiveData<List<ExercisesInRoutine>> getExercisesInRoutineByRoutineId(int routineId);
 
     @Query("SELECT * FROM exercises_in_routine WHERE fk_exerciseId=:exerciseId")
-    LiveData<List<ExercisesInRoutine>>getExercisesInRoutineByExerciseId(int exerciseId);
+    LiveData<List<ExercisesInRoutine>> getExercisesInRoutineByExerciseId(int exerciseId);
 
     @Transaction
     @Query("SELECT * FROM exercises_in_routine WHERE exerciseInRoutineId=:exerciseInRoutineId")
-    LiveData<List<ExercisesInRoutineWithWorkoutParams>>getExercisesWithParams(int exerciseInRoutineId);
+    LiveData<List<ExercisesInRoutineWithWorkoutParams>> getExercisesWithParams(int exerciseInRoutineId);
 
     //Obsługa innerjoin exercises_in_routine i exercises
 
     @Query("SELECT exercises_in_routine.exerciseInRoutineId as exInRoutineId, exercises.exerciseId as exerciseId, exercises.name as exerciseName  FROM exercises_in_routine INNER JOIN exercises ON exercises_in_routine.fk_exerciseId = exercises.exerciseId WHERE exercises_in_routine.fk_routineId = :routineId ")
-    LiveData<List<ExerciseInRoutineExercise>>getExerciseInRoutineAndExerciseByRoutineId(int routineId);
-
+    LiveData<List<ExerciseInRoutineExercise>> getExerciseInRoutineAndExerciseByRoutineId(int routineId);
 
 
 }

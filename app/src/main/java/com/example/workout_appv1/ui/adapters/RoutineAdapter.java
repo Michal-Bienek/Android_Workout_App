@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,25 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
         ExerciseInRoutineExercise exercise = exerciseInRoutineExerciseList.get(position);
         holder.tvExerciseNameItemRoutine.setText(exercise.exerciseName);
+        holder.btnMoreItemRoutine.setOnClickListener(view -> {
+            PopupMenu popup=new PopupMenu(context,holder.btnMoreItemRoutine);
+            popup.inflate(R.menu.item_popup_menu);
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()){
+                    case R.id.miEdit:
+                        //update(holder);
+                        Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.miDelete:
+                        //delete(holder);
+                        Toast.makeText(context, "Usuń", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            });
+            popup.show();
+        });
 
     }
 
