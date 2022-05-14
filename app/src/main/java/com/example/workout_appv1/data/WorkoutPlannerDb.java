@@ -48,6 +48,7 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
             workoutPlannerDb=Room.databaseBuilder(context.getApplicationContext(),
                     WorkoutPlannerDb.class,DATABASE_NAME)
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .build();
             //.fallbackToDestructiveMigration()
