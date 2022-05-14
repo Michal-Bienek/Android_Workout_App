@@ -46,12 +46,10 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
             popup.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()){
                     case R.id.miEdit:
-                        //update(holder);
-                        Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
+                        update(holder);
                         return true;
                     case R.id.miDelete:
                         delete(holder);
-                        Toast.makeText(context, "Usuń", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         return false;
@@ -77,6 +75,11 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         onExerciseInRoutine.onDelete(exercise.exInRoutineId);
     }
 
+    private void update(RoutineAdapter.RoutineViewHolder holder){
+        ExerciseInRoutineExercise exercise = this.exerciseInRoutineExerciseList.get(holder.getAdapterPosition());
+        onExerciseInRoutine.onEdit(exercise);
+    }
+
     public class RoutineViewHolder extends RecyclerView.ViewHolder{
         ConstraintLayout clRoutineItem;
         TextView tvExerciseNameItemRoutine;
@@ -91,5 +94,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
 
     public interface IOnExerciseInRoutine{
         void onDelete(int exerciseInRoutineId);
+        void onEdit(ExerciseInRoutineExercise exercise);
     }
 }

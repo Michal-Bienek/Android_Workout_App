@@ -77,6 +77,11 @@ public class FragmentRoutine extends Fragment {
             public void onDelete(int exerciseInRoutineId) {
                 viewModel.deleteExerciseInRoutineById(exerciseInRoutineId);
             }
+
+            @Override
+            public void onEdit(ExerciseInRoutineExercise exercise) {
+                Toast.makeText(context, "ogarnąć edycję", Toast.LENGTH_SHORT).show();
+            }
         });
         rvRoutine.setLayoutManager(layoutManager);
         rvRoutine.setAdapter(adapter);
