@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.daos.ExerciseDao;
 import com.example.workout_appv1.data.daos.ExercisesInRoutineDao;
@@ -58,6 +59,10 @@ public class ExerciseInRoutineRepository {
     public void deleteExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.deleteExerciseInRoutine(exercisesInRoutine));
 
+    }
+
+    public void deleteExerciseInRoutineById(int exerciseInRoutineId){
+        WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.deleteExerciseInRoutineById(exerciseInRoutineId));
     }
 
     public void updateExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){

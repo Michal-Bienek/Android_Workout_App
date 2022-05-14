@@ -27,6 +27,9 @@ public interface ExercisesInRoutineDao {
     @Delete
     void deleteExerciseInRoutine(ExercisesInRoutine exercisesInRoutine);
 
+    @Query("DELETE FROM exercises_in_routine WHERE exerciseInRoutineId= :exerciseInRoutineId")
+    void deleteExerciseInRoutineById(int exerciseInRoutineId);
+
     @Update
     void updateExerciseInRoutine(ExercisesInRoutine exercisesInRoutine);
 

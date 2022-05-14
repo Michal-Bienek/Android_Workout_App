@@ -21,4 +21,12 @@ public class FragmentRoutineViewModel extends AndroidViewModel {
     public LiveData<List<ExerciseInRoutineExercise>>getExerciseInRoutineAndExerciseByRoutineId(int routineId){
         return exerciseInRoutineRepository.getExerciseInRoutineAndExerciseByRoutineId(routineId);
     }
+
+    public void deleteExerciseInRoutineById(int exerciseInRoutineId){
+        try{
+            exerciseInRoutineRepository.deleteExerciseInRoutineById(exerciseInRoutineId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
