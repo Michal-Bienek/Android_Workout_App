@@ -25,26 +25,27 @@ public class ExerciseInRoutineRepository {
     private final ExercisesInRoutineDao exercisesInRoutineDao;
     private final WorkoutPlannerDb database;
 
-    public ExerciseInRoutineRepository(Application application){
+    public ExerciseInRoutineRepository(Application application) {
         database = WorkoutPlannerDb.getInstance(application);
         this.exercisesInRoutineDao = database.exercisesInRoutineDao();
     }
 
-    public void insertExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
+    public void insertExerciseInRoutine(ExercisesInRoutine exercisesInRoutine) {
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> this.exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
 
     }
-    public void insertExerciseInRoutineWithParameters(ExercisesInRoutine exercisesInRoutine,List<Series>seriesList) throws ExecutionException, InterruptedException {
+
+    public void insertExerciseInRoutineWithParameters(ExercisesInRoutine exercisesInRoutine, List<Series> seriesList) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Long>future = null;
+        Future<Long> future;
 
         future = executorService.submit(() -> exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
         long exerciseInRoutineId = future.get();
-        WorkoutParams workoutParams = new WorkoutParams(0,null,(int)exerciseInRoutineId);
+        WorkoutParams workoutParams = new WorkoutParams(0, null, (int) exerciseInRoutineId);
         future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
         long workoutParamsId = future.get();
-        int wpId = (int)workoutParamsId;
-        for(int i=0;i<seriesList.size();i++){
+        int wpId = (int) workoutParamsId;
+        for (int i = 0; i < seriesList.size(); i++) {
             seriesList.get(i).setFk_workoutParamsId(wpId);
         }
         executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
@@ -52,40 +53,57 @@ public class ExerciseInRoutineRepository {
         executorService.shutdown();
     }
 
-    public void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.insertExerciseInRoutineList(exercisesInRoutineList));
+    public void updateExerciseInRoutineWithParameters(int exerciseInRoutineId, List<Series>seriesList) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<Long> future;
+
+        WorkoutParams workoutParams = new WorkoutParams(0, null, exerciseInRoutineId);
+        future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
+        long workoutParamsId = future.get();
+        int wpId = (int) workoutParamsId;
+        for (int i = 0; i < seriesList.size(); i++) {
+            seriesList.get(i).setFk_workoutParamsId(wpId);
+        }
+        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
+
+        executorService.shutdown();
+
     }
 
-    public void deleteExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.deleteExerciseInRoutine(exercisesInRoutine));
+    public void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList) {
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> this.exercisesInRoutineDao.insertExerciseInRoutineList(exercisesInRoutineList));
+    }
+
+    public void deleteExerciseInRoutine(ExercisesInRoutine exercisesInRoutine) {
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> this.exercisesInRoutineDao.deleteExerciseInRoutine(exercisesInRoutine));
 
     }
 
-    public void deleteExerciseInRoutineById(int exerciseInRoutineId){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.deleteExerciseInRoutineById(exerciseInRoutineId));
+    public void deleteExerciseInRoutineById(int exerciseInRoutineId) {
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> this.exercisesInRoutineDao.deleteExerciseInRoutineById(exerciseInRoutineId));
     }
 
-    public void updateExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
+    public void updateExerciseInRoutine(ExercisesInRoutine exercisesInRoutine) {
         WorkoutPlannerDb.databaseWriteExecutor.execute(() -> exercisesInRoutineDao.updateExerciseInRoutine(exercisesInRoutine));
     }
 
-    public LiveData<List<ExercisesInRoutine>> getAllExercisesInRoutine(){
+    public LiveData<List<ExercisesInRoutine>> getAllExercisesInRoutine() {
         return this.exercisesInRoutineDao.getAllExercisesInRoutine();
     }
 
-    public  LiveData<List<ExercisesInRoutine>>getExercisesInRoutineByRoutineId(int routineId){
+    public LiveData<List<ExercisesInRoutine>> getExercisesInRoutineByRoutineId(int routineId) {
         return this.exercisesInRoutineDao.getExercisesInRoutineByRoutineId(routineId);
     }
 
-    public LiveData<List<ExercisesInRoutine>>getExercisesInRoutineByExerciseId(int exerciseId){
+    public LiveData<List<ExercisesInRoutine>> getExercisesInRoutineByExerciseId(int exerciseId) {
         return this.exercisesInRoutineDao.getExercisesInRoutineByExerciseId(exerciseId);
     }
 
-    public LiveData<List<ExercisesInRoutineWithWorkoutParams>>exercisesWithParams(int exerciseInRoutineId){
+    public LiveData<List<ExercisesInRoutineWithWorkoutParams>> exercisesWithParams(int exerciseInRoutineId) {
         return this.exercisesInRoutineDao.getExercisesWithParams(exerciseInRoutineId);
     }
 
-    public LiveData<List<ExerciseInRoutineExercise>> getExerciseInRoutineAndExerciseByRoutineId(int routineId){
+    public LiveData<List<ExerciseInRoutineExercise>> getExerciseInRoutineAndExerciseByRoutineId(int routineId) {
         return this.exercisesInRoutineDao.getExerciseInRoutineAndExerciseByRoutineId(routineId);
     }
 

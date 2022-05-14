@@ -23,6 +23,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
 import com.example.workout_appv1.ui.adapters.RoutineAdapter;
+import com.example.workout_appv1.ui.views.dialogs.DialogAddExerciseToRoutine;
 import com.example.workout_appv1.viewmodels.FragmentRoutineViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -80,7 +81,8 @@ public class FragmentRoutine extends Fragment {
 
             @Override
             public void onEdit(ExerciseInRoutineExercise exercise) {
-                Toast.makeText(context, "ogarnąć edycję", Toast.LENGTH_SHORT).show();
+                DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newEditDialog(exercise.exInRoutineId,exercise.exerciseName);
+                dialog.show(getChildFragmentManager(), "EditExerciseInRoutine");
             }
         });
         rvRoutine.setLayoutManager(layoutManager);

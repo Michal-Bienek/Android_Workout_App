@@ -42,8 +42,8 @@ public interface WorkoutParamsDao {
     LiveData<List<WorkoutParams>>getLatestWorkoutParamsInExerciseInRoutine(int ExerciseInRoutineId);
 
     @Transaction
-    @Query("SELECT * FROM workout_params WHERE workoutParamsId=:workoutParamsId")
-    LiveData<List<WorkoutParamsWithSeries>>getWorkoutParamsWithSeries(int workoutParamsId);
+    @Query("SELECT * FROM workout_params WHERE fk_exerciseInRoutineId = :exerciseInRoutineId AND workout_date IS NULL ORDER BY workoutParamsId DESC LIMIT 1")
+    WorkoutParamsWithSeries getWorkoutParamsWithSeries(int exerciseInRoutineId);
 
 
 
