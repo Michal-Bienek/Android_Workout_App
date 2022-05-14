@@ -10,6 +10,7 @@ import com.example.workout_appv1.data.daos.ExercisesInRoutineDao;
 import com.example.workout_appv1.data.entities.ExercisesInRoutine;
 import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.entities.WorkoutParams;
+import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
 import com.example.workout_appv1.data.relations.ExercisesInRoutineWithWorkoutParams;
 
 import java.util.List;
@@ -52,24 +53,15 @@ public class ExerciseInRoutineRepository {
 
     public void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.insertExerciseInRoutineList(exercisesInRoutineList));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->this.exercisesInRoutineDao.insertExerciseInRoutineList(exercisesInRoutineList));
-//        executorService.shutdown();
     }
 
     public void deleteExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->this.exercisesInRoutineDao.deleteExerciseInRoutine(exercisesInRoutine));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->this.exercisesInRoutineDao.deleteExerciseInRoutine(exercisesInRoutine));
-//        executorService.shutdown();
 
     }
 
     public void updateExerciseInRoutine(ExercisesInRoutine exercisesInRoutine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(() -> exercisesInRoutineDao.updateExerciseInRoutine(exercisesInRoutine));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(() -> exercisesInRoutineDao.updateExerciseInRoutine(exercisesInRoutine));
-//        executorService.shutdown();
     }
 
     public LiveData<List<ExercisesInRoutine>> getAllExercisesInRoutine(){
@@ -86,6 +78,10 @@ public class ExerciseInRoutineRepository {
 
     public LiveData<List<ExercisesInRoutineWithWorkoutParams>>exercisesWithParams(int exerciseInRoutineId){
         return this.exercisesInRoutineDao.getExercisesWithParams(exerciseInRoutineId);
+    }
+
+    public LiveData<List<ExerciseInRoutineExercise>> getExerciseInRoutineAndExerciseByRoutineId(int routineId){
+        return this.exercisesInRoutineDao.getExerciseInRoutineAndExerciseByRoutineId(routineId);
     }
 
 }
