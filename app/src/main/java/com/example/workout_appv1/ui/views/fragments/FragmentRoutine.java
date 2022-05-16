@@ -91,6 +91,7 @@ public class FragmentRoutine extends Fragment {
         viewModel.getExerciseInRoutineAndExerciseByRoutineId(routineId).observe(getViewLifecycleOwner(), new Observer<List<ExerciseInRoutineExercise>>() {
             @Override
             public void onChanged(List<ExerciseInRoutineExercise> exerciseInRoutineExercises) {
+                btnStartWorkout.setEnabled(exerciseInRoutineExercises.size() > 0);
                 adapter.setExerciseInRoutineExerciseList(exerciseInRoutineExercises);
                 Toast.makeText(context, ""+exerciseInRoutineExercises.size(), Toast.LENGTH_SHORT).show();
             }
