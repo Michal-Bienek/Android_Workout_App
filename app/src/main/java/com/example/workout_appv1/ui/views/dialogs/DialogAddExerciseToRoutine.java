@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +29,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
     public static final String ARG_ROUTINE_ID = "ROUTINE_ID";
     public static final String ARG_EXERCISE_Name = "EXERCISE_NAME";
     public static final String ARG_EXERCISE_ID = "EXERCISE_ID";
+    public static final String ARG_EXERCISE_IN_ROUTINE_ID = "EXERCISE_IN_ROUTINE_ID";
     Context context;
     TextView tvExNameDialogAddExercise;
     TextView tvNumberOfSeries;
@@ -38,12 +37,22 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
     RecyclerView  rvFragmentDialogExercise;
     private DialogAddExerciseToRoutineViewModel viewModel;
     private ExerciseParamsAdapter adapter;
+    private Button btnAdd;
 
-    public static DialogAddExerciseToRoutine newAddInstance(int routineId,int exerciseId, String exerciseName){
+    public static DialogAddExerciseToRoutine newAddDialog(int routineId, int exerciseId, String exerciseName){
         DialogAddExerciseToRoutine dialog = new DialogAddExerciseToRoutine();
         Bundle args = new Bundle();
         args.putInt(ARG_ROUTINE_ID,routineId);
         args.putInt(ARG_EXERCISE_ID,exerciseId);
+        args.putString(ARG_EXERCISE_Name,exerciseName);
+        dialog.setArguments(args);
+        return dialog;
+    }
+
+    public static DialogAddExerciseToRoutine newEditDialog(int exerciseInRoutineId, String exerciseName){
+        DialogAddExerciseToRoutine dialog = new DialogAddExerciseToRoutine();
+        Bundle args = new Bundle();
+        args.putInt(ARG_EXERCISE_IN_ROUTINE_ID,exerciseInRoutineId);
         args.putString(ARG_EXERCISE_Name,exerciseName);
         dialog.setArguments(args);
         return dialog;
@@ -81,7 +90,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
         btnPlusSeries=view.findViewById(R.id.btnPlusSeries);
         rvFragmentDialogExercise= view.findViewById(R.id.rvFragmentDialogExercise);
         Button btnCancel = view.findViewById(R.id.btnCancelDialogAddExerciseWithParams);
-        Button btnAdd = view.findViewById(R.id.btnOkDialogAddExerciseWithParams);
+        btnAdd = view.findViewById(R.id.btnOkDialogAddExerciseWithParams);
 
         //Initialize RecyclerView
         LinearLayoutManager layoutManager= new LinearLayoutManager(context);
@@ -89,12 +98,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
         this.rvFragmentDialogExercise.setLayoutManager(layoutManager);
         this.rvFragmentDialogExercise.setAdapter(adapter);
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        btnCancel.setOnClickListener(view14 -> dismiss());
 
 
         Bundle args = getArguments();
@@ -103,26 +107,51 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
         }
         else {
             if (args.containsKey(ARG_ROUTINE_ID)&&args.containsKey(ARG_EXERCISE_Name)&&args.containsKey(ARG_EXERCISE_ID)){
-                int routineId = args.getInt(ARG_ROUTINE_ID);
-                int exerciseId = args.getInt(ARG_EXERCISE_ID);
-                String exerciseName = args.getString(ARG_EXERCISE_Name);
-                tvExNameDialogAddExercise.setText(exerciseName);
-                viewModel.getExerciseSeriesList().observe(this, seriesList -> {
-                    adapter.setSeriesList(seriesList);
-                    tvNumberOfSeries.setText(String.valueOf(seriesList.size()));
-                });
-                btnPlusSeries.setOnClickListener(view1 -> viewModel.addSeries(adapter.getSeriesList()));
-                btnMinusSeries.setOnClickListener(view12 -> viewModel.removeSeries(adapter.getSeriesList()));
-                btnAdd.setOnClickListener(view13 -> {
-                    viewModel.addExerciseWithParameters(routineId,exerciseId,adapter.getSeriesList());
-                    dismiss();
-                });
+                handleInsertion(args);
+            } else if(args.containsKey(ARG_EXERCISE_IN_ROUTINE_ID)&&args.containsKey(ARG_EXERCISE_Name)){
+                handleEdit(args);
             }
             else{
                 dismiss();
             }
         }
        return view;
+    }
+
+    private void handleInsertion(Bundle args){
+        int routineId = args.getInt(ARG_ROUTINE_ID);
+        int exerciseId = args.getInt(ARG_EXERCISE_ID);
+        String exerciseName = args.getString(ARG_EXERCISE_Name);
+        tvExNameDialogAddExercise.setText(exerciseName);
+        viewModel.getExerciseSeriesList().observe(this, seriesList -> {
+            adapter.setSeriesList(seriesList);
+            tvNumberOfSeries.setText(String.valueOf(seriesList.size()));
+        });
+        btnPlusSeries.setOnClickListener(view1 -> viewModel.addSeries(adapter.getSeriesList()));
+        btnMinusSeries.setOnClickListener(view12 -> viewModel.removeSeries(adapter.getSeriesList()));
+        btnAdd.setOnClickListener(view13 -> {
+            viewModel.addExerciseWithParameters(routineId,exerciseId,adapter.getSeriesList());
+            dismiss();
+        });
+    }
+
+    private void handleEdit(Bundle args){
+        int exerciseInRoutineId = args.getInt(ARG_EXERCISE_IN_ROUTINE_ID);
+        String exerciseName = args.getString(ARG_EXERCISE_Name);
+        tvExNameDialogAddExercise.setText(exerciseName);
+        btnAdd.setText("Edytuj");
+        viewModel.getExerciseSeriesList(exerciseInRoutineId).observe(this, seriesList -> {
+            adapter.setSeriesList(seriesList);
+            tvNumberOfSeries.setText(String.valueOf(seriesList.size()));
+        });
+        btnPlusSeries.setOnClickListener(view1 -> viewModel.addSeries(adapter.getSeriesList()));
+        btnMinusSeries.setOnClickListener(view12 -> viewModel.removeSeries(adapter.getSeriesList()));
+        btnAdd.setOnClickListener(view13 -> {
+            viewModel.editExerciseWithParameters(exerciseInRoutineId,adapter.getSeriesList());
+            dismiss();
+        });
+
+
     }
 
     @Override

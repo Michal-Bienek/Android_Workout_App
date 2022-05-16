@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Exercise;
 import com.example.workout_appv1.ui.adapters.ExerciseAdapter;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddExerciseToRoutine;
@@ -99,7 +95,7 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
 
     @Override
     public void onExerciseClick(Exercise exercise) {
-        DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newAddInstance(routineId,exercise.getExerciseId(),exercise.getName());
+        DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newAddDialog(routineId,exercise.getExerciseId(),exercise.getName());
         dialog.show(getChildFragmentManager(),"AddExerciseToRoutine");
     }
 }
