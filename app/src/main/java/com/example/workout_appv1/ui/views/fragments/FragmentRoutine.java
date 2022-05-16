@@ -106,6 +106,12 @@ public class FragmentRoutine extends Fragment {
 
         });
 
+        btnStartWorkout.setOnClickListener(view12 -> {
+            NavController navController = NavHostFragment.findNavController(this);
+            NavDirections action = FragmentRoutineDirections.actionFragmentRoutineToFragmentWorkout(routineId);
+            navController.navigate(action);
+        });
+
         return view;
     }
 

@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_fragmentRoutine_to_fragmentExercise"
             app:destination="@id/fragmentExercise" />
+        <action
+            android:id="@+id/action_fragmentRoutine_to_fragmentWorkout"
+            app:destination="@id/fragmentWorkout" />
     </fragment>
     <fragment
         android:id="@+id/fragmentExercise"
@@ -48,5 +51,14 @@
         <action
             android:id="@+id/action_fragmentExercise_to_fragmentRoutine"
             app:destination="@id/fragmentRoutine" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentWorkout"
+        android:name="com.example.workout_appv1.ui.views.fragments.FragmentWorkout"
+        android:label="fragment_workout"
+        tools:layout="@layout/fragment_workout" >
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
     </fragment>
 </navigation>
