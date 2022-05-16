@@ -14,6 +14,7 @@ import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
 import com.example.workout_appv1.data.relations.ExercisesInRoutineWithWorkoutParams;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -61,10 +62,13 @@ public class ExerciseInRoutineRepository {
         future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
         long workoutParamsId = future.get();
         int wpId = (int) workoutParamsId;
+        List<Series> seriesInsertionList= new ArrayList<>();
         for (int i = 0; i < seriesList.size(); i++) {
-            seriesList.get(i).setFk_workoutParamsId(wpId);
+            Series series = seriesList.get(i);
+            Series insertionSeries = new Series(series.getReps(),series.getWeight(),series.getRate(),series.getRestTime(),series.getNote(),wpId);
+            seriesInsertionList.add(insertionSeries);
         }
-        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
+        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesInsertionList));
 
         executorService.shutdown();
 
