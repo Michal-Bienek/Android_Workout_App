@@ -24,7 +24,7 @@
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/drawable/ic_more.xml" value="0.3495" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/drawable/ic_more_black.xml" value="0.3495" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/drawable/rounded_textview.xml" value="0.3495" />
-        <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/activity_main.xml" value="0.35688405797101447" />
+        <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/activity_plan.xml" value="0.33" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/activity_routine.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/dialog_fragment_add_edit_routine.xml" value="0.18802083333333333" />
@@ -51,6 +51,7 @@
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_fragment_plan.xml" value="0.264945652173913" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/layout/recycler_fragment_routine.xml" value="0.25" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/menu/drawer_menu.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/micha/OneDrive/Pulpit/Aplikacja praca licencjacka/workout_appv1/app/src/main/res/menu/item_popup_menu.xml" value="0.33611111111111114" />
       </map>
     </option>
