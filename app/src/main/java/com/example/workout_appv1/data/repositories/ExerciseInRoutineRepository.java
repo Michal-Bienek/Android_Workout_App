@@ -8,14 +8,18 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.daos.ExerciseDao;
 import com.example.workout_appv1.data.daos.ExercisesInRoutineDao;
+import com.example.workout_appv1.data.entities.Exercise;
 import com.example.workout_appv1.data.entities.ExercisesInRoutine;
 import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
+import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineWorkoutParams;
+import com.example.workout_appv1.data.joinEntities.ExerciseWithSeries;
 import com.example.workout_appv1.data.relations.ExercisesInRoutineWithWorkoutParams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -24,11 +28,13 @@ import java.util.concurrent.Future;
 
 public class ExerciseInRoutineRepository {
     private final ExercisesInRoutineDao exercisesInRoutineDao;
+    private final ExerciseDao exerciseDao;
     private final WorkoutPlannerDb database;
 
     public ExerciseInRoutineRepository(Application application) {
         database = WorkoutPlannerDb.getInstance(application);
         this.exercisesInRoutineDao = database.exercisesInRoutineDao();
+        this.exerciseDao = database.exerciseDao();
     }
 
     public void insertExerciseInRoutine(ExercisesInRoutine exercisesInRoutine) {
@@ -109,6 +115,17 @@ public class ExerciseInRoutineRepository {
 
     public LiveData<List<ExerciseInRoutineExercise>> getExerciseInRoutineAndExerciseByRoutineId(int routineId) {
         return this.exercisesInRoutineDao.getExerciseInRoutineAndExerciseByRoutineId(routineId);
+    }
+    public List<ExerciseWithSeries> getExercisesInRoutineWithSeries(int routineId){
+        Map<ExerciseInRoutineWorkoutParams, List<Series>> exerciseWithSeries = this.exercisesInRoutineDao.getExercisesWithSeries(routineId);
+        List<ExerciseWithSeries>exerciseWithSeriesList = new ArrayList<>();
+        for (Map.Entry<ExerciseInRoutineWorkoutParams, List<Series>> entry : exerciseWithSeries.entrySet()) {
+            ExerciseInRoutineWorkoutParams exerciseInRoutineWorkoutParams = entry.getKey();
+            Exercise exercise = exerciseDao.getExerciseById(exerciseInRoutineWorkoutParams.fk_exerciseId);
+            ExerciseWithSeries ex = new ExerciseWithSeries(exercise,exerciseInRoutineWorkoutParams,entry.getValue());
+            exerciseWithSeriesList.add(ex);
+        }
+        return exerciseWithSeriesList;
     }
 
 }
