@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/fragmentProgram"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentProgram"
-        android:label="fragment_program"
-        tools:layout="@layout/fragment_program" >
+        android:label="Plany treningowe"
+        tools:layout="@layout/fragment_program">
         <action
             android:id="@+id/action_fragmentProgram_to_fragmentPlan"
             app:destination="@id/fragmentPlan" />
@@ -16,8 +16,8 @@
     <fragment
         android:id="@+id/fragmentPlan"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentPlan"
-        android:label="fragment_plan"
-        tools:layout="@layout/fragment_plan" >
+        android:label="Rutyny"
+        tools:layout="@layout/fragment_plan">
         <argument
             android:name="planId"
             app:argType="integer" />
@@ -28,8 +28,8 @@
     <fragment
         android:id="@+id/fragmentRoutine"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentRoutine"
-        android:label="fragment_routine"
-        tools:layout="@layout/fragment_routine" >
+        android:label="Rutyna"
+        tools:layout="@layout/fragment_routine">
         <argument
             android:name="routineId"
             app:argType="integer" />
@@ -43,8 +43,8 @@
     <fragment
         android:id="@+id/fragmentExercise"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentExercise"
-        android:label="fragment_exercise"
-        tools:layout="@layout/fragment_exercise" >
+        android:label="Ćwiczenia"
+        tools:layout="@layout/fragment_exercise">
         <argument
             android:name="routineId"
             app:argType="integer" />
@@ -55,10 +55,22 @@
     <fragment
         android:id="@+id/fragmentWorkout"
         android:name="com.example.workout_appv1.ui.views.fragments.FragmentWorkout"
-        android:label="fragment_workout"
-        tools:layout="@layout/fragment_workout" >
+        android:label="Trening"
+        tools:layout="@layout/fragment_workout">
         <argument
             android:name="routineId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentWorkout_to_fragmentRoutine"
+            app:destination="@id/fragmentRoutine" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.workout_appv1.ui.views.fragments.FragmentHome"
+        android:label="Strona główna"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentRoutine"
+            app:destination="@id/fragmentRoutine" />
     </fragment>
 </navigation>

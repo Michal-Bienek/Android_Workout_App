@@ -18,6 +18,8 @@
     <string name="etRest">120</string>
     <string name="drawer_menu_home_title">Strona główna</string>
     <string name="drawer_menu_program_title">Plany Treningowe</string>
+    <string name="navbar_menu_icon">navbar_menu_icon</string>
+    <string name="navigation_example">Navigation example</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>
