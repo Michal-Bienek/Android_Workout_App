@@ -32,8 +32,8 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
             return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position );
         }
         else{
-            exercise_position++;
             if(exercise_position<exerciseWithSeriesList.size()-1){
+                exercise_position++;
                 series_position= 0;
                 setSeries_count(exercise_position);
                 return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position);
