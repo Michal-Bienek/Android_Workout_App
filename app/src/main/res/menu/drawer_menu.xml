@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-        <item android:id="@+id/drawer_menu_home"
+        <item android:id="@+id/fragmentHome"
             android:title="@string/drawer_menu_home_title"
             android:icon="@drawable/ic_home"/>
-        <item android:id="@+id/drawer_menu_program"
+        <item android:id="@+id/fragmentProgram"
             android:title="@string/drawer_menu_program_title"
             android:icon="@drawable/ic_plan"/>
 
