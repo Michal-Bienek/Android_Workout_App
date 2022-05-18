@@ -29,4 +29,7 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercises")
     LiveData<List<Exercise>>getAllExercises();
 
+    @Query("SELECT * FROM exercises WHERE exerciseId = :exerciseId")
+    Exercise getExerciseById(int exerciseId);
+
 }
