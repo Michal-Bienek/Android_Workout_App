@@ -55,21 +55,21 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_plan, container, false);
+        View view = inflater.inflate(R.layout.fragment_plan, container, false);
 
         //Initialize  ViewModel
         FragmentPlanViewModel viewModel = new ViewModelProvider(this).get(FragmentPlanViewModel.class);
 
         //Get passed planId
-        FragmentPlanArgs args=FragmentPlanArgs.fromBundle(getArguments());
+        FragmentPlanArgs args = FragmentPlanArgs.fromBundle(getArguments());
         int planId = args.getPlanId();
-        Toast.makeText(context, ""+ planId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "" + planId, Toast.LENGTH_SHORT).show();
 
         //Initialize views
         RecyclerView rvPlan = view.findViewById(R.id.rvPlan);
@@ -78,13 +78,12 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
 
         //Initialize RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        planAdapter=new PlanAdapter(context, dayShortcuts, this);
+        planAdapter = new PlanAdapter(context, dayShortcuts, this);
         rvPlan.setLayoutManager(layoutManager);
         rvPlan.setAdapter(planAdapter);
 
         //Set observer
         viewModel.getAllPlanRoutines(planId).observe(getViewLifecycleOwner(), routines -> planAdapter.setRoutines(routines));
-
 
 
         btnAddRoutine.setOnClickListener(view1 -> {
@@ -93,16 +92,16 @@ public class FragmentPlan extends Fragment implements PlanAdapter.OnRoutineClick
         return view;
     }
 
-    private void showDialog(int planId){
+    private void showDialog(int planId) {
         DialogAddEditRoutine dialogAddEditRoutine = DialogAddEditRoutine.newAddInstance(planId);
-        dialogAddEditRoutine.show(getChildFragmentManager(),"AddRoutine");
+        dialogAddEditRoutine.show(getChildFragmentManager(), "AddRoutine");
 
     }
 
     @Override
     public void OnRoutineClick(Routine routine) {
         NavController navController = NavHostFragment.findNavController(FragmentPlan.this);
-        NavDirections action= FragmentPlanDirections.actionFragmentPlanToFragmentRoutine(routine.getRoutineId());
+        NavDirections action = FragmentPlanDirections.actionFragmentPlanToFragmentRoutine(routine.getRoutineId());
         navController.navigate(action);
     }
 }
