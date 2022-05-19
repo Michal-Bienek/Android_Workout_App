@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
@@ -30,13 +31,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_exercise,parent,false);
-        return new ExerciseViewHolder(view,this.onExerciseListener);
+        return new ExerciseViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
-        Exercise ex= exerciseList.get(position);
-        holder.tvNameItemExercise.setText(ex.getName());
+        holder.bind(exerciseList.get(position),onExerciseListener);
     }
 
     @Override
@@ -49,21 +49,19 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         notifyDataSetChanged();
     }
 
-    public class ExerciseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ExerciseViewHolder extends RecyclerView.ViewHolder {
         ImageView imgExercise;
         TextView tvNameItemExercise;
-        OnExerciseListener onExerciseListener;
-        public ExerciseViewHolder(@NonNull View itemView, OnExerciseListener onExerciseListener) {
+        ConstraintLayout clExerciseItem;
+        public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
             imgExercise=itemView.findViewById(R.id.imgExercise);
             tvNameItemExercise=itemView.findViewById(R.id.tvNameItemExercise);
-            this.onExerciseListener=onExerciseListener;
-            this.itemView.setOnClickListener(this);
+            clExerciseItem = itemView.findViewById(R.id.clExerciseItem);
         }
-
-        @Override
-        public void onClick(View view) {
-            this.onExerciseListener.onExerciseClick(exerciseList.get(getAdapterPosition()));
+        public void bind(Exercise exercise, OnExerciseListener onExerciseListener){
+            this.tvNameItemExercise.setText(exercise.getName());
+            clExerciseItem.setOnClickListener(view -> onExerciseListener.onExerciseClick(exercise));
         }
     }
 
