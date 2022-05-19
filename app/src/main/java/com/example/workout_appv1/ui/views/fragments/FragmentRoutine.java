@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -20,14 +19,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
 import com.example.workout_appv1.ui.adapters.RoutineAdapter;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddExerciseToRoutine;
 import com.example.workout_appv1.viewmodels.FragmentRoutineViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
 
 public class FragmentRoutine extends Fragment {
 
@@ -37,8 +34,6 @@ public class FragmentRoutine extends Fragment {
     private Button btnStartWorkout;
     private RecyclerView rvRoutine;
     private FloatingActionButton fabAddExerciseToPlan;
-
-
 
 
     public FragmentRoutine() {
@@ -57,51 +52,47 @@ public class FragmentRoutine extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_routine, container, false);
+        View view = inflater.inflate(R.layout.fragment_routine, container, false);
         FragmentRoutineViewModel viewModel = new ViewModelProvider(this).get(FragmentRoutineViewModel.class);
-        FragmentRoutineArgs args= FragmentRoutineArgs.fromBundle(getArguments());
-        routineId=args.getRoutineId();
+        FragmentRoutineArgs args = FragmentRoutineArgs.fromBundle(getArguments());
+        routineId = args.getRoutineId();
 
 
         initViews(view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        RoutineAdapter adapter = new RoutineAdapter(context, new RoutineAdapter.IOnExerciseInRoutine() {
+        RoutineAdapter adapter = new RoutineAdapter(context, new RoutineAdapter.IOnExerciseInRoutineAction() {
             @Override
-            public void onDelete(int exerciseInRoutineId) {
-                viewModel.deleteExerciseInRoutineById(exerciseInRoutineId);
+            public void onDelete(ExerciseInRoutineExercise exercise) {
+                viewModel.deleteExerciseInRoutineById(exercise.exInRoutineId);
             }
 
             @Override
             public void onEdit(ExerciseInRoutineExercise exercise) {
-                DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newEditDialog(exercise.exInRoutineId,exercise.exerciseName);
+                DialogAddExerciseToRoutine dialog = DialogAddExerciseToRoutine.newEditDialog(exercise.exInRoutineId, exercise.exerciseName);
                 dialog.show(getChildFragmentManager(), "EditExerciseInRoutine");
             }
         });
         rvRoutine.setLayoutManager(layoutManager);
         rvRoutine.setAdapter(adapter);
 
-        viewModel.getExerciseInRoutineAndExerciseByRoutineId(routineId).observe(getViewLifecycleOwner(), new Observer<List<ExerciseInRoutineExercise>>() {
-            @Override
-            public void onChanged(List<ExerciseInRoutineExercise> exerciseInRoutineExercises) {
-                btnStartWorkout.setEnabled(exerciseInRoutineExercises.size() > 0);
-                adapter.setExerciseInRoutineExerciseList(exerciseInRoutineExercises);
-                Toast.makeText(context, ""+exerciseInRoutineExercises.size(), Toast.LENGTH_SHORT).show();
-            }
+        viewModel.getExerciseInRoutineAndExerciseByRoutineId(routineId).observe(getViewLifecycleOwner(), exerciseInRoutineExercises -> {
+            btnStartWorkout.setEnabled(exerciseInRoutineExercises.size() > 0);
+            adapter.setExerciseInRoutineExerciseList(exerciseInRoutineExercises);
+            Toast.makeText(context, "" + exerciseInRoutineExercises.size(), Toast.LENGTH_SHORT).show();
         });
 
 
-
         fabAddExerciseToPlan.setOnClickListener(view1 -> {
-            NavController navController= NavHostFragment.findNavController(this);
-            NavDirections action= FragmentRoutineDirections.actionFragmentRoutineToFragmentExercise(routineId);
+            NavController navController = NavHostFragment.findNavController(this);
+            NavDirections action = FragmentRoutineDirections.actionFragmentRoutineToFragmentExercise(routineId);
             navController.navigate(action);
 
         });
@@ -116,9 +107,9 @@ public class FragmentRoutine extends Fragment {
     }
 
 
-    private void initViews(View view){
-        btnStartWorkout=view.findViewById(R.id.btnStartWorkout);
-        rvRoutine=view.findViewById(R.id.rvRoutine);
-        fabAddExerciseToPlan=view.findViewById(R.id.fabAddExerciseToPlan);
+    private void initViews(View view) {
+        btnStartWorkout = view.findViewById(R.id.btnStartWorkout);
+        rvRoutine = view.findViewById(R.id.rvRoutine);
+        fabAddExerciseToPlan = view.findViewById(R.id.fabAddExerciseToPlan);
     }
 }

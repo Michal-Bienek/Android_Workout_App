@@ -68,12 +68,7 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
         LinearLayoutManager layoutManager= new LinearLayoutManager(context);
         this.rvExercise.setLayoutManager(layoutManager);
         this.rvExercise.setAdapter(adapter);
-        viewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
-            @Override
-            public void onChanged(List<Exercise> exercises) {
-                adapter.setExerciseList(exercises);
-            }
-        });
+        viewModel.getAllExercises().observe(getViewLifecycleOwner(), adapter::setExerciseList);
 
 
         return view;
@@ -85,13 +80,13 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
         this.rvExercise=view.findViewById(R.id.rvExercise);
     }
 
-    private void handleConfirmClick(){
-        this.fabAddExercisesToRoutine.setOnClickListener(view -> {
-            NavController navController= NavHostFragment.findNavController(this);
-            NavDirections action=FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
-            navController.navigate(action);
-        });
-    }
+//    private void handleConfirmClick(){
+//        this.fabAddExercisesToRoutine.setOnClickListener(view -> {
+//            NavController navController= NavHostFragment.findNavController(this);
+//            NavDirections action=FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
+//            navController.navigate(action);
+//        });
+//    }
 
     @Override
     public void onExerciseClick(Exercise exercise) {

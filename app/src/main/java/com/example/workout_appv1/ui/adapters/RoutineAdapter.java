@@ -2,12 +2,12 @@ package com.example.workout_appv1.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,9 +22,9 @@ import java.util.List;
 public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder> {
     private List<ExerciseInRoutineExercise> exerciseInRoutineExerciseList = new ArrayList<>();
     private Context context;
-    private IOnExerciseInRoutine onExerciseInRoutine;
+    private final IOnExerciseInRoutineAction onExerciseInRoutine;
 
-    public RoutineAdapter(Context context, IOnExerciseInRoutine onExerciseInRoutine) {
+    public RoutineAdapter(Context context, IOnExerciseInRoutineAction onExerciseInRoutine) {
         this.context = context;
         this.onExerciseInRoutine = onExerciseInRoutine;
     }
@@ -38,26 +38,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
 
     @Override
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
-        ExerciseInRoutineExercise exercise = exerciseInRoutineExerciseList.get(position);
-        holder.tvExerciseNameItemRoutine.setText(exercise.exerciseName);
-        holder.btnMoreItemRoutine.setOnClickListener(view -> {
-            PopupMenu popup=new PopupMenu(context,holder.btnMoreItemRoutine);
-            popup.inflate(R.menu.item_popup_menu);
-            popup.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()){
-                    case R.id.miEdit:
-                        update(holder);
-                        return true;
-                    case R.id.miDelete:
-                        delete(holder);
-                        return true;
-                    default:
-                        return false;
-                }
-            });
-            popup.show();
-        });
-
+        holder.bind(exerciseInRoutineExerciseList.get(position),this.onExerciseInRoutine);
     }
 
     @Override
@@ -70,16 +51,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         notifyDataSetChanged();
     }
 
-    private void delete(RoutineAdapter.RoutineViewHolder holder){
-        ExerciseInRoutineExercise exercise = this.exerciseInRoutineExerciseList.get(holder.getAdapterPosition());
-        onExerciseInRoutine.onDelete(exercise.exInRoutineId);
-    }
-
-    private void update(RoutineAdapter.RoutineViewHolder holder){
-        ExerciseInRoutineExercise exercise = this.exerciseInRoutineExerciseList.get(holder.getAdapterPosition());
-        onExerciseInRoutine.onEdit(exercise);
-    }
-
     public class RoutineViewHolder extends RecyclerView.ViewHolder{
         ConstraintLayout clRoutineItem;
         TextView tvExerciseNameItemRoutine;
@@ -90,10 +61,31 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
             this.tvExerciseNameItemRoutine = itemView.findViewById(R.id.tvExerciseNameItemRoutine);
             this.btnMoreItemRoutine = itemView.findViewById(R.id.btnMoreItemRoutine);
         }
+        public void bind(ExerciseInRoutineExercise exercise, IOnExerciseInRoutineAction onExerciseInRoutineAction){
+            this.tvExerciseNameItemRoutine.setText(exercise.exerciseName);
+            this.btnMoreItemRoutine.setOnClickListener(view -> {
+                PopupMenu popupMenu = new PopupMenu(context,btnMoreItemRoutine);
+                popupMenu.inflate(R.menu.item_popup_menu);
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()){
+                        case R.id.miEdit:
+                            onExerciseInRoutineAction.onEdit(exercise);
+                            return true;
+                        case R.id.miDelete:
+                            onExerciseInRoutineAction.onDelete(exercise);
+                            return true;
+                        default:
+                            return false;
+                    }
+                });
+                popupMenu.show();
+            });
+            clRoutineItem.setOnClickListener(view -> onExerciseInRoutineAction.onEdit(exercise));
+        }
     }
 
-    public interface IOnExerciseInRoutine{
-        void onDelete(int exerciseInRoutineId);
+    public interface IOnExerciseInRoutineAction {
+        void onDelete(ExerciseInRoutineExercise exercise);
         void onEdit(ExerciseInRoutineExercise exercise);
     }
 }

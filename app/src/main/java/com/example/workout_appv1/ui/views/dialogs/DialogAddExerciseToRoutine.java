@@ -139,7 +139,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
         int exerciseInRoutineId = args.getInt(ARG_EXERCISE_IN_ROUTINE_ID);
         String exerciseName = args.getString(ARG_EXERCISE_Name);
         tvExNameDialogAddExercise.setText(exerciseName);
-        btnAdd.setText("Edytuj");
+        btnAdd.setText("EDYTUJ");
         viewModel.getExerciseSeriesList(exerciseInRoutineId).observe(this, seriesList -> {
             adapter.setSeriesList(seriesList);
             tvNumberOfSeries.setText(String.valueOf(seriesList.size()));

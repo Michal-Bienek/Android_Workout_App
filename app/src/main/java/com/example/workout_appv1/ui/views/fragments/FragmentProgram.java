@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.ui.adapters.ProgramAdapter;
@@ -24,21 +23,19 @@ import com.example.workout_appv1.ui.views.dialogs.DialogAddEditPlan;
 import com.example.workout_appv1.viewmodels.FragmentProgramViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanListener {
+public class FragmentProgram extends Fragment {
 
     //Declare variables
     Context context;
     FragmentProgramViewModel fragmentProgramViewModel;
     RecyclerView rvProgram;
     FloatingActionButton btnAddPlan;
-    LinearLayoutManager layoutManager;
     ProgramAdapter programAdapter;
 
 
     public FragmentProgram() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -64,29 +61,40 @@ public class FragmentProgram extends Fragment implements ProgramAdapter.OnPlanLi
         fragmentProgramViewModel = new ViewModelProvider(this).get(FragmentProgramViewModel.class);
 
         //Set recyclerView
-        programAdapter = new ProgramAdapter(context, this);
-        layoutManager = new LinearLayoutManager(context);
-        rvProgram.setLayoutManager(layoutManager);
+        programAdapter = new ProgramAdapter(context, new ProgramAdapter.IOnPlanListener() {
+            @Override
+            public void onPlanClick(Plan plan) {
+                NavController navController = getNavController();
+                NavDirections action = FragmentProgramDirections.actionFragmentProgramToFragmentPlan(plan.getPlanId());
+                navController.navigate(action);
+            }
+
+            @Override
+            public void onPlanDelete(Plan plan) {
+                fragmentProgramViewModel.deletePlan(plan);
+
+            }
+
+            @Override
+            public void onEditPlan(Plan plan) {
+                DialogAddEditPlan dialogAddEditPlan = DialogAddEditPlan.newEditInstance(plan.getPlanId());
+                dialogAddEditPlan.show(getChildFragmentManager(), "DialogEditPlan");
+
+            }
+        });
+        rvProgram.setLayoutManager(new LinearLayoutManager(context));
         rvProgram.setAdapter(programAdapter);
-
-
         fragmentProgramViewModel.getSortedPlans().observe(getViewLifecycleOwner(), plans -> programAdapter.setPlanList(plans));
         btnAddPlan.setOnClickListener(view1 -> showAddDialog());
-
         return view;
     }
 
-    private void showAddDialog(){
+    private void showAddDialog() {
         DialogAddEditPlan dialog = DialogAddEditPlan.newAddInstance();
-        dialog.show(getChildFragmentManager(),"DialogAddEditPlan");
+        dialog.show(getChildFragmentManager(), "DialogAddEditPlan");
     }
 
-    @Override
-    public void onPlanClick(Plan plan) {
-        int planId = plan.getPlanId();
-        Toast.makeText(context, "" + planId, Toast.LENGTH_SHORT).show();
-        NavController navController = NavHostFragment.findNavController(FragmentProgram.this);
-        NavDirections action = FragmentProgramDirections.actionFragmentProgramToFragmentPlan(planId);
-        navController.navigate(action);
+    private NavController getNavController() {
+        return NavHostFragment.findNavController(this);
     }
 }

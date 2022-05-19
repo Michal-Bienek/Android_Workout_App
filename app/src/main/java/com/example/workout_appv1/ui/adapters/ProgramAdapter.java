@@ -1,7 +1,9 @@
 package com.example.workout_appv1.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,53 +28,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHolder> {
-    private Context context;
+    private final Context context;
     private List<Plan> planList = new ArrayList<>();
-    public FragmentProgramViewModel fragmentProgramViewModel;
-    private final OnPlanListener mOnPlanListener;
+    private final IOnPlanListener mIOnPlanListener;
 
 
-    public ProgramAdapter(Context context, OnPlanListener mOnPlanListener) {
+    public ProgramAdapter(Context context, IOnPlanListener mIOnPlanListener) {
         this.context = context;
-        this.mOnPlanListener = mOnPlanListener;
-        fragmentProgramViewModel = new ViewModelProvider((FragmentActivity)context).get(FragmentProgramViewModel.class);
+        this.mIOnPlanListener = mIOnPlanListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_program,parent,false);
-        return new ViewHolder(view,mOnPlanListener);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_program, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Plan p=planList.get(position);
-        holder.tvProgramItem.setText(p.getPlanName());
-        holder.tvGoal.setText(p.getGoal());
-        holder.btnMoreProgramItem.setOnClickListener(view -> {
-            PopupMenu popup=new PopupMenu(context,holder.btnMoreProgramItem);
-            popup.inflate(R.menu.item_popup_menu);
-            popup.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()){
-                    case R.id.miEdit:
-                        update(holder);
-                        Toast.makeText(context, "Edytuj", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.miDelete:
-                        delete(holder);
-                        Toast.makeText(context, "Usuń", Toast.LENGTH_SHORT).show();
-                        return true;
-                    default:
-                        return false;
-                }
-            });
-            popup.show();
-        });
-
+        holder.bind(planList.get(position), mIOnPlanListener);
     }
 
-    public void setPlanList(List<Plan>planList){
+    public void setPlanList(List<Plan> planList) {
         this.planList = planList;
         notifyDataSetChanged();
     }
@@ -82,47 +60,52 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
         return planList.size();
     }
 
-    private void delete(ViewHolder holder){
-        Plan plan=planList.get(holder.getAdapterPosition());
-        fragmentProgramViewModel.deletePlan(plan);
-    }
-
-    private void update(ViewHolder holder){
-        int position=holder.getAdapterPosition();
-        Plan plan=planList.get(position);
-
-        DialogAddEditPlan dialogAddEditPlan = DialogAddEditPlan.newEditInstance(plan.getPlanId());
-        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-        dialogAddEditPlan.show(fragmentManager, "DialogEditPlan");
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView btnProgramItem;
         TextView tvProgramItem;
         TextView tvGoal;
         ImageView btnMoreProgramItem;
         ConstraintLayout clProgramItem;
-        OnPlanListener onPlanListener;
-        public ViewHolder(@NonNull View itemView, OnPlanListener onPlanListener) {
-            super(itemView);
-            btnProgramItem=itemView.findViewById(R.id.imgProgramIcon);
-            tvProgramItem=itemView.findViewById(R.id.tvProgramItem);
-            btnMoreProgramItem=itemView.findViewById(R.id.btnMoreProgramItem);
-            clProgramItem=itemView.findViewById(R.id.clProgramItem);
-            tvGoal = itemView.findViewById(R.id.tvProgramGoal);
-            this.onPlanListener=onPlanListener;
 
-            clProgramItem.setOnClickListener(this);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            btnProgramItem = itemView.findViewById(R.id.imgProgramIcon);
+            tvProgramItem = itemView.findViewById(R.id.tvProgramItem);
+            btnMoreProgramItem = itemView.findViewById(R.id.btnMoreProgramItem);
+            clProgramItem = itemView.findViewById(R.id.clProgramItem);
+            tvGoal = itemView.findViewById(R.id.tvProgramGoal);
         }
 
-        @Override
-        public void onClick(View view) {
-            onPlanListener.onPlanClick(planList.get(getAdapterPosition()));
+        @SuppressLint("NonConstantResourceId")
+        public void bind(Plan plan, IOnPlanListener listener) {
+            tvProgramItem.setText(plan.getPlanName());
+            tvGoal.setText(plan.getGoal());
+            btnMoreProgramItem.setOnClickListener(view -> {
+                PopupMenu popupMenu = new PopupMenu(context, btnMoreProgramItem);
+                popupMenu.inflate(R.menu.item_popup_menu);
+                popupMenu.setOnMenuItemClickListener(menuItem -> {
+                    switch (menuItem.getItemId()) {
+                        case R.id.miEdit:
+                            listener.onEditPlan(plan);
+                            return true;
+                        case R.id.miDelete:
+                            listener.onPlanDelete(plan);
+                            return true;
+                        default:
+                            return false;
+                    }
+                });
+                popupMenu.show();
+            });
+            clProgramItem.setOnClickListener(view -> listener.onPlanClick(plan));
         }
     }
 
-    public interface OnPlanListener{
+    public interface IOnPlanListener {
         void onPlanClick(Plan plan);
+
+        void onPlanDelete(Plan plan);
+
+        void onEditPlan(Plan plan);
     }
 }

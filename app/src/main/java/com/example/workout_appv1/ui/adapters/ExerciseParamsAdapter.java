@@ -26,29 +26,24 @@ import java.util.List;
 
 public class ExerciseParamsAdapter extends RecyclerView.Adapter<ExerciseParamsAdapter.MyViewHolder> {
     Context context;
-    List<Series> seriesList;
+    List<Series> seriesList = new ArrayList<>();
     OnEtParamsChanged onEtParamsChanged;
 
-    public ExerciseParamsAdapter(Context context, OnEtParamsChanged onEtParamsChanged){
-        this.context=context;
-        this.seriesList =new ArrayList<>();
+    public ExerciseParamsAdapter(Context context, OnEtParamsChanged onEtParamsChanged) {
+        this.context = context;
         this.onEtParamsChanged = onEtParamsChanged;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dialog_add_exercise_to_routine,parent,false);
-        return new MyViewHolder(view,onEtParamsChanged);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_dialog_add_exercise_to_routine, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Series series = this.seriesList.get(position);
-        holder.etReps.setText(String.valueOf(series.getReps()));
-        holder.etRestTime.setText(String.valueOf(series.getRestTime()));
-        holder.etWeight.setText(String.valueOf(series.getWeight()));
-
+        holder.bind(seriesList.get(position), onEtParamsChanged);
     }
 
     public void setSeriesList(List<Series> seriesList) {
@@ -65,21 +60,26 @@ public class ExerciseParamsAdapter extends RecyclerView.Adapter<ExerciseParamsAd
         return seriesList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         EditText etReps;
         EditText etWeight;
         EditText etRestTime;
-        OnEtParamsChanged onEtParamsChanged;
-        public MyViewHolder(@NonNull View itemView,OnEtParamsChanged onEtParamsChanged) {
+
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.etReps=itemView.findViewById(R.id.etRepsDialogExercise);
-            this.etWeight=itemView.findViewById(R.id.etWeightDialogAddExercise);
-            this.etRestTime= itemView.findViewById(R.id.etRestTimeDialogAddExercise);
-            this.onEtParamsChanged = onEtParamsChanged;
+            this.etReps = itemView.findViewById(R.id.etRepsDialogExercise);
+            this.etWeight = itemView.findViewById(R.id.etWeightDialogAddExercise);
+            this.etRestTime = itemView.findViewById(R.id.etRestTimeDialogAddExercise);
+        }
+
+        public void bind(Series series, OnEtParamsChanged onEtParamsChanged) {
+            etReps.setText(String.valueOf(series.getReps()));
+            etRestTime.setText(String.valueOf(series.getRestTime()));
+            etWeight.setText(String.valueOf(series.getWeight()));
         }
     }
 
-    public interface OnEtParamsChanged{
-        void onParamsChanged(List<Series>seriesList);
+    public interface OnEtParamsChanged {
+        void onParamsChanged(List<Series> seriesList);
     }
 }
