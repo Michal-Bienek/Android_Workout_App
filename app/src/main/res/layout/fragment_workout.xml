@@ -68,7 +68,7 @@
             android:gravity="center"
             android:text="Seria: "
             android:textColor="@color/black"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvSeriesCountFragmentWorkout"
@@ -78,6 +78,7 @@
             android:layout_marginEnd="3dp"
             android:gravity="center"
             android:text="1/5"
+            android:textSize="16sp"
             android:textAlignment="center"
             android:textColor="#00008b" />
 
@@ -91,7 +92,7 @@
             android:gravity="center"
             android:text="Nazwa ćwiczenia"
             android:textColor="#2c1b01"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
 
     </LinearLayout>
@@ -106,7 +107,7 @@
         android:gravity="center"
         android:text="Powtórzenia: "
         android:textColor="@color/black"
-        android:textSize="13sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
@@ -133,7 +134,7 @@
         android:gravity="center"
         android:text="Obciążenie [kg]: "
         android:textColor="@color/black"
-        android:textSize="13sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

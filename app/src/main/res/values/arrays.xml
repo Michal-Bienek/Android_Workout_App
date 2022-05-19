@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="day_colors">
+        <item>#013220</item>
+        <item>#0663b0</item>
+        <item>#090067</item>
+        <item>#360050</item>
+        <item>#5a3136</item>
+        <item>#483b06</item>
+        <item>#c24e00</item>
+    </string-array>
+</resources>
