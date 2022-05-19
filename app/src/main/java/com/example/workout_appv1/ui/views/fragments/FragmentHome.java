@@ -1,39 +1,30 @@
 package com.example.workout_appv1.ui.views.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.ui.adapters.HomeAdapter;
 import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.viewmodels.FragmentHomeViewModel;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentHome#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentHome extends Fragment {
-
+    private Context context;
 
     public FragmentHome() {
-        // Required empty public constructor
-    }
-
-    public static FragmentHome newInstance() {
-        return new FragmentHome();
     }
 
     @Override
@@ -42,25 +33,41 @@ public class FragmentHome extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
-        initRecyclerView(view);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        FragmentHomeViewModel viewModel = new ViewModelProvider(this).get(FragmentHomeViewModel.class);
+
+        //Set recyclerview
+        RecyclerView recyclerView = view.findViewById(R.id.rvHome);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        HomeAdapter adapter = new HomeAdapter(new HomeAdapter.IOnHomeActionListener() {
+            @Override
+            public String getDayShortcut(Routine routine) {
+                return viewModel.getDayShortcut(routine.getDayOfWeek());
+            }
+
+            @Override
+            public void onItemClick(Routine routine) {
+                NavController navController = getNavController();
+                NavDirections action = FragmentHomeDirections.actionFragmentHomeToFragmentRoutine(routine.getRoutineId());
+                navController.navigate(action);
+            }
+        });
+        recyclerView.setAdapter(adapter);
+        viewModel.getRoutinesFromActivePlans().observe(getViewLifecycleOwner(), adapter::setRoutineList);
         return view;
     }
 
-
-    private void initRecyclerView(View view){
-//        WorkoutPlannerDb database=WorkoutPlannerDb.getInstance(getActivity());
-//        //List<Routine> routineList = database.routineDao().getRoutinesFromActivePlans();
-//        HomeAdapter adapter=new HomeAdapter(getActivity(),routineList);
-//        Toast.makeText(getActivity(), ""+routineList.size(), Toast.LENGTH_SHORT).show();
-//
-//        RecyclerView recyclerView=view.findViewById(R.id.rvHome);
-//        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(adapter);
-
+    private NavController getNavController() {
+        return NavHostFragment.findNavController(this);
     }
+
 }
