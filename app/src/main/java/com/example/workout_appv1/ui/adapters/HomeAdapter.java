@@ -7,34 +7,33 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Routine;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
-    Context context;
-    List<Routine> routineList= new ArrayList<>();
+    private final IOnHomeActionListener listener;
+    private List<Routine> routineList = new ArrayList<>();
 
-    public HomeAdapter(Context context) {
-        this.context = context;
+    public HomeAdapter(IOnHomeActionListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_home,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_fragment_home, parent, false);
         return new HomeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Routine routine=routineList.get(position);
-        holder.tvNameHomeItem.setText(routine.getRoutineName());
+        holder.bind(routineList.get(position), listener);
 
     }
 
@@ -43,7 +42,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         return routineList.size();
     }
 
-    private void setRoutineList(List<Routine>routineList){
+    public void setRoutineList(List<Routine> routineList) {
         this.routineList = routineList;
         notifyDataSetChanged();
     }
@@ -51,11 +50,27 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     public class HomeViewHolder extends RecyclerView.ViewHolder {
         TextView tvDayHomeItem;
         TextView tvNameHomeItem;
+        ConstraintLayout clHomeItem;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tvDayHomeItem = itemView.findViewById(R.id.tvDayHomeItem);
             this.tvNameHomeItem = itemView.findViewById(R.id.tvNameHomeItem);
+            this.clHomeItem = itemView.findViewById(R.id.clHomeItem);
         }
+
+        public void bind(Routine routine, IOnHomeActionListener onHomeAction) {
+            this.tvNameHomeItem.setText(routine.getRoutineName());
+            this.tvDayHomeItem.setText(onHomeAction.getDayShortcut(routine));
+            this.clHomeItem.setOnClickListener(view -> onHomeAction.onItemClick(routine));
+
+        }
+    }
+
+    public interface IOnHomeActionListener {
+        String getDayShortcut(Routine routine);
+
+        void onItemClick(Routine routine);
+
     }
 }
