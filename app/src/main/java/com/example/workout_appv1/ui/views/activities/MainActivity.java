@@ -1,33 +1,40 @@
 package com.example.workout_appv1.ui.views.activities;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.databinding.ActivityMainBinding;
-import com.example.workout_appv1.ui.views.fragments.FragmentHome;
-import com.example.workout_appv1.ui.views.fragments.FragmentProgram;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private BottomNavigationView navigationView;
-    Fragment homeFragment,programFragment;
-    FragmentManager fragmentManager;
-    ActivityMainBinding binding;
 
-    //texts
+    private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        NavigationView navigationView = findViewById(R.id.nav_view_main);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        assert navHostFragment != null;
+        navController = navHostFragment.getNavController();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.fragmentHome, R.id.fragmentProgram).setOpenableLayout(drawerLayout).build();
+        setSupportActionBar(findViewById(R.id.toolbarMain));
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
 
-        //Initialize variables
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 }

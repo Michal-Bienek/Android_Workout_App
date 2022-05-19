@@ -21,10 +21,11 @@ public class FragmentPlanViewModel extends AndroidViewModel {
         this.routineRepository = new RoutineRepository(application);
     }
 
-    public LiveData<List<Routine>> getAllPlanRoutines(int planId){
+    public LiveData<List<Routine>> getAllPlanRoutines(int planId) {
         return routineRepository.getAllPlanRoutines(planId);
     }
-    public void deleteRoutine(Routine routine){
+
+    public void deleteRoutine(Routine routine) {
         routineRepository.deleteRoutine(routine);
     }
 }
