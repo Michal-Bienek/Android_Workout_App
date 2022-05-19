@@ -13,16 +13,15 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.entities.Routine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     Context context;
-    List<Routine> routineList;
-    WorkoutPlannerDb database;
+    List<Routine> routineList= new ArrayList<>();
 
-    public HomeAdapter(Context context, List<Routine> routineList) {
+    public HomeAdapter(Context context) {
         this.context = context;
-        this.routineList = routineList;
     }
 
     @NonNull
@@ -35,7 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         Routine routine=routineList.get(position);
-        holder.tvRoutineName.setText(routine.getRoutineName());
+        holder.tvNameHomeItem.setText(routine.getRoutineName());
 
     }
 
@@ -44,12 +43,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         return routineList.size();
     }
 
-    public static class HomeViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRoutineName;
+    private void setRoutineList(List<Routine>routineList){
+        this.routineList = routineList;
+        notifyDataSetChanged();
+    }
+
+    public class HomeViewHolder extends RecyclerView.ViewHolder {
+        TextView tvDayHomeItem;
+        TextView tvNameHomeItem;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvRoutineName=itemView.findViewById(R.id.tvRoutineName);
+            this.tvDayHomeItem = itemView.findViewById(R.id.tvDayHomeItem);
+            this.tvNameHomeItem = itemView.findViewById(R.id.tvNameHomeItem);
         }
     }
 }
