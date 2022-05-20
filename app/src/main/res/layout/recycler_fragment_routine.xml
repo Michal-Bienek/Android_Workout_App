@@ -32,7 +32,7 @@
             android:id="@+id/tvExerciseNameItemRoutine"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="4dp"
             android:textColor="@color/white"
             android:textSize="15sp"

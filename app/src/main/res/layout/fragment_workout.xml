@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainFragmentBackground"
     tools:context=".ui.views.fragments.FragmentWorkout">
 
     <LinearLayout
@@ -18,8 +19,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Czas odpoczynku:"
-            android:textColor="@color/black"
+            android:text="@string/tv_rest_fragment_workout"
+            android:textColor="@color/mainFragmentColor"
             android:textSize="16sp" />
 
         <TextView
@@ -28,15 +29,14 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginStart="3dp"
-            android:text="120"
-            android:textColor="#00008b" />
+            android:textColor="#F8B364" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="s"
-            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:text="@string/seconds_fragment_workout"
+            android:textColor="@color/mainFragmentColor"
             android:textSize="16sp" />
 
 
@@ -47,7 +47,7 @@
         android:id="@+id/imgExerciseFragmentWorkout"
         android:layout_width="0dp"
         android:layout_height="250dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/bench_press"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +57,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgExerciseFragmentWorkout">
@@ -66,8 +67,8 @@
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:gravity="center"
-            android:text="Seria: "
-            android:textColor="@color/black"
+            android:text="@string/series_fragment_workout"
+            android:textColor="@color/mainFragmentColor"
             android:textSize="16sp" />
 
         <TextView
@@ -78,9 +79,9 @@
             android:layout_marginEnd="3dp"
             android:gravity="center"
             android:text="1/5"
-            android:textSize="16sp"
             android:textAlignment="center"
-            android:textColor="#00008b" />
+            android:textColor="#F9F871"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvExerciseNameFragmentWorkout"
@@ -90,8 +91,8 @@
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Nazwa ćwiczenia"
-            android:textColor="#2c1b01"
+            android:text="@string/exercise_name_fragment_workout"
+            android:textColor="@color/mainFragmentColor"
             android:textSize="16sp" />
 
 
@@ -105,8 +106,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Powtórzenia: "
-        android:textColor="@color/black"
+        android:text="@string/reps_fragment_workout"
+        android:textColor="@color/mainFragmentColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
@@ -121,7 +122,7 @@
         android:inputType="number"
         android:text="1"
         android:textAlignment="center"
-        android:textColor="#00008b"
+        android:textColor="#F9F871"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
@@ -132,8 +133,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="Obciążenie [kg]: "
-        android:textColor="@color/black"
+        android:text="@string/weight_fragment_workout"
+        android:textColor="@color/mainFragmentColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -147,24 +148,28 @@
         android:inputType="numberDecimal"
         android:text="40"
         android:textAlignment="center"
-        android:textColor="#00008b"
+        android:textColor="#F9F871"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRepsFragmentWorkout" />
+        app:layout_constraintTop_toBottomOf="@+id/etRepsFragmentWorkout"
+        android:autofillHints="40" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNextFragmentWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:padding="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ico_right_arrow"
+        android:src="@drawable/icon_next"
+        app:tint="@color/white"
+        app:maxImageSize="33dp"
+        app:backgroundTint="#174FDF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.862"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.933" />
+        app:layout_constraintVertical_bias="0.933"
+        android:contentDescription="@string/fabNext_desc"
+        android:focusable="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

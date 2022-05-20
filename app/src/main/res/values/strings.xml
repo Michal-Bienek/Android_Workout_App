@@ -20,6 +20,13 @@
     <string name="drawer_menu_program_title">Plany Treningowe</string>
     <string name="navbar_menu_icon">navbar_menu_icon</string>
     <string name="navigation_example">Navigation example</string>
+    <string name="tv_rest_fragment_workout">Czas odpoczynku:</string>
+    <string name="seconds_fragment_workout">s</string>
+    <string name="series_fragment_workout">Seria:</string>
+    <string name="exercise_name_fragment_workout">Nazwa ćwiczenia</string>
+    <string name="reps_fragment_workout">Powtórzenia:</string>
+    <string name="weight_fragment_workout">Obciążenie [kg]:</string>
+    <string name="fabNext_desc">Go to next exercise in routine</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>
