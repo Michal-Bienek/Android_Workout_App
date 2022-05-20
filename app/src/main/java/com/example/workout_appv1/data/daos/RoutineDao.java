@@ -34,12 +34,13 @@ public interface RoutineDao {
     @Query("SELECT * FROM routines")
     LiveData<List<Routine>> getAllRoutines();
 
-    @Query("SELECT * FROM routines where fk_planId=:planId")
+    @Query("SELECT * FROM routines where fk_planId=:planId ORDER BY dayOfWeek")
     LiveData<List<Routine>> getAllPlanRoutines(int planId);
 
     @Query("SELECT routines.* from routines " +
             "INNER JOIN plans ON plans.planId=routines.fk_planId " +
-            "WHERE plans.isActive=1")
+            "WHERE plans.isActive=1 " +
+            "ORDER BY dayOfWeek")
     LiveData<List<Routine>>getRoutinesFromActivePlans();
 
     @Query("SELECT * FROM routines WHERE routineId = :routineId LIMIT 1")

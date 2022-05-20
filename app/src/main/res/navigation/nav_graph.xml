@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_program">
         <action
             android:id="@+id/action_fragmentProgram_to_fragmentPlan"
-            app:destination="@id/fragmentPlan" />
+            app:destination="@id/fragmentPlan"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPlan"
@@ -23,7 +27,11 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_fragmentPlan_to_fragmentRoutine"
-            app:destination="@id/fragmentRoutine" />
+            app:destination="@id/fragmentRoutine"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRoutine"
@@ -35,10 +43,18 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_fragmentRoutine_to_fragmentExercise"
-            app:destination="@id/fragmentExercise" />
+            app:destination="@id/fragmentExercise"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_fragmentRoutine_to_fragmentWorkout"
-            app:destination="@id/fragmentWorkout" />
+            app:destination="@id/fragmentWorkout"
+            app:enterAnim="@anim/from_down"
+            app:exitAnim="@anim/to_up"
+            app:popEnterAnim="@anim/from_up"
+            app:popExitAnim="@anim/to_down" />
     </fragment>
     <fragment
         android:id="@+id/fragmentExercise"
@@ -71,6 +87,10 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_fragmentHome_to_fragmentRoutine"
-            app:destination="@id/fragmentRoutine" />
+            app:destination="@id/fragmentRoutine"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 </navigation>

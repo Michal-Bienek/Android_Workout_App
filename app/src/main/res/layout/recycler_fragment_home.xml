@@ -5,13 +5,13 @@
     android:id="@+id/clHomeItem"
     android:layout_width="match_parent"
     android:layout_marginTop="6dp"
-    android:background="#ffffff"
-    android:layout_height="70dp">
+    android:background="#191919"
+    android:layout_height="60dp">
 
     <TextView
         android:id="@+id/tvDayHomeItem"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/rounded_textview"
         android:gravity="center"
@@ -26,10 +26,10 @@
         android:id="@+id/tvNameHomeItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Nazwa rutyny"
-        android:textColor="@color/black"
+        android:textColor="#ECEBEB"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

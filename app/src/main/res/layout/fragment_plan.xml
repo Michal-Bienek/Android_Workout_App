@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#202123"
     tools:context=".ui.views.fragments.FragmentPlan">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,6 +14,9 @@
         android:clickable="true"
         android:contentDescription="@string/fbtn_add_routine_to_plan"
         android:focusable="true"
+        app:tint="@color/white"
+        app:maxImageSize="30dp"
+        app:backgroundTint="#CF1384"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.898"
