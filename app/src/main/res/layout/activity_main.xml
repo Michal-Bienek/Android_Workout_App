@@ -16,7 +16,7 @@
             android:id="@+id/toolbarMain"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/toolbar_background"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@drawable/header_navigation_color"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:headerLayout="@layout/header_navigation_drawer"
         app:menu="@menu/drawer_menu" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+    <!--        android:background="#242525"-->
