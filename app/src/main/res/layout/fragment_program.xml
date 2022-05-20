@@ -5,15 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#202123"
     tools:context=".ui.views.fragments.FragmentProgram">
 
     <TextView
         android:id="@+id/tvProgramHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/program_header"
         android:textAlignment="textStart"
         android:textSize="15sp"
+        android:textColor="#E3E0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,12 +27,13 @@
         android:id="@+id/rvProgram"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/recycler_fragment_program"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProgramHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/tvProgramHeader"
+        tools:listitem="@layout/recycler_fragment_program" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddPlan"
