@@ -27,6 +27,10 @@
     <string name="reps_fragment_workout">Powtórzenia:</string>
     <string name="weight_fragment_workout">Obciążenie [kg]:</string>
     <string name="fabNext_desc">Go to next exercise in routine</string>
+    <string name="tilPlanNameHint">Nazwa planu</string>
+    <string name="til_goal_hint">Cel treningowy</string>
+    <string name="active_plan">Aktywny</string>
+    <string name="btn_save_plan">Zapisz</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>

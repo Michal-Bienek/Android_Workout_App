@@ -4,80 +4,177 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:minHeight="230dp"
-        android:layout_height="wrap_content">
+        android:layout_height="280dp"
+        android:minHeight="280dp">
 
-        <EditText
-            android:id="@+id/etNamePlanDialog"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNamePlanDialog"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:hint="@string/tilPlanNameHint"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:endIconMode="clear_text"
+            app:helperText="Wymagane*"
+            app:helperTextTextColor="#FF0000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/icon_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNamePlanDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="20" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilGoalPlanDialog"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="Nazwa planu treningowego"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
+            android:layout_marginEnd="4dp"
+            android:hint="@string/til_goal_hint"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tilNamePlanDialog"
+            app:startIconDrawable="@drawable/icon_flag">
 
-        <EditText
-            android:id="@+id/etGoalPlanDialog"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="Cel treningowy"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNamePlanDialog" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGoalPlanDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="20" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/cbPlanDialog"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="AKTYWNY PLAN"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:text="@string/active_plan"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etGoalPlanDialog" />
+            app:layout_constraintTop_toBottomOf="@+id/tilGoalPlanDialog" />
 
         <Button
             android:id="@+id/btnCancelPlanDialog"
-            android:layout_width="wrap_content"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Zamknij"
+            android:layout_marginEnd="8dp"
+            android:text="Anuluj"
+            android:textColor="#C60707"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_baseline_cancel_24"
+            app:iconTint="#C60707"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnAddPlanDialog"
-            app:layout_constraintHorizontal_bias="0.096"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/cbPlanDialog"
+            app:strokeColor="#C60707" />
 
         <Button
             android:id="@+id/btnAddPlanDialog"
-            android:layout_width="wrap_content"
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#079826"
             android:text="Dodaj"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.842"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/cbPlanDialog" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+
 </RelativeLayout>
+
+<!--<EditText-->
+<!--android:id="@+id/etNamePlanDialog"-->
+<!--android:layout_width="0dp"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="8dp"-->
+<!--android:layout_marginTop="4dp"-->
+<!--android:layout_marginEnd="8dp"-->
+<!--android:ems="10"-->
+<!--android:hint="Nazwa planu treningowego"-->
+<!--android:inputType="textPersonName"-->
+<!--android:minHeight="48dp"-->
+<!--android:textColorHint="#757575"-->
+<!--app:layout_constraintEnd_toEndOf="parent"-->
+<!--app:layout_constraintHorizontal_bias="0.5"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--<EditText-->
+<!--android:id="@+id/etGoalPlanDialog"-->
+<!--android:layout_width="0dp"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="8dp"-->
+<!--android:layout_marginTop="4dp"-->
+<!--android:layout_marginEnd="8dp"-->
+<!--android:ems="10"-->
+<!--android:hint="Cel treningowy"-->
+<!--android:inputType="textPersonName"-->
+<!--android:minHeight="48dp"-->
+<!--android:textColorHint="#757575"-->
+<!--app:layout_constraintEnd_toEndOf="parent"-->
+<!--app:layout_constraintHorizontal_bias="0.5"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@+id/etNamePlanDialog" />-->
+
+<!--<CheckBox-->
+<!--android:id="@+id/cbPlanDialog"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginStart="8dp"-->
+<!--android:layout_marginTop="8dp"-->
+<!--android:text="AKTYWNY PLAN"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@+id/etGoalPlanDialog" />-->
+
+<!--<Button-->
+<!--android:id="@+id/btnCancelPlanDialog"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginBottom="4dp"-->
+<!--android:text="Zamknij"-->
+<!--app:layout_constraintBottom_toBottomOf="parent"-->
+<!--app:layout_constraintEnd_toEndOf="parent"-->
+<!--app:layout_constraintEnd_toStartOf="@+id/btnAddPlanDialog"-->
+<!--app:layout_constraintHorizontal_bias="0.096"-->
+<!--app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--<Button-->
+<!--android:id="@+id/btnAddPlanDialog"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_marginBottom="4dp"-->
+<!--android:text="Dodaj"-->
+<!--app:layout_constraintBottom_toBottomOf="parent"-->
+<!--app:layout_constraintEnd_toEndOf="parent"-->
+<!--app:layout_constraintHorizontal_bias="0.842"-->
+<!--app:layout_constraintStart_toStartOf="parent" />-->
