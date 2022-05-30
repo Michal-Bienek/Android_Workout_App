@@ -23,26 +23,17 @@ public class RoutineRepository {
     public void insertRoutine(Routine routine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(() -> routineDao.insertRoutine(routine));
     }
-    public void insertRoutines(List<Routine>routines){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> routineDao.insertRoutines(routines));
-    }
     public void updateRoutine(Routine routine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->routineDao.updateRoutine(routine));
     }
     public void deleteRoutine(Routine routine){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->routineDao.deleteRoutine(routine));
     }
-    public LiveData<List<Routine>>getAllRoutines(){
-        return routineDao.getAllRoutines();
-    }
     public LiveData<List<Routine>>getRoutinesFromActivePlans(){
         return routineDao.getRoutinesFromActivePlans();
     }
     public LiveData<List<Routine>>getAllPlanRoutines(int planId){
         return routineDao.getAllPlanRoutines(planId);
-    }
-    public LiveData<List<RoutineWithExercisesInRoutine>>getRoutineWithExercisesInRoutineList(int routineId){
-        return routineDao.getRoutineWithExercisesInRoutineList(routineId);
     }
 
     public LiveData<Routine>getRoutineById(int routineId){

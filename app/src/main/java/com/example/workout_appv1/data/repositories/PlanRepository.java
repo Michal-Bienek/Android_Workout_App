@@ -28,18 +28,12 @@ public class PlanRepository {
     }
     public void insertPlans(List<Plan>plans){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->planDao.insertPlans(plans));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(() -> planDao.insertPlans(plans));
     }
     public void deletePlan(Plan plan){
         WorkoutPlannerDb.databaseWriteExecutor.execute(() -> planDao.deletePlan(plan));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(() -> planDao.deletePlan(plan));
     }
     public void updatePlan(Plan plan){
         WorkoutPlannerDb.databaseWriteExecutor.execute(()->planDao.updatePlan(plan));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(() -> planDao.updatePlan(plan));
     }
     public LiveData<List<Plan>>getSortedPlans(){
         return this.planDao.getSortedPlans();

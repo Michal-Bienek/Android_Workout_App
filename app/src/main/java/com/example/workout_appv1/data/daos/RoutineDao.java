@@ -16,23 +16,14 @@ import java.util.List;
 
 @Dao
 public interface RoutineDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insertRoutine(Routine routine);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertRoutines(List<Routine> routineList);
 
     @Delete
     void deleteRoutine(Routine routine);
 
     @Update
     void updateRoutine(Routine routine);
-
-    @Query("UPDATE routines SET lastWorkoutDate=:date WHERE routineId=:routineId")
-    void updateRoutineDate(int routineId, long date);
-
-    @Query("SELECT * FROM routines")
-    LiveData<List<Routine>> getAllRoutines();
 
     @Query("SELECT * FROM routines where fk_planId=:planId ORDER BY dayOfWeek")
     LiveData<List<Routine>> getAllPlanRoutines(int planId);
@@ -46,9 +37,6 @@ public interface RoutineDao {
     @Query("SELECT * FROM routines WHERE routineId = :routineId LIMIT 1")
     LiveData<Routine>getRoutineById(int routineId);
 
-    @Transaction
-    @Query("SELECT * FROM routines WHERE routineId=:routineId")
-    LiveData<List<RoutineWithExercisesInRoutine>>getRoutineWithExercisesInRoutineList(int routineId);
 
 
 
