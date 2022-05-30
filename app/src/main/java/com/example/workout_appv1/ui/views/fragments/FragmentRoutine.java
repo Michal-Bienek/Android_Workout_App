@@ -40,10 +40,6 @@ public class FragmentRoutine extends Fragment {
         // Required empty public constructor
     }
 
-    public static FragmentRoutine newInstance() {
-        return new FragmentRoutine();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +54,11 @@ public class FragmentRoutine extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_routine, container, false);
+        initViews(view);
         FragmentRoutineViewModel viewModel = new ViewModelProvider(this).get(FragmentRoutineViewModel.class);
         FragmentRoutineArgs args = FragmentRoutineArgs.fromBundle(getArguments());
         routineId = args.getRoutineId();
-
-
-        initViews(view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         RoutineAdapter adapter = new RoutineAdapter(context, new RoutineAdapter.IOnExerciseInRoutineAction() {
@@ -86,9 +79,7 @@ public class FragmentRoutine extends Fragment {
         viewModel.getExerciseInRoutineAndExerciseByRoutineId(routineId).observe(getViewLifecycleOwner(), exerciseInRoutineExercises -> {
             btnStartWorkout.setEnabled(exerciseInRoutineExercises.size() > 0);
             adapter.setExerciseInRoutineExerciseList(exerciseInRoutineExercises);
-            Toast.makeText(context, "" + exerciseInRoutineExercises.size(), Toast.LENGTH_SHORT).show();
         });
-
 
         fabAddExerciseToPlan.setOnClickListener(view1 -> {
             NavController navController = NavHostFragment.findNavController(this);
@@ -105,8 +96,6 @@ public class FragmentRoutine extends Fragment {
 
         return view;
     }
-
-
     private void initViews(View view) {
         btnStartWorkout = view.findViewById(R.id.btnStartWorkout);
         rvRoutine = view.findViewById(R.id.rvRoutine);

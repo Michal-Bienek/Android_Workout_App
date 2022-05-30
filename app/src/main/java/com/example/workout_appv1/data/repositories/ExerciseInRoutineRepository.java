@@ -43,22 +43,36 @@ public class ExerciseInRoutineRepository {
     }
 
     public void insertExerciseInRoutineWithParameters(ExercisesInRoutine exercisesInRoutine, List<Series> seriesList) throws ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Long> future;
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> {
+            long exerciseInRoutineId = exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine);
+            WorkoutParams workoutParams = new WorkoutParams(0,null,(int)exerciseInRoutineId);
+            long workoutParamsId = database.workoutParamsDao().insertWorkoutParams(workoutParams);
+            int workoutParamsIdInt = (int)workoutParamsId;
+            for (int i = 0; i < seriesList.size(); i++) {
+                seriesList.get(i).setFk_workoutParamsId(workoutParamsIdInt);
+            }
+            database.seriesDao().insertSeriesList(seriesList);
 
-        future = executorService.submit(() -> exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
-        long exerciseInRoutineId = future.get();
-        WorkoutParams workoutParams = new WorkoutParams(0, null, (int) exerciseInRoutineId);
-        future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
-        long workoutParamsId = future.get();
-        int wpId = (int) workoutParamsId;
-        for (int i = 0; i < seriesList.size(); i++) {
-            seriesList.get(i).setFk_workoutParamsId(wpId);
-        }
-        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
-
-        executorService.shutdown();
+        });
     }
+
+//    public void insertExerciseInRoutineWithParameters(ExercisesInRoutine exercisesInRoutine, List<Series> seriesList) throws ExecutionException, InterruptedException {
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        Future<Long> future;
+//
+//        future = executorService.submit(() -> exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
+//        long exerciseInRoutineId = future.get();
+//        WorkoutParams workoutParams = new WorkoutParams(0, null, (int) exerciseInRoutineId);
+//        future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
+//        long workoutParamsId = future.get();
+//        int wpId = (int) workoutParamsId;
+//        for (int i = 0; i < seriesList.size(); i++) {
+//            seriesList.get(i).setFk_workoutParamsId(wpId);
+//        }
+//        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
+//
+//        executorService.shutdown();
+//    }
 
     public void updateExerciseInRoutineWithParameters(int exerciseInRoutineId, List<Series>seriesList) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();

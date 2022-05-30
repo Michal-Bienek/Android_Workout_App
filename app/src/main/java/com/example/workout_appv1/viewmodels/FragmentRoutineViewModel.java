@@ -12,7 +12,7 @@ import com.example.workout_appv1.data.repositories.ExerciseInRoutineRepository;
 import java.util.List;
 
 public class FragmentRoutineViewModel extends AndroidViewModel {
-    private ExerciseInRoutineRepository exerciseInRoutineRepository;
+    private final ExerciseInRoutineRepository exerciseInRoutineRepository;
     public FragmentRoutineViewModel(@NonNull Application application) {
         super(application);
         exerciseInRoutineRepository = new ExerciseInRoutineRepository(application);
@@ -23,10 +23,6 @@ public class FragmentRoutineViewModel extends AndroidViewModel {
     }
 
     public void deleteExerciseInRoutineById(int exerciseInRoutineId){
-        try{
-            exerciseInRoutineRepository.deleteExerciseInRoutineById(exerciseInRoutineId);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        exerciseInRoutineRepository.deleteExerciseInRoutineById(exerciseInRoutineId);
     }
 }

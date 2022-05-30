@@ -1,5 +1,6 @@
 package com.example.workout_appv1.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
