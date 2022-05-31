@@ -20,14 +20,17 @@ import android.widget.Toast;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Plan;
 import com.example.workout_appv1.viewmodels.DialogAddEditPlanViewModel;
+import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class DialogAddEditPlan extends DialogFragment {
     public static final String PLAN_ID = "PLAN_ID";
     DialogAddEditPlanViewModel viewModel;
     //Declare views
-    private EditText etName;
-    private EditText etGoal;
-    private CheckBox cbActive;
+    private TextInputLayout tilName, tilGoal;
+    private TextInputEditText etName,etGoal;
+    private MaterialCheckBox cbActive;
     private Button btnConfirm, btnCancel;
     private Context context;
     private boolean isEdit = false;
@@ -74,11 +77,8 @@ public class DialogAddEditPlan extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.dialog_fragment_add_edit_plan, container, false);
-        this.etName = view.findViewById(R.id.etNamePlanDialog);
-        this.etGoal = view.findViewById(R.id.etGoalPlanDialog);
-        this.cbActive = view.findViewById(R.id.cbPlanDialog);
-        this.btnConfirm = view.findViewById(R.id.btnAddPlanDialog);
-        this.btnCancel = view.findViewById(R.id.btnCancelPlanDialog);
+        initViews(view);
+
 
         //Init ViewModel
         viewModel = new ViewModelProvider(this).get(DialogAddEditPlanViewModel.class);
@@ -99,7 +99,7 @@ public class DialogAddEditPlan extends DialogFragment {
         etName.setText(plan.getPlanName());
         etGoal.setText(plan.getGoal());
         cbActive.setChecked(plan.isActive());
-        btnConfirm.setText("ZAPISZ");
+        btnConfirm.setText("Zapisz");
         btnConfirm.setOnClickListener(view -> {
             String name = etName.getText().toString().trim();
             String goal = etGoal.getText().toString().trim();
@@ -128,5 +128,16 @@ public class DialogAddEditPlan extends DialogFragment {
             }
         });
     }
+
+    private void initViews(View view){
+        this.tilName = view.findViewById(R.id.tilNamePlanDialog);
+        this.tilGoal = view.findViewById(R.id.tilGoalPlanDialog);
+        this.etName = view.findViewById(R.id.etNamePlanDialog);
+        this.etGoal = view.findViewById(R.id.etGoalPlanDialog);
+        this.cbActive = view.findViewById(R.id.cbPlanDialog);
+        this.btnConfirm = view.findViewById(R.id.btnAddPlanDialog);
+        this.btnCancel = view.findViewById(R.id.btnCancelPlanDialog);
+    }
+
 
 }
