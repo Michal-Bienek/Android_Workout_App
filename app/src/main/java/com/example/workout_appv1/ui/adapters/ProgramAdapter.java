@@ -64,7 +64,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
         ImageView btnProgramItem;
         TextView tvProgramItem;
         TextView tvGoal;
-        ImageView btnMoreProgramItem;
+        ImageView btnMoreProgramItem, imgActive;
         ConstraintLayout clProgramItem;
 
         public ViewHolder(@NonNull View itemView) {
@@ -74,6 +74,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
             btnMoreProgramItem = itemView.findViewById(R.id.btnMoreProgramItem);
             clProgramItem = itemView.findViewById(R.id.clProgramItem);
             tvGoal = itemView.findViewById(R.id.tvProgramGoal);
+            imgActive = itemView.findViewById(R.id.imgActiveBulb);
         }
 
         @SuppressLint("NonConstantResourceId")
@@ -97,6 +98,9 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
                 });
                 popupMenu.show();
             });
+            if(plan.isActive()){
+                imgActive.setVisibility(View.VISIBLE);
+            }
             clProgramItem.setOnClickListener(view -> listener.onPlanClick(plan));
         }
     }
