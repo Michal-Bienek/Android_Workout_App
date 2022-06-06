@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.viewmodels.DialogAddEditRoutineViewModel;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -28,9 +30,10 @@ public class DialogAddEditRoutine extends DialogFragment {
     public static final String ARG_PLAN_ID = "PLAN_ID";
     public DialogAddEditRoutineViewModel viewModel;
     private Context context;
+    private TextInputLayout tilNameDialogRoutine;
     private TextInputEditText etDialogRoutineName;
     private Spinner spinnerDayOfWeek;
-    private TextView tvOkDialogRoutine;
+    private Button btnOk, btnCancel;
 
     public DialogAddEditRoutine() {
         // Required empty public constructor
@@ -81,14 +84,11 @@ public class DialogAddEditRoutine extends DialogFragment {
         viewModel = new ViewModelProvider(this).get(DialogAddEditRoutineViewModel.class);
 
         //Initialize views
-        etDialogRoutineName = view.findViewById(R.id.etDialogRoutineName);
-        spinnerDayOfWeek = view.findViewById(R.id.spinnerDayOfWeek);
-        TextView tvCancelDialogRoutine = view.findViewById(R.id.tvCancelDialogRoutine);
-        tvOkDialogRoutine = view.findViewById(R.id.tvOkDialogRoutine);
+        initViews(view);
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(context, R.array.day_spinner_array, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDayOfWeek.setAdapter(spinnerAdapter);
-        tvCancelDialogRoutine.setOnClickListener(view1 -> dismiss());
+        btnCancel.setOnClickListener(view1 -> dismiss());
 
         Bundle arguments = getArguments();
         //Handle edit/add
@@ -107,8 +107,7 @@ public class DialogAddEditRoutine extends DialogFragment {
     }
 
     private void addNewRoutine(int planId) {
-        tvOkDialogRoutine.setText("DODAJ");
-        tvOkDialogRoutine.setOnClickListener(view -> {
+        btnOk.setOnClickListener(view -> {
             String routineName = Objects.requireNonNull(etDialogRoutineName.getText()).toString().trim();
             int day_of_week = spinnerDayOfWeek.getSelectedItemPosition();
             if (!routineName.equals("")) {
@@ -122,8 +121,8 @@ public class DialogAddEditRoutine extends DialogFragment {
     private void editRoutine(Routine routine) {
         etDialogRoutineName.setText(routine.getRoutineName());
         spinnerDayOfWeek.setSelection(routine.getDayOfWeek());
-        tvOkDialogRoutine.setText("Edytuj");
-        tvOkDialogRoutine.setOnClickListener(view -> {
+        btnOk.setText("Edytuj");
+        btnOk.setOnClickListener(view -> {
             String routineName = Objects.requireNonNull(etDialogRoutineName.getText()).toString().trim();
             int day_of_week = spinnerDayOfWeek.getSelectedItemPosition();
             if (!routineName.equals("")) {
@@ -133,6 +132,12 @@ public class DialogAddEditRoutine extends DialogFragment {
                 dismiss();
             }
         });
-
+    }
+    private void initViews(View view){
+        this.tilNameDialogRoutine = view.findViewById(R.id.tilNameDialogRoutine);
+        this.etDialogRoutineName = view.findViewById(R.id.etDialogRoutineName);
+        this.spinnerDayOfWeek = view.findViewById(R.id.spinnerDayOfWeek);
+        this.btnOk = view.findViewById(R.id.btnOkRoutineDialog);
+        this.btnCancel = view.findViewById(R.id.btnCancelRoutineDialog);
     }
 }
