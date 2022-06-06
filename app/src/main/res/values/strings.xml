@@ -36,11 +36,15 @@
     <string name="btn_cancel">Anuluj</string>
     <string name="btn_add_text">Dodaj</string>
     <string name="tv_reps">Powtórzenia</string>
-    <string name="tv_weight">Waga</string>
+    <string name="tv_weight">Obciążenie</string>
     <string name="tv_restTime">Odpoczynek</string>
     <string name="tv_seriescounter_dialog">Serie</string>
     <string name="tv_series_counter_value">1</string>
     <string name="ex_name_dialog_exercise">Nazwa ćwiczenia</string>
+    <string name="fabEditSeries_contDesc">Edit Series</string>
+    <string name="hint_tilWeightDialogAddExercise">Obciążenie</string>
+    <string name="hint_tilRepsDialogAddExercise">Powtórzenia</string>
+    <string name="hint_tilRestTimeDialogAddExercise">Odpoczynek</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>

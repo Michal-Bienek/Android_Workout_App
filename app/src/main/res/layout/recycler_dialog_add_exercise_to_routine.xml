@@ -1,41 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_height="65dp">
+    android:layout_height="70dp"
+    android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/etRepsDialogExercise"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/etReps"
-        android:digits="123456789"
-        android:inputType="number" />
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etWeightDialogAddExercise"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/etWeight"
-        android:inputType="numberDecimal" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRepsDialogAddExercise"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_tilRepsDialogAddExercise"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1">
 
-    <EditText
-        android:id="@+id/etRestTimeDialogAddExercise"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/etRest"
-        android:digits="123456789"
-        android:inputType="number" />
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRepsDialogExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="123456789"
+                android:inputType="number"
+                android:maxLength="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilWeightDialogAddExercise"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/hint_tilWeightDialogAddExercise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWeightDialogAddExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:maxLength="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRestTimeDialogAddExercise"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:hint="@string/hint_tilRestTimeDialogAddExercise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRestTimeDialogAddExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="123456789"
+                android:inputType="number"
+                android:maxLength="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fabEditSeriesDialogAddExercise"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="2dp"-->
+<!--        android:clickable="true"-->
+<!--        android:contentDescription="@string/fabEditSeries_contDesc"-->
+<!--        android:focusable="true"-->
+<!--        app:backgroundTint="#032B9F"-->
+<!--        app:fabSize="mini"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ico_edit2"-->
+<!--        app:tint="@color/white" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>
+

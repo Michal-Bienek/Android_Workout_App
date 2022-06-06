@@ -20,6 +20,8 @@ import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.helpers.ExerciseParamsTextWatcher;
 import com.example.workout_appv1.helpers.ValueParser;
 import com.google.android.material.internal.TextWatcherAdapter;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +63,14 @@ public class ExerciseParamsAdapter extends RecyclerView.Adapter<ExerciseParamsAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        EditText etReps;
-        EditText etWeight;
-        EditText etRestTime;
+        TextInputEditText etReps, etWeight, etRestTime;
+        TextInputLayout tilReps, tilWeight, tilRestTime;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.tilReps = itemView.findViewById(R.id.tilRepsDialogAddExercise);
+            this.tilWeight = itemView.findViewById(R.id.tilWeightDialogAddExercise);
+            this.tilRestTime = itemView.findViewById(R.id.tilRestTimeDialogAddExercise);
             this.etReps = itemView.findViewById(R.id.etRepsDialogExercise);
             this.etWeight = itemView.findViewById(R.id.etWeightDialogAddExercise);
             this.etRestTime = itemView.findViewById(R.id.etRestTimeDialogAddExercise);
