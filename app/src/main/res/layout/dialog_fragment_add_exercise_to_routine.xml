@@ -14,14 +14,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:hint="Nazwa ćwiczenia"
+        android:hint="@string/ex_name_dialog_exercise"
         android:textColorHint="#78909C"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -39,39 +39,68 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
 
+            android:gravity="center"
+            android:letterSpacing="0.05"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Serie"
-            android:textSize="20sp" />
+            android:text="@string/tv_seriescounter_dialog"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvNumberOfSeries"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:text="1"
+            android:layout_marginEnd="32dp"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:text="@string/tv_series_counter_value"
+            android:textColor="#010932"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fabMinusSeries"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btnMinusSeries"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="3dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinusSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_baseline_remove_24" />
+            android:clickable="true"
+            android:contentDescription="@string/fabMinusSeries_contDesc"
+            android:focusable="true"
+            app:tint="@color/white"
+            app:maxImageSize="30dp"
+            app:backgroundTint="#EF2929"
+            android:src="@drawable/ic_baseline_remove_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fabPlusSeries"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btnPlusSeries"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="3dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlusSeries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_add" />
-
-
-    </LinearLayout>
+            android:clickable="true"
+            android:contentDescription="@string/fabPlusSeries_contDesc"
+            android:focusable="true"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="#03A118"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="30dp"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <LinearLayout
@@ -89,24 +118,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Powtórzenia"
+            android:text="@string/tv_reps"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Waga"
+            android:text="@string/tv_weight"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Odpoczynek"
+            android:text="@string/tv_restTime"
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -124,21 +159,32 @@
 
     <Button
         android:id="@+id/btnOkDialogAddExerciseWithParams"
-        android:layout_width="wrap_content"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="Dodaj"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#079826"
+        android:text="@string/btn_add_text"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btnCancelDialogAddExerciseWithParams"
-        android:layout_width="wrap_content"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="Anuluj"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/btn_cancel"
+        android:textColor="#C60707"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_baseline_cancel_24"
+        app:iconTint="#C60707"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnOkDialogAddExerciseWithParams"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#C60707" />
 </androidx.constraintlayout.widget.ConstraintLayout>
