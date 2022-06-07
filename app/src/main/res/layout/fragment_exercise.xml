@@ -12,31 +12,18 @@
         android:id="@+id/fabAddExercisesToRoutine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="235dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_ok"
+        android:contentDescription="@string/cnt_desc_fabAddExercisesToRoutine"
+        android:focusable="true"
+        android:src="@drawable/ic_back_exercise"
+        app:backgroundTint="#070AC8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fabCreateExercise"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918"
-        android:contentDescription="@string/cnt_desc_fabAddExercisesToRoutine"
-        android:focusable="true" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCreateExercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintVertical_bias="0.976"
+        app:maxImageSize="35dp"
+        app:tint="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExercise"
@@ -49,3 +36,16 @@
         app:layout_constraintVertical_bias="0.495"
         tools:listitem="@layout/recycler_fragment_exercise"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fabCreateExercise"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="36dp"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        android:src="@drawable/ic_add"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.918"-->
+    <!--        tools:ignore="SpeakableTextPresentCheck" />-->
