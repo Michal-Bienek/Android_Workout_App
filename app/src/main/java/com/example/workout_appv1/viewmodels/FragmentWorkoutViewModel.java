@@ -106,6 +106,10 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
         return exerciseWithSeriesList.get(position).getExercise();
     }
 
+    public void pauseWorkout(){
+        this.saveWorkout();
+    }
+
     public String validateReps(String etReps){
         if(etReps==null||etReps.isEmpty()){
             return "Pole nie może być puste";

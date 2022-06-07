@@ -50,7 +50,7 @@ public class FragmentWorkout extends Fragment {
     private TextView tvRestTimeFragmentWorkout, tvSeriesCountFragmentWorkout, tvExerciseNameFragmentWorkout;
     private TextInputEditText etRepsFragmentWorkout, etWeightFragmentWorkout;
     private TextInputLayout tilReps, tilWeight;
-    private FloatingActionButton btnNextFragmentWorkout;
+    private FloatingActionButton btnNextFragmentWorkout, btnPause;
     private ImageView imgExerciseFragmentWorkout;
     private FragmentWorkoutViewModel viewModel;
     private ExerciseWithOneSeries exercise;
@@ -91,10 +91,16 @@ public class FragmentWorkout extends Fragment {
                 ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise,rep,weight);
                 if (nextExercise == null) {
                     openFinishDialog();
+                    btnNextFragmentWorkout.setEnabled(false);
                 } else {
                     setExercise(nextExercise);
                 }
             }
+        });
+        btnPause.setOnClickListener(view12 -> {
+            btnNextFragmentWorkout.setEnabled(false);
+            this.openPauseDialog();
+
         });
 
         return view;
@@ -114,6 +120,7 @@ public class FragmentWorkout extends Fragment {
         this.etRepsFragmentWorkout = view.findViewById(R.id.etRepsFragmentWorkout);
         this.etWeightFragmentWorkout = view.findViewById(R.id.etWeightFragmentWorkout);
         this.btnNextFragmentWorkout = view.findViewById(R.id.btnNextFragmentWorkout);
+        this.btnPause = view.findViewById(R.id.fabPauseWorkout);
         this.imgExerciseFragmentWorkout = view.findViewById(R.id.imgExerciseFragmentWorkout);
         this.tilReps = view.findViewById(R.id.tilRepsFragmentWorkout);
         this.tilWeight = view.findViewById(R.id.tilWeightFragmentWorkout);
@@ -175,16 +182,35 @@ public class FragmentWorkout extends Fragment {
         dialog.setCancelable(false);
 
         Button btnOk = dialog.findViewById(R.id.btnAlertFinishWorkout);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavController navController =getNavController();
-                NavDirections action = FragmentWorkoutDirections.actionFragmentWorkoutToFragmentRoutine(routineId);
-                navController.navigate(action);
-                dialog.dismiss();
-            }
+        btnOk.setOnClickListener(view -> {
+            NavController navController =getNavController();
+            NavDirections action = FragmentWorkoutDirections.actionFragmentWorkoutToFragmentRoutine(routineId);
+            navController.navigate(action);
+            dialog.dismiss();
         });
         dialog.show();
+    }
+
+    private void openPauseDialog(){
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.break_workout_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(true);
+
+        Button btnYes = dialog.findViewById(R.id.btnYesBreakWorkout);
+        Button btnNo = dialog.findViewById(R.id.btnNoBreakWorkout);
+
+        btnYes.setOnClickListener(view -> {
+            viewModel.pauseWorkout();
+            NavController navController =getNavController();
+            NavDirections action = FragmentWorkoutDirections.actionFragmentWorkoutToFragmentRoutine(routineId);
+            navController.navigate(action);
+            dialog.dismiss();
+        });
+
+        btnNo.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
+
     }
 
     private NavController getNavController(){

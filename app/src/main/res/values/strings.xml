@@ -45,6 +45,7 @@
     <string name="hint_tilWeightDialogAddExercise">Obciążenie</string>
     <string name="hint_tilRepsDialogAddExercise">Powtórzenia</string>
     <string name="hint_tilRestTimeDialogAddExercise">Odpoczynek</string>
+    <string name="fab_pause_contDesc">Przerwij trening</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>

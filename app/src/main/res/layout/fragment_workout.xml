@@ -198,5 +198,23 @@
             android:textColor="@color/colorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPauseWorkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:tint="@color/white"
+        app:maxImageSize="30dp"
+        android:contentDescription="@string/fab_pause_contDesc"
+        android:src="@drawable/icon_pause"
+        app:backgroundTint="#F64040"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933"
+        android:focusable="true" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
