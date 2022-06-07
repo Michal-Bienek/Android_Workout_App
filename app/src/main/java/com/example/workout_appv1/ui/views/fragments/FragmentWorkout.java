@@ -1,17 +1,23 @@
 package com.example.workout_appv1.ui.views.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +31,7 @@ import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineWorkoutParam
 import com.example.workout_appv1.data.joinEntities.ExerciseWithOneSeries;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithSeries;
 import com.example.workout_appv1.helpers.CustomTextWatcher;
+import com.example.workout_appv1.ui.views.dialogs.DialogAddExerciseToRoutine;
 import com.example.workout_appv1.viewmodels.FragmentWorkoutViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -82,6 +89,7 @@ public class FragmentWorkout extends Fragment {
                 String weight = etWeightFragmentWorkout.getText().toString().trim();
                 ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise,rep,weight);
                 if (nextExercise == null) {
+                    openFinishDialog();
                     Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
                 } else {
                     setExercise(nextExercise);
@@ -158,5 +166,25 @@ public class FragmentWorkout extends Fragment {
         String repMessage = viewModel.validateReps(etRepsFragmentWorkout.getText().toString().trim());
         String weightMessage = viewModel.validateWeight(etWeightFragmentWorkout.getText().toString().trim());
         return repMessage.equals("")&&weightMessage.equals("");
+    }
+
+    private void openFinishDialog(){
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.finish_workout_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+
+        Button btnOk = dialog.findViewById(R.id.btnAlertFinishWorkout);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private NavController getNavController(){
+        return NavHostFragment.findNavController(this);
     }
 }
