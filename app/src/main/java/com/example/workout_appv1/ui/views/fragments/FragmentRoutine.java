@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -16,20 +17,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.workout_appv1.R;
+import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.data.entities.RoutineStats;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
 import com.example.workout_appv1.ui.adapters.RoutineAdapter;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddExerciseToRoutine;
 import com.example.workout_appv1.viewmodels.FragmentRoutineViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 
 public class FragmentRoutine extends Fragment {
 
     //variables
     private int routineId;
+    TextView tvLastWorkoutDate, tvTrainingVolume;
+    ImageView imgGrow;
     private Context context;
     private Button btnStartWorkout;
     private RecyclerView rvRoutine;
@@ -94,11 +104,36 @@ public class FragmentRoutine extends Fragment {
             navController.navigate(action);
         });
 
+        viewModel.getAllRoutineStatsById(routineId).observe(getViewLifecycleOwner(), new Observer<List<RoutineStats>>() {
+            @Override
+            public void onChanged(List<RoutineStats> routineStats) {
+                int list_length = routineStats.size();
+                if(list_length>0){
+                    RoutineStats rs = routineStats.get(0);
+                    String volume= rs.getTotal_volume() +" Kg";
+                    tvTrainingVolume.setText(volume);
+                    tvLastWorkoutDate.setText(viewModel.getConvertedDate(rs.getWorkout_date()));
+                    if(viewModel.isTrainingVolumeGrowing(routineStats)){
+                        imgGrow.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        imgGrow.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+        });
+
         return view;
     }
     private void initViews(View view) {
         btnStartWorkout = view.findViewById(R.id.btnStartWorkout);
         rvRoutine = view.findViewById(R.id.rvRoutine);
         fabAddExerciseToPlan = view.findViewById(R.id.fabAddExerciseToPlan);
+        tvLastWorkoutDate = view.findViewById(R.id.tvLastWorkoutDate);
+        tvTrainingVolume = view.findViewById(R.id.tvTrainingVolume);
+        imgGrow = view.findViewById(R.id.imgGrowFragmentRoutine);
+
+
     }
 }
