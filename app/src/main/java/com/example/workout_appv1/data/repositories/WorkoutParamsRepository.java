@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class WorkoutParamsRepository {
-    private WorkoutParamsDao workoutParamsDao;
+    private final WorkoutParamsDao workoutParamsDao;
     private final WorkoutPlannerDb database;
 
     public WorkoutParamsRepository(Application application){
@@ -39,28 +39,6 @@ public class WorkoutParamsRepository {
             }
         });
 
-    }
-
-    public void insertWorkoutParams(WorkoutParams workoutParams){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.insertWorkoutParams(workoutParams));
-    }
-    public void insertWorkoutParamsList(List<WorkoutParams> workoutParamsList){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.insertWorkoutParamsList(workoutParamsList));
-    }
-    public void deleteWorkoutParams(WorkoutParams workoutParams){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.deleteWorkoutParams(workoutParams));
-    }
-    public void updateWorkoutParams(WorkoutParams workoutParams){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->workoutParamsDao.updateWorkoutParams(workoutParams));
-    }
-    public LiveData<List<WorkoutParams>> getAllWorkoutParams(){
-        return workoutParamsDao.getAllWorkoutParams();
-    }
-    public LiveData<List<WorkoutParams>>getWorkoutParamsInExerciseInRoutine(int exerciseInRoutineId){
-        return workoutParamsDao.getWorkoutParamsInExerciseInRoutine(exerciseInRoutineId);
-    }
-    public LiveData<List<WorkoutParams>>getLatestWorkoutParamsInExerciseInRoutine(int exerciseInRoutineId){
-        return workoutParamsDao.getLatestWorkoutParamsInExerciseInRoutine(exerciseInRoutineId);
     }
     public WorkoutParamsWithSeries getWorkoutParamsWithSeries(int exerciseInRoutineId){
         return workoutParamsDao.getWorkoutParamsWithSeries(exerciseInRoutineId);
