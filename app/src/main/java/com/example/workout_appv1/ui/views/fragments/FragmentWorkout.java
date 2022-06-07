@@ -78,7 +78,9 @@ public class FragmentWorkout extends Fragment {
 
         btnNextFragmentWorkout.setOnClickListener(view1 -> {
             if (validateInputs()) {
-                ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise);
+                String rep = etRepsFragmentWorkout.getText().toString().trim();
+                String weight = etWeightFragmentWorkout.getText().toString().trim();
+                ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise,rep,weight);
                 if (nextExercise == null) {
                     Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
                 } else {

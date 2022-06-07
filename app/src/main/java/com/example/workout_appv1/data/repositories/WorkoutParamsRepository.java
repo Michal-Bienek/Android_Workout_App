@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData;
 
 import com.example.workout_appv1.data.WorkoutPlannerDb;
 import com.example.workout_appv1.data.daos.WorkoutParamsDao;
+import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.entities.WorkoutParams;
+import com.example.workout_appv1.data.joinEntities.WorkoutParamsSeries;
 import com.example.workout_appv1.data.relations.WorkoutParamsWithSeries;
 
 import java.util.Date;
@@ -17,9 +19,26 @@ import java.util.concurrent.Executors;
 
 public class WorkoutParamsRepository {
     private WorkoutParamsDao workoutParamsDao;
+    private final WorkoutPlannerDb database;
+
     public WorkoutParamsRepository(Application application){
-        WorkoutPlannerDb database = WorkoutPlannerDb.getInstance(application);
+        database = WorkoutPlannerDb.getInstance(application);
         this.workoutParamsDao = database.workoutParamsDao();
+    }
+
+    public void insertUserWorkout(List<WorkoutParamsSeries>userWorkoutList){
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> {
+            for(WorkoutParamsSeries wps : userWorkoutList){
+                long wpId = workoutParamsDao.insertWorkoutParams(wps.getWorkoutParams());
+                if((int)wpId>0){
+                    for(Series s: wps.getSeriesList()){
+                        s.setFk_workoutParamsId((int)wpId);
+                        database.seriesDao().insertSeries(s);
+                    }
+                }
+            }
+        });
+
     }
 
     public void insertWorkoutParams(WorkoutParams workoutParams){

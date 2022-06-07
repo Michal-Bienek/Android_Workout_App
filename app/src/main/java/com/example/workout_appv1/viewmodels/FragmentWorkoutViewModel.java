@@ -1,20 +1,20 @@
 package com.example.workout_appv1.viewmodels;
 
 import android.app.Application;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.example.workout_appv1.data.entities.Exercise;
 import com.example.workout_appv1.data.entities.Series;
+import com.example.workout_appv1.data.entities.WorkoutParams;
+import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineWorkoutParams;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithOneSeries;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithSeries;
 import com.example.workout_appv1.data.joinEntities.WorkoutParamsSeries;
 import com.example.workout_appv1.data.repositories.ExerciseInRoutineRepository;
+import com.example.workout_appv1.data.repositories.WorkoutParamsRepository;
 import com.example.workout_appv1.helpers.ValueParser;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,10 +22,10 @@ import java.util.List;
 
 public class FragmentWorkoutViewModel extends AndroidViewModel {
     private final ExerciseInRoutineRepository repository;
+    private final WorkoutParamsRepository wp_repository;
     private Date currentDate;
     List<ExerciseWithSeries> exerciseWithSeriesList;
-    List<WorkoutParamsSeries>workoutParamsSeriesList = new ArrayList<>();
-    List<Series>userSeries = new ArrayList<>();
+    List<WorkoutParamsSeries> userWorkout;
     private int exercise_position;
     private int series_position;
     private int series_count;
@@ -33,10 +33,12 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
     public FragmentWorkoutViewModel(@NonNull Application application) {
         super(application);
         this.repository = new ExerciseInRoutineRepository(application);
+        this.wp_repository = new WorkoutParamsRepository(application);
         currentDate= new Date();
     }
 
-    public ExerciseWithOneSeries getNextSeries(ExerciseWithOneSeries exercise){
+    public ExerciseWithOneSeries getNextSeries(ExerciseWithOneSeries exercise, String reps, String weight){
+        updateUserParams(reps,weight);
         if(series_position<series_count-1){
             series_position++;
             return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position );
@@ -49,6 +51,7 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
                 return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position);
             }
             else{
+                saveWorkout();
                 return null;
             }
         }
@@ -61,10 +64,34 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
 
     private void getExercisesInRoutineWithSeries(int routineId) {
         this.exerciseWithSeriesList = repository.getExercisesInRoutineWithSeries(routineId);
+        this.initWorkoutParamsSeriesList();
         this.exercise_position = 0;
         this.series_position = 0;
         setSeries_count(exercise_position);
+    }
 
+    private void updateUserParams(String reps, String weight){
+        int iReps = Integer.parseInt(reps);
+        double dWeight = Double.parseDouble(weight);
+        this.userWorkout.get(exercise_position).getSeriesList().get(series_position).setReps(iReps);
+        this.userWorkout.get(exercise_position).getSeriesList().get(series_position).setWeight(dWeight);
+    }
+
+    private void initWorkoutParamsSeriesList(){
+        this.userWorkout = new ArrayList<>();
+        for (ExerciseWithSeries ex:this.exerciseWithSeriesList) {
+            ExerciseInRoutineWorkoutParams exercise = ex.getExerciseInRoutineWorkoutParams();
+            WorkoutParams workoutParams = new WorkoutParams(0,this.currentDate,exercise.exerciseInRoutineId);
+            List<Series>seriesList = new ArrayList<>();
+            for(Series series : ex.getSeriesList()){
+                Series user_series = new Series(0,0,series.getRate(),series.getRestTime(),series.getNote(),series.getFk_workoutParamsId());
+                seriesList.add(user_series);
+            }
+            this.userWorkout.add(new WorkoutParamsSeries(workoutParams,seriesList));
+        }
+    }
+    private void saveWorkout(){
+        wp_repository.insertUserWorkout(this.userWorkout);
     }
 
     private void setSeries_count(int exercise_position){
@@ -77,9 +104,6 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
     }
     private Exercise getExerciseByPosition(int position){
         return exerciseWithSeriesList.get(position).getExercise();
-    }
-    private  void addToUserSeries(ExerciseWithOneSeries exercise,Series s){
-        Series series= exercise.getSeries();
     }
 
     public String validateReps(String etReps){

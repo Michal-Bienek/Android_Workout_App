@@ -15,6 +15,7 @@ import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineExercise;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineWorkoutParams;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithSeries;
+import com.example.workout_appv1.data.joinEntities.WorkoutParamsSeries;
 import com.example.workout_appv1.data.relations.ExercisesInRoutineWithWorkoutParams;
 
 import java.util.ArrayList;
@@ -75,6 +76,7 @@ public class ExerciseInRoutineRepository {
         executorService.shutdown();
 
     }
+
 
     public void insertExerciseInRoutineList(List<ExercisesInRoutine> exercisesInRoutineList) {
         WorkoutPlannerDb.databaseWriteExecutor.execute(() -> this.exercisesInRoutineDao.insertExerciseInRoutineList(exercisesInRoutineList));
