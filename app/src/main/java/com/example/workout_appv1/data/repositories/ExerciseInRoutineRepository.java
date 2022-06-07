@@ -56,24 +56,6 @@ public class ExerciseInRoutineRepository {
         });
     }
 
-//    public void insertExerciseInRoutineWithParameters(ExercisesInRoutine exercisesInRoutine, List<Series> seriesList) throws ExecutionException, InterruptedException {
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        Future<Long> future;
-//
-//        future = executorService.submit(() -> exercisesInRoutineDao.insertExerciseInRoutine(exercisesInRoutine));
-//        long exerciseInRoutineId = future.get();
-//        WorkoutParams workoutParams = new WorkoutParams(0, null, (int) exerciseInRoutineId);
-//        future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
-//        long workoutParamsId = future.get();
-//        int wpId = (int) workoutParamsId;
-//        for (int i = 0; i < seriesList.size(); i++) {
-//            seriesList.get(i).setFk_workoutParamsId(wpId);
-//        }
-//        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesList));
-//
-//        executorService.shutdown();
-//    }
-
     public void updateExerciseInRoutineWithParameters(int exerciseInRoutineId, List<Series>seriesList) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Long> future;

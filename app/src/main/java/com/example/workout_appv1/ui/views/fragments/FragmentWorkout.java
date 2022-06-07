@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,11 @@ import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.joinEntities.ExerciseInRoutineWorkoutParams;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithOneSeries;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithSeries;
+import com.example.workout_appv1.helpers.CustomTextWatcher;
 import com.example.workout_appv1.viewmodels.FragmentWorkoutViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
@@ -36,7 +40,8 @@ public class FragmentWorkout extends Fragment {
     Context context;
     private int routineId;
     private TextView tvRestTimeFragmentWorkout, tvSeriesCountFragmentWorkout, tvExerciseNameFragmentWorkout;
-    private EditText etRepsFragmentWorkout, etWeightFragmentWorkout;
+    private TextInputEditText etRepsFragmentWorkout, etWeightFragmentWorkout;
+    private TextInputLayout tilReps, tilWeight;
     private FloatingActionButton btnNextFragmentWorkout;
     private ImageView imgExerciseFragmentWorkout;
     private FragmentWorkoutViewModel viewModel;
@@ -66,6 +71,7 @@ public class FragmentWorkout extends Fragment {
         routineId = args.getRoutineId();
         //BindViews
         bindViews(view);
+        addEtWatchers();
 
         exercise = viewModel.initializeVariables(routineId);
         setViews(exercise);
@@ -73,11 +79,13 @@ public class FragmentWorkout extends Fragment {
         btnNextFragmentWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise);
-                if (nextExercise == null) {
-                    Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
-                } else {
-                    setExercise(nextExercise);
+                if (validateInputs()) {
+                    ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise);
+                    if (nextExercise == null) {
+                        Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
+                    } else {
+                        setExercise(nextExercise);
+                    }
                 }
             }
         });
@@ -90,6 +98,8 @@ public class FragmentWorkout extends Fragment {
         setViews(exercise);
     }
 
+
+
     private void bindViews(View view) {
         this.tvRestTimeFragmentWorkout = view.findViewById(R.id.tvRestTimeFragmentWorkout);
         this.tvSeriesCountFragmentWorkout = view.findViewById(R.id.tvSeriesCountFragmentWorkout);
@@ -98,8 +108,11 @@ public class FragmentWorkout extends Fragment {
         this.etWeightFragmentWorkout = view.findViewById(R.id.etWeightFragmentWorkout);
         this.btnNextFragmentWorkout = view.findViewById(R.id.btnNextFragmentWorkout);
         this.imgExerciseFragmentWorkout = view.findViewById(R.id.imgExerciseFragmentWorkout);
+        this.tilReps = view.findViewById(R.id.tilRepsFragmentWorkout);
+        this.tilWeight = view.findViewById(R.id.tilWeightFragmentWorkout);
 
     }
+
 
     private void setViews(ExerciseWithOneSeries exercise) {
         this.tvRestTimeFragmentWorkout.setText(String.valueOf(exercise.getSeries().getRestTime()));
@@ -109,5 +122,42 @@ public class FragmentWorkout extends Fragment {
         this.tvExerciseNameFragmentWorkout.setText(exercise.getExercise().getName());
         this.etRepsFragmentWorkout.setText(String.valueOf(exercise.getSeries().getReps()));
         this.etWeightFragmentWorkout.setText(String.valueOf(exercise.getSeries().getWeight()));
+    }
+
+    private void addEtWatchers(){
+        etRepsFragmentWorkout.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onEditTextChanged(Editable s) {
+                String repMessage = viewModel.validateReps(s.toString().trim());
+                if(repMessage.equals("")){
+                    tilReps.setError(null);
+                    btnNextFragmentWorkout.setEnabled(true);
+                }
+                else {
+                    tilReps.setError(repMessage);
+                    btnNextFragmentWorkout.setEnabled(false);
+                }
+            }
+        });
+        etWeightFragmentWorkout.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onEditTextChanged(Editable s) {
+                String weightMessage = viewModel.validateWeight(s.toString().trim());
+                if(weightMessage.equals("")){
+                    tilWeight.setError(null);
+                    btnNextFragmentWorkout.setEnabled(true);
+                }
+                else{
+                    tilWeight.setError(weightMessage);
+                    btnNextFragmentWorkout.setEnabled(false);
+                }
+            }
+        });
+    }
+
+    private boolean validateInputs() {
+        String repMessage = viewModel.validateReps(etRepsFragmentWorkout.getText().toString().trim());
+        String weightMessage = viewModel.validateWeight(etWeightFragmentWorkout.getText().toString().trim());
+        return repMessage.equals("")&&weightMessage.equals("");
     }
 }
