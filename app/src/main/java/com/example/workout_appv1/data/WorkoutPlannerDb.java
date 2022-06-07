@@ -47,12 +47,10 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     .build();
         }
-        // Na potrzeby projektu wstępne zapełnienie bazy z ćwiczeniami
         prepopulateIfEmpty();
         return workoutPlannerDb;
     }
 
-    //Daos
     public abstract PlanDao planDao();
 
     public abstract RoutineDao routineDao();

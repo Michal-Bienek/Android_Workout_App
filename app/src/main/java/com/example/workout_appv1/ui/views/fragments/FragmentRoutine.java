@@ -104,23 +104,20 @@ public class FragmentRoutine extends Fragment {
             navController.navigate(action);
         });
 
-        viewModel.getAllRoutineStatsById(routineId).observe(getViewLifecycleOwner(), new Observer<List<RoutineStats>>() {
-            @Override
-            public void onChanged(List<RoutineStats> routineStats) {
-                int list_length = routineStats.size();
-                if(list_length>0){
-                    RoutineStats rs = routineStats.get(0);
-                    String volume= rs.getTotal_volume() +" Kg";
-                    tvTrainingVolume.setText(volume);
-                    tvLastWorkoutDate.setText(viewModel.getConvertedDate(rs.getWorkout_date()));
-                    if(viewModel.isTrainingVolumeGrowing(routineStats)){
-                        imgGrow.setVisibility(View.VISIBLE);
-                    }
-                    else{
-                        imgGrow.setVisibility(View.GONE);
-                    }
-
+        viewModel.getAllRoutineStatsById(routineId).observe(getViewLifecycleOwner(), routineStats -> {
+            int list_length = routineStats.size();
+            if(list_length>0){
+                RoutineStats rs = routineStats.get(0);
+                String volume= rs.getTotal_volume() +" kg";
+                tvTrainingVolume.setText(volume);
+                tvLastWorkoutDate.setText(viewModel.getConvertedDate(rs.getWorkout_date()));
+                if(viewModel.isTrainingVolumeGrowing(routineStats)){
+                    imgGrow.setVisibility(View.VISIBLE);
                 }
+                else{
+                    imgGrow.setVisibility(View.GONE);
+                }
+
             }
         });
 
