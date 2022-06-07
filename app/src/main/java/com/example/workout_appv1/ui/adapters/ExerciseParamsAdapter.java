@@ -1,25 +1,15 @@
 package com.example.workout_appv1.ui.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_appv1.R;
-import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.data.entities.Series;
-import com.example.workout_appv1.helpers.ExerciseParamsTextWatcher;
-import com.example.workout_appv1.helpers.ValueParser;
-import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
