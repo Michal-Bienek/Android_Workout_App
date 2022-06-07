@@ -20,6 +20,7 @@ import com.example.workout_appv1.data.entities.Exercise;
 import com.example.workout_appv1.data.entities.ExercisesInRoutine;
 import com.example.workout_appv1.data.entities.Plan;
 import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.data.entities.RoutineStats;
 import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.entities.WorkoutParams;
 import com.example.workout_appv1.data.type_converters.DateConverter;
@@ -28,8 +29,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Plan.class, Routine.class, Exercise.class, ExercisesInRoutine.class,
-        WorkoutParams.class, Series.class
-}, version = 3, exportSchema = false)
+        WorkoutParams.class, Series.class, RoutineStats.class
+}, version = 4, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class WorkoutPlannerDb extends RoomDatabase {
     private static WorkoutPlannerDb workoutPlannerDb;
