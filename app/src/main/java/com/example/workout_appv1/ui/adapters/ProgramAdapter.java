@@ -101,6 +101,9 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
             if(plan.isActive()){
                 imgActive.setVisibility(View.VISIBLE);
             }
+            else{
+                imgActive.setVisibility(View.GONE);
+            }
             clProgramItem.setOnClickListener(view -> listener.onPlanClick(plan));
         }
     }

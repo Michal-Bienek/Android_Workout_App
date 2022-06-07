@@ -65,6 +65,17 @@ public interface ExercisesInRoutineDao {
             "Where ex.fk_routineId = :routineId")
     Map<ExerciseInRoutineWorkoutParams,List<Series>>getExercisesWithSeries(int routineId);
 
+    @Query("SELECT SUM(s.reps*s.weight)" +
+            " FROM exercises_in_routine AS ex " +
+            "INNER JOIN (SELECT fk_exerciseInRoutineId, Max(workoutParamsId) " +
+            "as latest_workout_params " +
+            "from (SELECT * from workout_params WHERE workout_date is not null) as wp " +
+            "group by wp.fk_exerciseInRoutineId Having Max(workoutParamsId) ) " +
+            "as lwp on ex.exerciseInRoutineId = lwp.fk_exerciseInRoutineId " +
+            "INNER JOIN series s on lwp.latest_workout_params = s.fk_workoutParamsId " +
+            "Where ex.fk_routineId = :routineId")
+    LiveData<Double>getLastWorkoutTotal(int routineId);
+
 
 
 
