@@ -13,6 +13,7 @@ import com.example.workout_appv1.data.joinEntities.ExerciseWithOneSeries;
 import com.example.workout_appv1.data.joinEntities.ExerciseWithSeries;
 import com.example.workout_appv1.data.joinEntities.WorkoutParamsSeries;
 import com.example.workout_appv1.data.repositories.ExerciseInRoutineRepository;
+import com.example.workout_appv1.data.repositories.RoutineRepository;
 import com.example.workout_appv1.data.repositories.WorkoutParamsRepository;
 import com.example.workout_appv1.helpers.ValueParser;
 
@@ -23,6 +24,8 @@ import java.util.List;
 public class FragmentWorkoutViewModel extends AndroidViewModel {
     private final ExerciseInRoutineRepository repository;
     private final WorkoutParamsRepository wp_repository;
+    private final RoutineRepository routineRepository;
+    private int routineId;
     private Date currentDate;
     List<ExerciseWithSeries> exerciseWithSeriesList;
     List<WorkoutParamsSeries> userWorkout;
@@ -34,6 +37,7 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
         super(application);
         this.repository = new ExerciseInRoutineRepository(application);
         this.wp_repository = new WorkoutParamsRepository(application);
+        this.routineRepository = new RoutineRepository(application);
         currentDate= new Date();
     }
 
@@ -58,6 +62,7 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
     }
 
     public ExerciseWithOneSeries initializeVariables(int routineId){
+        this.routineId=routineId;
         getExercisesInRoutineWithSeries(routineId);
         return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position);
     }
@@ -92,6 +97,7 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
     }
     private void saveWorkout(){
         wp_repository.insertUserWorkout(this.userWorkout);
+        routineRepository.updateRoutineById(this.routineId,currentDate);
     }
 
     private void setSeries_count(int exercise_position){

@@ -22,6 +22,7 @@ import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.ui.views.dialogs.DialogAddEditRoutine;
 import com.example.workout_appv1.viewmodels.FragmentPlanViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDayPlanItem, tvNamePlanItem;
+        TextView tvDayPlanItem, tvNamePlanItem,tvDate;
         ImageView btnMorePlanItem;
         ConstraintLayout clPlanItem;
 
@@ -68,6 +69,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
             this.tvNamePlanItem = itemView.findViewById(R.id.tvNamePlanItem);
             this.btnMorePlanItem = itemView.findViewById(R.id.btnMorePlanItem);
             this.clPlanItem = itemView.findViewById(R.id.clPlanItem);
+            this.tvDate = itemView.findViewById(R.id.tvDataItemPlan);
         }
 
         @SuppressLint("NonConstantResourceId")
@@ -91,6 +93,11 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
                 });
                 popupMenu.show();
             });
+            if(routine.getLastWorkoutDate()!=null){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/y HH:mm");
+                String tmp = dateFormat.format(routine.getLastWorkoutDate());
+                this.tvDate.setText(tmp);
+            }
             this.clPlanItem.setOnClickListener(view -> onRoutineAction.onRoutineClick(routine));
 
         }

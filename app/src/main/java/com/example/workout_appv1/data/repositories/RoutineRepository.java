@@ -9,6 +9,7 @@ import com.example.workout_appv1.data.daos.RoutineDao;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.data.relations.RoutineWithExercisesInRoutine;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,5 +39,9 @@ public class RoutineRepository {
 
     public LiveData<Routine>getRoutineById(int routineId){
         return routineDao.getRoutineById(routineId);
+    }
+
+    public void updateRoutineById(int routineId, Date date){
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> routineDao.updateRoutineById(routineId,date));
     }
 }
