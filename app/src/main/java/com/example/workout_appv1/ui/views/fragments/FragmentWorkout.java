@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
@@ -90,7 +91,6 @@ public class FragmentWorkout extends Fragment {
                 ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise,rep,weight);
                 if (nextExercise == null) {
                     openFinishDialog();
-                    Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
                 } else {
                     setExercise(nextExercise);
                 }
@@ -178,6 +178,9 @@ public class FragmentWorkout extends Fragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                NavController navController =getNavController();
+                NavDirections action = FragmentWorkoutDirections.actionFragmentWorkoutToFragmentRoutine(routineId);
+                navController.navigate(action);
                 dialog.dismiss();
             }
         });

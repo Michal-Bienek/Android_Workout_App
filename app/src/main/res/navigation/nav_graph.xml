@@ -80,7 +80,9 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_fragmentWorkout_to_fragmentRoutine"
-            app:destination="@id/fragmentRoutine" />
+            app:destination="@id/fragmentRoutine"
+            app:popUpTo="@id/fragmentRoutine"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHome"

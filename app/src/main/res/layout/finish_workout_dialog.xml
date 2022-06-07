@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:background="#F1EEEE">
+            android:background="#DDDCDC">
 
             <TextView
                 android:id="@+id/textView4"
