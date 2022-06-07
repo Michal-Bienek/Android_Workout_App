@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Plan.class, Routine.class, Exercise.class, ExercisesInRoutine.class,
         WorkoutParams.class, Series.class
-}, version = 1, exportSchema = false)
+}, version = 3, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class WorkoutPlannerDb extends RoomDatabase {
     private static WorkoutPlannerDb workoutPlannerDb;
@@ -44,9 +44,10 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
                     WorkoutPlannerDb.class, DATABASE_NAME)
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
                     .build();
         }
+        // Na potrzeby projektu wstępne zapełnienie bazy z ćwiczeniami
+        prepopulateIfEmpty();
         return workoutPlannerDb;
     }
 
@@ -63,34 +64,52 @@ public abstract class WorkoutPlannerDb extends RoomDatabase {
 
     public abstract SeriesDao seriesDao();
 
-    //Na potrzeby projektu wstępne zapełnienie bazy z ćwiczeniami
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbExerciseAsyncTask(workoutPlannerDb).execute();
-        }
-    };
-
-    private static class PopulateDbExerciseAsyncTask extends AsyncTask<Void, Void, Void> {
-        private final ExerciseDao exerciseDao;
-
-        private PopulateDbExerciseAsyncTask(WorkoutPlannerDb db) {
-            exerciseDao = db.exerciseDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            exerciseDao.insertExercise(new Exercise("Wyciskanie leząc", "", "Klata"));
-            exerciseDao.insertExercise(new Exercise("Przysiady", "", "Nogi"));
-            exerciseDao.insertExercise(new Exercise("Dipy na poręczach", "", "Triceps"));
-            exerciseDao.insertExercise(new Exercise("Podciąganie", "", "Plecy"));
-            exerciseDao.insertExercise(new Exercise("Pompki", "", "Klata"));
-            exerciseDao.insertExercise(new Exercise("Allahy", "", "Brzuch"));
-            exerciseDao.insertExercise(new Exercise("Unoszenie na biceps", "", "Biceps"));
-            exerciseDao.insertExercise(new Exercise("Wyciskanie na suwnicy Smitha", "", "Nogi "));
-            exerciseDao.insertExercise(new Exercise("Wznosy tułowia", "", "Prostowniki grzbietu"));
-            return null;
-        }
+    private static void prepopulateIfEmpty(){
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> {
+            ExerciseDao exerciseDao = workoutPlannerDb.exerciseDao();
+            if(exerciseDao.getExerciseCount()==0){
+                exerciseDao.insertExercise(new Exercise("Wyciskanie leżąc", "", "Klata"));
+                exerciseDao.insertExercise(new Exercise("Przysiady", "", "Nogi"));
+                exerciseDao.insertExercise(new Exercise("Dipy na poręczach", "", "Triceps"));
+                exerciseDao.insertExercise(new Exercise("Podciąganie", "", "Plecy"));
+                exerciseDao.insertExercise(new Exercise("Pompki", "", "Klata"));
+                exerciseDao.insertExercise(new Exercise("Allahy", "", "Brzuch"));
+                exerciseDao.insertExercise(new Exercise("Unoszenie na biceps", "", "Biceps"));
+                exerciseDao.insertExercise(new Exercise("Wyciskanie na suwnicy Smitha", "", "Nogi "));
+                exerciseDao.insertExercise(new Exercise("Wznosy tułowia", "", "Prostowniki grzbietu"));
+                exerciseDao.insertExercise(new Exercise("Wznosy ramion", "", "Barki"));
+                exerciseDao.insertExercise(new Exercise("Prostowanie ramion na maszynie", "", "Triceps"));
+            }
+        });
     }
 }
+
+//    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//            super.onCreate(db);
+//            new PopulateDbExerciseAsyncTask(workoutPlannerDb).execute();
+//        }
+//    };
+//
+//    private static class PopulateDbExerciseAsyncTask extends AsyncTask<Void, Void, Void> {
+//        private final ExerciseDao exerciseDao;
+//
+//        private PopulateDbExerciseAsyncTask(WorkoutPlannerDb db) {
+//            exerciseDao = db.exerciseDao();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            exerciseDao.insertExercise(new Exercise("Wyciskanie leząc", "", "Klata"));
+//            exerciseDao.insertExercise(new Exercise("Przysiady", "", "Nogi"));
+//            exerciseDao.insertExercise(new Exercise("Dipy na poręczach", "", "Triceps"));
+//            exerciseDao.insertExercise(new Exercise("Podciąganie", "", "Plecy"));
+//            exerciseDao.insertExercise(new Exercise("Pompki", "", "Klata"));
+//            exerciseDao.insertExercise(new Exercise("Allahy", "", "Brzuch"));
+//            exerciseDao.insertExercise(new Exercise("Unoszenie na biceps", "", "Biceps"));
+//            exerciseDao.insertExercise(new Exercise("Wyciskanie na suwnicy Smitha", "", "Nogi "));
+//            exerciseDao.insertExercise(new Exercise("Wznosy tułowia", "", "Prostowniki grzbietu"));
+//            return null;
+//        }
+//    }
