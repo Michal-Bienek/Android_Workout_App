@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Routine;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,19 +52,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         TextView tvDayHomeItem;
         TextView tvNameHomeItem;
         ConstraintLayout clHomeItem;
+        TextView tvDate;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tvDayHomeItem = itemView.findViewById(R.id.tvDayHomeItem);
             this.tvNameHomeItem = itemView.findViewById(R.id.tvNameHomeItem);
             this.clHomeItem = itemView.findViewById(R.id.clHomeItem);
+            this.tvDate= itemView.findViewById(R.id.tvDateHomeItem);
         }
 
         public void bind(Routine routine, IOnHomeActionListener onHomeAction) {
             this.tvNameHomeItem.setText(routine.getRoutineName());
             this.tvDayHomeItem.setText(onHomeAction.getDayShortcut(routine));
             this.clHomeItem.setOnClickListener(view -> onHomeAction.onItemClick(routine));
-
+            if(routine.getLastWorkoutDate()!=null){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/y HH:mm");
+                String tmp = dateFormat.format(routine.getLastWorkoutDate());
+                this.tvDate.setText(tmp);
+            }
         }
     }
 
