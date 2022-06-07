@@ -76,16 +76,13 @@ public class FragmentWorkout extends Fragment {
         exercise = viewModel.initializeVariables(routineId);
         setViews(exercise);
 
-        btnNextFragmentWorkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validateInputs()) {
-                    ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise);
-                    if (nextExercise == null) {
-                        Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
-                    } else {
-                        setExercise(nextExercise);
-                    }
+        btnNextFragmentWorkout.setOnClickListener(view1 -> {
+            if (validateInputs()) {
+                ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise);
+                if (nextExercise == null) {
+                    Toast.makeText(context, "ni ma wiyncyj ćwiczeń", Toast.LENGTH_SHORT).show();
+                } else {
+                    setExercise(nextExercise);
                 }
             }
         });

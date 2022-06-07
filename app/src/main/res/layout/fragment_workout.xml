@@ -48,7 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/bench_press"
+        android:src="@drawable/exercise2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -90,10 +90,13 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
+            android:letterSpacing="0.05"
             android:text="@string/exercise_name_fragment_workout"
             android:textColor="@color/mainFragmentColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -113,21 +116,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 
-<!--    <EditText-->
-<!--        android:id="@+id/etRepsFragmentWorkout"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginEnd="160dp"-->
-<!--        android:digits="123456789"-->
-<!--        android:inputType="number"-->
-<!--        android:text="1"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="#F9F871"-->
-<!--        android:textSize="16sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />-->
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="120dp"
@@ -140,20 +128,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-<!--    <EditText-->
-<!--        android:id="@+id/etWeightFragmentWorkout"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginEnd="160dp"-->
-<!--        android:inputType="numberDecimal"-->
-<!--        android:text="40"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="#F9F871"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/etRepsFragmentWorkout"-->
-<!--        android:autofillHints="40" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNextFragmentWorkout"
