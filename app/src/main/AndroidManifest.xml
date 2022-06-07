@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Workout_appv1">
         <activity
             android:name=".ui.views.activities.MainActivity"
+            android:label="Dziennik Treningowy"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

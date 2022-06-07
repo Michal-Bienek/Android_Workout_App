@@ -12,6 +12,7 @@ import androidx.room.Update;
 import com.example.workout_appv1.data.entities.Routine;
 import com.example.workout_appv1.data.relations.RoutineWithExercisesInRoutine;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -36,6 +37,9 @@ public interface RoutineDao {
 
     @Query("SELECT * FROM routines WHERE routineId = :routineId LIMIT 1")
     LiveData<Routine>getRoutineById(int routineId);
+
+    @Query("UPDATE routines SET lastWorkoutDate =:last_workoutDate WHERE routineId=:routineId")
+    void updateRoutineById(int routineId, Date last_workoutDate);
 
 
 

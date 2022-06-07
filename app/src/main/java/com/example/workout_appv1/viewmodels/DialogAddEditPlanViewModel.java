@@ -18,15 +18,8 @@ public class DialogAddEditPlanViewModel extends AndroidViewModel {
         planRepository = new PlanRepository(application);
     }
 
-    public boolean insertPlan(Plan plan) {
-        boolean success = false;
-        try {
-            planRepository.insertPlan(plan);
-            success = true;
-        } catch (Exception ignored) {
-
-        }
-        return success;
+    public void insertPlan(Plan plan) {
+        planRepository.insertPlan(plan);
     }
 
     public LiveData<Plan>getPlanById(int planId){
@@ -35,6 +28,9 @@ public class DialogAddEditPlanViewModel extends AndroidViewModel {
 
     public void updatePlan(Plan plan){
         planRepository.updatePlan(plan);
+    }
+    public boolean validatePlanName(String planName){
+        return !planName.isEmpty();
     }
 
 }

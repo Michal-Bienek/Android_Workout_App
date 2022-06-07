@@ -18,30 +18,6 @@ public class ExerciseRepository {
         WorkoutPlannerDb database = WorkoutPlannerDb.getInstance(application);
         exerciseDao = database.exerciseDao();
     }
-    public void insertExercise(Exercise exercise){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->exerciseDao.insertExercise(exercise));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->exerciseDao.insertExercise(exercise));
-//        executorService.shutdown();
-    }
-    public void insertExercises(List<Exercise> exerciseList){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->exerciseDao.insertExercises(exerciseList));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->exerciseDao.insertExercises(exerciseList));
-//        executorService.shutdown();
-    }
-    public void deleteExercise(Exercise exercise){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->exerciseDao.deleteExercise(exercise));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->exerciseDao.deleteExercise(exercise));
-//        executorService.shutdown();
-    }
-    public void updateExercise(Exercise exercise){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(()->exerciseDao.updateExercise(exercise));
-//        ExecutorService executorService = Executors.newSingleThreadExecutor();
-//        executorService.execute(()->exerciseDao.updateExercise(exercise));
-//        executorService.shutdown();
-    }
     public LiveData<List<Exercise>> getAllExercises(){
         return exerciseDao.getAllExercises();
     }

@@ -31,6 +31,21 @@
     <string name="til_goal_hint">Cel treningowy</string>
     <string name="active_plan">Aktywny</string>
     <string name="btn_save_plan">Zapisz</string>
+    <string name="fabPlusSeries_contDesc">Dodaj serie</string>
+    <string name="fabMinusSeries_contDesc">Zmniejsz serie</string>
+    <string name="btn_cancel">Anuluj</string>
+    <string name="btn_add_text">Dodaj</string>
+    <string name="tv_reps">Powtórzenia</string>
+    <string name="tv_weight">Obciążenie</string>
+    <string name="tv_restTime">Odpoczynek</string>
+    <string name="tv_seriescounter_dialog">Serie</string>
+    <string name="tv_series_counter_value">1</string>
+    <string name="ex_name_dialog_exercise">Nazwa ćwiczenia</string>
+    <string name="fabEditSeries_contDesc">Edit Series</string>
+    <string name="hint_tilWeightDialogAddExercise">Obciążenie</string>
+    <string name="hint_tilRepsDialogAddExercise">Powtórzenia</string>
+    <string name="hint_tilRestTimeDialogAddExercise">Odpoczynek</string>
+    <string name="fab_pause_contDesc">Przerwij trening</string>
     <string-array name="day_shortcuts_array">
         <item>Pn</item>
         <item>Wt</item>

@@ -24,6 +24,7 @@ import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.ui.adapters.ExerciseParamsAdapter;
 import com.example.workout_appv1.viewmodels.DialogAddExerciseToRoutineViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
     Context context;
     TextView tvExNameDialogAddExercise;
     TextView tvNumberOfSeries;
-    ImageView btnMinusSeries,btnPlusSeries;
+    FloatingActionButton btnMinusSeries,btnPlusSeries;
     RecyclerView  rvFragmentDialogExercise;
     private DialogAddExerciseToRoutineViewModel viewModel;
     private ExerciseParamsAdapter adapter;
@@ -88,8 +89,8 @@ public class DialogAddExerciseToRoutine extends DialogFragment implements Exerci
        //Initialize views
         tvExNameDialogAddExercise=view.findViewById(R.id.tvExNameDialogAddExercise);
         tvNumberOfSeries=view.findViewById(R.id.tvNumberOfSeries);
-        btnMinusSeries=view.findViewById(R.id.btnMinusSeries);
-        btnPlusSeries=view.findViewById(R.id.btnPlusSeries);
+        btnMinusSeries=view.findViewById(R.id.fabMinusSeries);
+        btnPlusSeries=view.findViewById(R.id.fabPlusSeries);
         rvFragmentDialogExercise= view.findViewById(R.id.rvFragmentDialogExercise);
         Button btnCancel = view.findViewById(R.id.btnCancelDialogAddExerciseWithParams);
         btnAdd = view.findViewById(R.id.btnOkDialogAddExerciseWithParams);

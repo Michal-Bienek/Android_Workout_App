@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.helpers.CustomTextWatcher;
 import com.example.workout_appv1.viewmodels.DialogAddEditRoutineViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -90,6 +92,14 @@ public class DialogAddEditRoutine extends DialogFragment {
         spinnerDayOfWeek.setAdapter(spinnerAdapter);
         btnCancel.setOnClickListener(view1 -> dismiss());
 
+        etDialogRoutineName.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onEditTextChanged(Editable s) {
+                if(viewModel.validateRoutineName(s.toString().trim()))
+                    tilNameDialogRoutine.setError(null);
+            }
+        });
+
         Bundle arguments = getArguments();
         //Handle edit/add
         if (arguments != null) {
@@ -110,10 +120,13 @@ public class DialogAddEditRoutine extends DialogFragment {
         btnOk.setOnClickListener(view -> {
             String routineName = Objects.requireNonNull(etDialogRoutineName.getText()).toString().trim();
             int day_of_week = spinnerDayOfWeek.getSelectedItemPosition();
-            if (!routineName.equals("")) {
+            if(viewModel.validateRoutineName(routineName)){
                 Routine r = new Routine(routineName, day_of_week, null, planId);
                 viewModel.insertRoutine(r);
                 dismiss();
+            }
+            else{
+                tilNameDialogRoutine.setError("Pole nazwy nie może być puste");
             }
         });
     }
@@ -125,11 +138,14 @@ public class DialogAddEditRoutine extends DialogFragment {
         btnOk.setOnClickListener(view -> {
             String routineName = Objects.requireNonNull(etDialogRoutineName.getText()).toString().trim();
             int day_of_week = spinnerDayOfWeek.getSelectedItemPosition();
-            if (!routineName.equals("")) {
+            if(viewModel.validateRoutineName(routineName)){
                 routine.setRoutineName(routineName);
                 routine.setDayOfWeek(day_of_week);
                 viewModel.updateRoutine(routine);
                 dismiss();
+            }
+            else{
+                tilNameDialogRoutine.setError("Pole nazwy rutyny nie może być puste");
             }
         });
     }

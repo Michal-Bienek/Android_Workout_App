@@ -31,7 +31,6 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
     private int routineId;
     private Context context;
     private FloatingActionButton fabAddExercisesToRoutine;
-    private FloatingActionButton fabCreateExercise;
     private RecyclerView rvExercise;
 
     public FragmentExercise() {
@@ -69,6 +68,14 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
         this.rvExercise.setLayoutManager(layoutManager);
         this.rvExercise.setAdapter(adapter);
         viewModel.getAllExercises().observe(getViewLifecycleOwner(), adapter::setExerciseList);
+        this.fabAddExercisesToRoutine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController= getNavController();
+                NavDirections action = FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
+                navController.navigate(action);
+            }
+        });
 
 
         return view;
@@ -76,8 +83,10 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
 
     private void initViews(View view){
         this.fabAddExercisesToRoutine=view.findViewById(R.id.fabAddExercisesToRoutine);
-        this.fabCreateExercise=view.findViewById(R.id.fabCreateExercise);
         this.rvExercise=view.findViewById(R.id.rvExercise);
+    }
+    private NavController getNavController(){
+        return NavHostFragment.findNavController(this);
     }
 
 //    private void handleConfirmClick(){

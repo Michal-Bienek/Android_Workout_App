@@ -28,4 +28,8 @@ public class DialogAddEditRoutineViewModel extends AndroidViewModel {
     public void insertRoutine(Routine routine) {
         routineRepository.insertRoutine(routine);
     }
+
+    public boolean validateRoutineName(String routineName){
+        return !routineName.isEmpty();
+    }
 }

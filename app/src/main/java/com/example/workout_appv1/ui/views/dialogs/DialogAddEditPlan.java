@@ -6,19 +6,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.workout_appv1.R;
 import com.example.workout_appv1.data.entities.Plan;
+import com.example.workout_appv1.helpers.CustomTextWatcher;
 import com.example.workout_appv1.viewmodels.DialogAddEditPlanViewModel;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
@@ -91,6 +89,15 @@ public class DialogAddEditPlan extends DialogFragment {
             addPlan();
         }
 
+        etName.addTextChangedListener(new CustomTextWatcher() {
+            @Override
+            public void onEditTextChanged(Editable s) {
+                if(s.toString().trim().length()>0){
+                    tilName.setError(null);
+                }
+            }
+        });
+
         btnCancel.setOnClickListener(view1 -> dismiss());
         return view;
     }
@@ -104,12 +111,16 @@ public class DialogAddEditPlan extends DialogFragment {
             String name = etName.getText().toString().trim();
             String goal = etGoal.getText().toString().trim();
             boolean isActive = cbActive.isChecked();
-            if(!name.equals("")){
+            boolean nameValidation = viewModel.validatePlanName(name);
+            if(nameValidation){
                 plan.setPlanName(name);
                 plan.setGoal(goal);
                 plan.setActive(isActive);
                 viewModel.updatePlan(plan);
                 dismiss();
+            }
+            else{
+                tilName.setError("Pole nazwy nie może być puste");
             }
         });
 
@@ -120,11 +131,14 @@ public class DialogAddEditPlan extends DialogFragment {
             String name = etName.getText().toString().trim();
             String goal = etGoal.getText().toString().trim();
             boolean isActive = cbActive.isChecked();
-            if (!name.equals("")) {
+            boolean nameValidation = viewModel.validatePlanName(name);
+            if(nameValidation){
                 Plan plan = new Plan(name, goal, isActive);
-                boolean success = viewModel.insertPlan(plan);
+                viewModel.insertPlan(plan);
                 dismiss();
-                Toast.makeText(context, "Dodano nowy plan", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                tilName.setError("Pole nazwy nie może być puste");
             }
         });
     }
