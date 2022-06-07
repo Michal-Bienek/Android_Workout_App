@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.workout_appv1.data.entities.Routine;
+import com.example.workout_appv1.data.entities.RoutineStats;
 import com.example.workout_appv1.data.relations.RoutineWithExercisesInRoutine;
 
 import java.util.Date;
@@ -40,6 +41,12 @@ public interface RoutineDao {
 
     @Query("UPDATE routines SET lastWorkoutDate =:last_workoutDate WHERE routineId=:routineId")
     void updateRoutineById(int routineId, Date last_workoutDate);
+
+    @Insert
+    void insertRoutineStat(RoutineStats routineStats);
+
+    @Query("SELECT * FROM routine_stats WHERE fk_routineId=:routineId ORDER BY id DESC")
+    List<RoutineStats>getAllRoutineStatsById(int routineId);
 
 
 
