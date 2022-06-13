@@ -54,23 +54,20 @@ public class ExerciseInRoutineRepository {
     }
 
     public void updateExerciseInRoutineWithParameters(int exerciseInRoutineId, List<Series> seriesList) throws ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Future<Long> future;
-
-        WorkoutParams workoutParams = new WorkoutParams(0, null, exerciseInRoutineId);
-        future = executorService.submit(() -> database.workoutParamsDao().insertWorkoutParams(workoutParams));
-        long workoutParamsId = future.get();
-        int wpId = (int) workoutParamsId;
-        List<Series> seriesInsertionList = new ArrayList<>();
-        for (int i = 0; i < seriesList.size(); i++) {
-            Series series = seriesList.get(i);
-            Series insertionSeries = new Series(series.getReps(), series.getWeight(), series.getRate(), series.getRestTime(), series.getNote(), wpId);
-            seriesInsertionList.add(insertionSeries);
-        }
-        executorService.execute(() -> database.seriesDao().insertSeriesList(seriesInsertionList));
-
-        executorService.shutdown();
-
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> {
+            WorkoutParams workoutParams = new WorkoutParams(0, null, exerciseInRoutineId);
+            long workoutParamsId = database.workoutParamsDao().insertWorkoutParams(workoutParams);
+            int wpId = (int) workoutParamsId;
+            if (wpId > 0) {
+                List<Series> seriesInsertionList = new ArrayList<>();
+                for (int i = 0; i < seriesList.size(); i++) {
+                    Series series = seriesList.get(i);
+                    Series insertionSeries = new Series(series.getReps(), series.getWeight(), series.getRate(), series.getRestTime(), series.getNote(), wpId);
+                    seriesInsertionList.add(insertionSeries);
+                }
+                database.seriesDao().insertSeriesList(seriesInsertionList);
+            }
+        });
     }
 
     public void deleteExerciseInRoutineById(int exerciseInRoutineId) {
@@ -91,10 +88,6 @@ public class ExerciseInRoutineRepository {
             exerciseWithSeriesList.add(ex);
         }
         return exerciseWithSeriesList;
-    }
-
-    public LiveData<Double>getLastWorkoutTotal(int routineId){
-        return exercisesInRoutineDao.getLastWorkoutTotal(routineId);
     }
 
 }
