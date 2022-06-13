@@ -32,4 +32,7 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercises WHERE exerciseId = :exerciseId")
     Exercise getExerciseById(int exerciseId);
 
+    @Query("Select COUNT(*) from exercises")
+    long getExerciseCount();
+
 }

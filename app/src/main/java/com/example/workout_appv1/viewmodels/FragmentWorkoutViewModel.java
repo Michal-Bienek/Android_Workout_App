@@ -96,8 +96,7 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
         }
     }
     private void saveWorkout(){
-        wp_repository.insertUserWorkout(this.userWorkout);
-        routineRepository.updateRoutineById(this.routineId,currentDate);
+        routineRepository.saveUserWorkout(userWorkout,routineId,currentDate);
     }
 
     private void setSeries_count(int exercise_position){

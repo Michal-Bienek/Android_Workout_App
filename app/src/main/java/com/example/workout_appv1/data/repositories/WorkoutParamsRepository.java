@@ -26,20 +26,6 @@ public class WorkoutParamsRepository {
         this.workoutParamsDao = database.workoutParamsDao();
     }
 
-    public void insertUserWorkout(List<WorkoutParamsSeries>userWorkoutList){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> {
-            for(WorkoutParamsSeries wps : userWorkoutList){
-                long wpId = workoutParamsDao.insertWorkoutParams(wps.getWorkoutParams());
-                if((int)wpId>0){
-                    for(Series s: wps.getSeriesList()){
-                        s.setFk_workoutParamsId((int)wpId);
-                        database.seriesDao().insertSeries(s);
-                    }
-                }
-            }
-        });
-
-    }
     public WorkoutParamsWithSeries getWorkoutParamsWithSeries(int exerciseInRoutineId){
         return workoutParamsDao.getWorkoutParamsWithSeries(exerciseInRoutineId);
     }
