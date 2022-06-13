@@ -13,6 +13,7 @@ import com.example.workout_appv1.data.entities.Series;
 import com.example.workout_appv1.data.relations.WorkoutParamsWithSeries;
 import com.example.workout_appv1.data.repositories.ExerciseInRoutineRepository;
 import com.example.workout_appv1.data.repositories.WorkoutParamsRepository;
+import com.example.workout_appv1.helpers.ValueParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,10 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
         int list_size = seriesList.size();
         if(list_size>0){
             Series series = seriesList.get(list_size-1);
-            seriesList.add(series);
+            Series new_Series = new Series(series);
+            int id = new_Series.getSeriesId()+1;
+            new_Series.setSeriesId(id);
+            seriesList.add(new_Series);
             this.exerciseSeries.postValue(seriesList);
         }
     }
@@ -72,8 +76,12 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
             this.exerciseSeries.setValue(seriesList);
         }
     }
-    public void updateSeries(List<Series>seriesList){
+    public void updateSeries(List<Series>seriesList,int position, Series series){
         this.exerciseSeries.setValue(seriesList);
+        if(position<seriesList.size()){
+            seriesList.set(position,series);
+            this.exerciseSeries.setValue(seriesList);
+        }
     }
 
 
@@ -98,6 +106,23 @@ public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
                 e.printStackTrace();
             }
         }
+    }
+
+    //Validation
+    public boolean validateEtReps(String reps){
+        reps = reps.trim();
+        if(reps.isEmpty()){
+            return false;
+        }
+        else return ValueParser.isPositiveInteger(reps);
+    }
+
+    public boolean validateEtWeight(String weight){
+        weight = weight.trim();
+        if(weight.isEmpty()){
+            return false;
+        }
+        else return  ValueParser.isDouble(weight);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.workout_appv1.data.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -35,6 +36,21 @@ public class Series {
         this.fk_workoutParamsId = fk_workoutParamsId;
     }
 
+    @Ignore
+    public Series(Series series) {
+        this.seriesId = series.seriesId;
+        this.reps = series.reps;
+        this.weight = series.weight;
+        this.rate = series.rate;
+        this.restTime = series.restTime;
+        this.note = series.note;
+        this.fk_workoutParamsId = series.fk_workoutParamsId;
+    }
+
+
+
+
+    @NonNull
     @Ignore
     @Override
     public String toString() {

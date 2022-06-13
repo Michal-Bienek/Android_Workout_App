@@ -46,6 +46,7 @@ public class ExerciseInRoutineRepository {
             int workoutParamsIdInt = (int) workoutParamsId;
             for (int i = 0; i < seriesList.size(); i++) {
                 seriesList.get(i).setFk_workoutParamsId(workoutParamsIdInt);
+                seriesList.get(i).setSeriesId(0);
             }
             database.seriesDao().insertSeriesList(seriesList);
 
