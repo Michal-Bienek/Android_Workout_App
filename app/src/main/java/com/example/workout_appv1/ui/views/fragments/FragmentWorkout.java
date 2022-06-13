@@ -42,11 +42,13 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FragmentWorkout extends Fragment {
 
     Context context;
     private int routineId;
+    //region View Declaration
     private TextView tvRestTimeFragmentWorkout, tvSeriesCountFragmentWorkout, tvExerciseNameFragmentWorkout;
     private TextInputEditText etRepsFragmentWorkout, etWeightFragmentWorkout;
     private TextInputLayout tilReps, tilWeight;
@@ -54,6 +56,7 @@ public class FragmentWorkout extends Fragment {
     private ImageView imgExerciseFragmentWorkout;
     private FragmentWorkoutViewModel viewModel;
     private ExerciseWithOneSeries exercise;
+    //endregion
 
 
     @Override
@@ -86,9 +89,9 @@ public class FragmentWorkout extends Fragment {
 
         btnNextFragmentWorkout.setOnClickListener(view1 -> {
             if (validateInputs()) {
-                String rep = etRepsFragmentWorkout.getText().toString().trim();
-                String weight = etWeightFragmentWorkout.getText().toString().trim();
-                ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise,rep,weight);
+                String rep = Objects.requireNonNull(etRepsFragmentWorkout.getText()).toString().trim();
+                String weight = Objects.requireNonNull(etWeightFragmentWorkout.getText()).toString().trim();
+                ExerciseWithOneSeries nextExercise = viewModel.getNextSeries(exercise, rep, weight);
                 if (nextExercise == null) {
                     openFinishDialog();
                     btnNextFragmentWorkout.setEnabled(false);
@@ -110,7 +113,6 @@ public class FragmentWorkout extends Fragment {
         this.exercise = newExercise;
         setViews(exercise);
     }
-
 
 
     private void bindViews(View view) {
@@ -138,16 +140,15 @@ public class FragmentWorkout extends Fragment {
         this.etWeightFragmentWorkout.setText(String.valueOf(exercise.getSeries().getWeight()));
     }
 
-    private void addEtWatchers(){
+    private void addEtWatchers() {
         etRepsFragmentWorkout.addTextChangedListener(new CustomTextWatcher() {
             @Override
             public void onEditTextChanged(Editable s) {
                 String repMessage = viewModel.validateReps(s.toString().trim());
-                if(repMessage.equals("")){
+                if (repMessage.equals("")) {
                     tilReps.setError(null);
                     btnNextFragmentWorkout.setEnabled(true);
-                }
-                else {
+                } else {
                     tilReps.setError(repMessage);
                     btnNextFragmentWorkout.setEnabled(false);
                 }
@@ -157,11 +158,10 @@ public class FragmentWorkout extends Fragment {
             @Override
             public void onEditTextChanged(Editable s) {
                 String weightMessage = viewModel.validateWeight(s.toString().trim());
-                if(weightMessage.equals("")){
+                if (weightMessage.equals("")) {
                     tilWeight.setError(null);
                     btnNextFragmentWorkout.setEnabled(true);
-                }
-                else{
+                } else {
                     tilWeight.setError(weightMessage);
                     btnNextFragmentWorkout.setEnabled(false);
                 }
@@ -170,12 +170,12 @@ public class FragmentWorkout extends Fragment {
     }
 
     private boolean validateInputs() {
-        String repMessage = viewModel.validateReps(etRepsFragmentWorkout.getText().toString().trim());
-        String weightMessage = viewModel.validateWeight(etWeightFragmentWorkout.getText().toString().trim());
-        return repMessage.equals("")&&weightMessage.equals("");
+        String repMessage = viewModel.validateReps(Objects.requireNonNull(etRepsFragmentWorkout.getText()).toString().trim());
+        String weightMessage = viewModel.validateWeight(Objects.requireNonNull(etWeightFragmentWorkout.getText()).toString().trim());
+        return repMessage.equals("") && weightMessage.equals("");
     }
 
-    private void openFinishDialog(){
+    private void openFinishDialog() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.finish_workout_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -183,7 +183,7 @@ public class FragmentWorkout extends Fragment {
 
         Button btnOk = dialog.findViewById(R.id.btnAlertFinishWorkout);
         btnOk.setOnClickListener(view -> {
-            NavController navController =getNavController();
+            NavController navController = getNavController();
             NavDirections action = FragmentWorkoutDirections.actionFragmentWorkoutToFragmentRoutine(routineId);
             navController.navigate(action);
             dialog.dismiss();
@@ -191,7 +191,7 @@ public class FragmentWorkout extends Fragment {
         dialog.show();
     }
 
-    private void openPauseDialog(){
+    private void openPauseDialog() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.break_workout_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -202,7 +202,7 @@ public class FragmentWorkout extends Fragment {
 
         btnYes.setOnClickListener(view -> {
             viewModel.pauseWorkout();
-            NavController navController =getNavController();
+            NavController navController = getNavController();
             NavDirections action = FragmentWorkoutDirections.actionFragmentWorkoutToFragmentRoutine(routineId);
             navController.navigate(action);
             dialog.dismiss();
@@ -213,7 +213,7 @@ public class FragmentWorkout extends Fragment {
 
     }
 
-    private NavController getNavController(){
+    private NavController getNavController() {
         return NavHostFragment.findNavController(this);
     }
 }
