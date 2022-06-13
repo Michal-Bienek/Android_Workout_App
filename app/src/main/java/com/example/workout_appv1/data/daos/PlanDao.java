@@ -19,25 +19,16 @@ public interface PlanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPlan(Plan plan);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertPlans(List<Plan> plans);
-
     @Delete
     void deletePlan(Plan plan);
 
     @Update
     void updatePlan(Plan plan);
 
-    @Query("UPDATE plans SET isActive=:status WHERE planId==:id")
-    void updatePlanStatus(int id, boolean status);
-
     @Query("SELECT * FROM plans ORDER BY isActive DESC")
-    LiveData<List<Plan>>getSortedPlans();
+    LiveData<List<Plan>> getSortedPlans();
 
     @Query("SELECT * FROM plans where planId=:planId LIMIT 1")
-    LiveData<Plan>getPlanById(int planId);
+    LiveData<Plan> getPlanById(int planId);
 
-    @Transaction
-    @Query("Select * FROM plans WHERE planId=:planId")
-    LiveData<List<PlanWithRoutines>>getPlanWithRoutines(int planId);
 }

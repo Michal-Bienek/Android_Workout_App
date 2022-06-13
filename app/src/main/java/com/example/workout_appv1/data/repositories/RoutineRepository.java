@@ -52,14 +52,11 @@ public class RoutineRepository {
     }
 
     public void saveUserWorkout(List<WorkoutParamsSeries>userWorkoutList,int routineId, Date date){
-        WorkoutPlannerDb.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                updateRoutineById(routineId,date);
-                double training_volume = saveWpWithSeries(userWorkoutList);
-                RoutineStats routineStats = new RoutineStats(date,training_volume,routineId);
-                routineDao.insertRoutineStat(routineStats);
-            }
+        WorkoutPlannerDb.databaseWriteExecutor.execute(() -> {
+            updateRoutineById(routineId,date);
+            double training_volume = saveWpWithSeries(userWorkoutList);
+            RoutineStats routineStats = new RoutineStats(date,training_volume,routineId);
+            routineDao.insertRoutineStat(routineStats);
         });
 
 

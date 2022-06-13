@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fab_pause_contDesc">Przerwij trening</string>
+    <string name="edit_message">EDYTUJ</string>
 </resources>
