@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class DialogAddExerciseToRoutineViewModel extends AndroidViewModel {
-    private ExerciseInRoutineRepository exerciseInRoutineRepository;
-    private WorkoutParamsRepository workoutParamsRepository;
+    private final ExerciseInRoutineRepository exerciseInRoutineRepository;
+    private final WorkoutParamsRepository workoutParamsRepository;
     private MutableLiveData<List<Series>>exerciseSeries;
     public DialogAddExerciseToRoutineViewModel(@NonNull Application application) {
         super(application);
