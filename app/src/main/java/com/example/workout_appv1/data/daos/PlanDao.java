@@ -19,9 +19,6 @@ public interface PlanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPlan(Plan plan);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertPlans(List<Plan> plans);
-
     @Delete
     void deletePlan(Plan plan);
 
