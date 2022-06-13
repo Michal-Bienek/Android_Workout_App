@@ -2,6 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clAddExerciseToRoutine"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.views.dialogs.DialogAddExerciseToRoutine">
@@ -77,13 +80,13 @@
             android:clickable="true"
             android:contentDescription="@string/fabMinusSeries_contDesc"
             android:focusable="true"
-            app:tint="@color/white"
-            app:maxImageSize="30dp"
-            app:backgroundTint="#EF2929"
             android:src="@drawable/ic_baseline_remove_24"
+            app:backgroundTint="#EF2929"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fabPlusSeries"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="30dp"
+            app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabPlusSeries"
