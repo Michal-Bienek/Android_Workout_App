@@ -45,8 +45,8 @@ public interface RoutineDao {
     @Insert
     void insertRoutineStat(RoutineStats routineStats);
 
-    @Query("SELECT * FROM routine_stats WHERE fk_routineId=:routineId ORDER BY id DESC")
-    List<RoutineStats>getAllRoutineStatsById(int routineId);
+    @Query("SELECT * FROM routine_stats WHERE fk_routineId=:routineId ORDER BY id DESC LIMIT 2")
+    LiveData<List<RoutineStats>>getAllRoutineStatsById(int routineId);
 
 
 

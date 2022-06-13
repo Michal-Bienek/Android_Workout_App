@@ -79,4 +79,8 @@ public class RoutineRepository {
         }
         return training_volume;
     }
+
+    public LiveData<List<RoutineStats>>getAllRoutineStatsById(int routineId){
+        return routineDao.getAllRoutineStatsById(routineId);
+    }
 }
