@@ -68,13 +68,10 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
         this.rvExercise.setLayoutManager(layoutManager);
         this.rvExercise.setAdapter(adapter);
         viewModel.getAllExercises().observe(getViewLifecycleOwner(), adapter::setExerciseList);
-        this.fabAddExercisesToRoutine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavController navController= getNavController();
-                NavDirections action = FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
-                navController.navigate(action);
-            }
+        this.fabAddExercisesToRoutine.setOnClickListener(view1 -> {
+            NavController navController= getNavController();
+            NavDirections action = FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
+            navController.navigate(action);
         });
 
 
@@ -89,13 +86,6 @@ public class FragmentExercise extends Fragment implements ExerciseAdapter.OnExer
         return NavHostFragment.findNavController(this);
     }
 
-//    private void handleConfirmClick(){
-//        this.fabAddExercisesToRoutine.setOnClickListener(view -> {
-//            NavController navController= NavHostFragment.findNavController(this);
-//            NavDirections action=FragmentExerciseDirections.actionFragmentExerciseToFragmentRoutine(routineId);
-//            navController.navigate(action);
-//        });
-//    }
 
     @Override
     public void onExerciseClick(Exercise exercise) {
