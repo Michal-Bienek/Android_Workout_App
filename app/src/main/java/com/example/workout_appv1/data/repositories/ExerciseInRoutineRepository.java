@@ -92,4 +92,8 @@ public class ExerciseInRoutineRepository {
         return exerciseWithSeriesList;
     }
 
+    public LiveData<Double>getLastWorkoutTotal(int routineId){
+        return exercisesInRoutineDao.getLastWorkoutTotal(routineId);
+    }
+
 }
