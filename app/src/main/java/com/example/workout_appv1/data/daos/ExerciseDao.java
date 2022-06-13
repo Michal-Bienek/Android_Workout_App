@@ -14,17 +14,8 @@ import java.util.List;
 
 @Dao
 public interface ExerciseDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertExercise(Exercise exercise);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertExercises(List<Exercise> exerciseList);
-
-    @Delete
-    void deleteExercise(Exercise exercise);
-
-    @Update
-    void updateExercise(Exercise exercise);
 
     @Query("SELECT * FROM exercises")
     LiveData<List<Exercise>>getAllExercises();
