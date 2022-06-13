@@ -13,11 +13,13 @@ import java.util.List;
 
 public class FragmentExerciseViewModel extends AndroidViewModel {
     private ExerciseRepository exerciseRepository;
+
     public FragmentExerciseViewModel(@NonNull Application application) {
         super(application);
         this.exerciseRepository = new ExerciseRepository(application);
     }
-    public LiveData<List<Exercise>>getAllExercises(){
+
+    public LiveData<List<Exercise>> getAllExercises() {
         return exerciseRepository.getAllExercises();
     }
 }

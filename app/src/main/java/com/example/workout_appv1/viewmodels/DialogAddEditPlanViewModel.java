@@ -22,14 +22,15 @@ public class DialogAddEditPlanViewModel extends AndroidViewModel {
         planRepository.insertPlan(plan);
     }
 
-    public LiveData<Plan>getPlanById(int planId){
+    public LiveData<Plan> getPlanById(int planId) {
         return planRepository.getPlanById(planId);
     }
 
-    public void updatePlan(Plan plan){
+    public void updatePlan(Plan plan) {
         planRepository.updatePlan(plan);
     }
-    public boolean validatePlanName(String planName){
+
+    public boolean validatePlanName(String planName) {
         return !planName.isEmpty();
     }
 

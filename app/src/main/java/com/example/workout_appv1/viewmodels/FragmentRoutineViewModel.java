@@ -18,34 +18,34 @@ import java.util.List;
 public class FragmentRoutineViewModel extends AndroidViewModel {
     private final ExerciseInRoutineRepository exerciseInRoutineRepository;
     private final RoutineRepository routineRepository;
+
     public FragmentRoutineViewModel(@NonNull Application application) {
         super(application);
         exerciseInRoutineRepository = new ExerciseInRoutineRepository(application);
         routineRepository = new RoutineRepository(application);
     }
 
-    public LiveData<List<ExerciseInRoutineExercise>>getExerciseInRoutineAndExerciseByRoutineId(int routineId){
+    public LiveData<List<ExerciseInRoutineExercise>> getExerciseInRoutineAndExerciseByRoutineId(int routineId) {
         return exerciseInRoutineRepository.getExerciseInRoutineAndExerciseByRoutineId(routineId);
     }
 
-    public void deleteExerciseInRoutineById(int exerciseInRoutineId){
+    public void deleteExerciseInRoutineById(int exerciseInRoutineId) {
         exerciseInRoutineRepository.deleteExerciseInRoutineById(exerciseInRoutineId);
     }
 
-    public LiveData<List<RoutineStats>>getAllRoutineStatsById(int routineId){
+    public LiveData<List<RoutineStats>> getAllRoutineStatsById(int routineId) {
         return routineRepository.getAllRoutineStatsById(routineId);
     }
 
-    public boolean isTrainingVolumeGrowing(List<RoutineStats>routineStatsList){
-        if(routineStatsList.size()>1){
-            return routineStatsList.get(0).getTotal_volume()>routineStatsList.get(1).getTotal_volume();
-        }
-        else{
+    public boolean isTrainingVolumeGrowing(List<RoutineStats> routineStatsList) {
+        if (routineStatsList.size() > 1) {
+            return routineStatsList.get(0).getTotal_volume() > routineStatsList.get(1).getTotal_volume();
+        } else {
             return true;
         }
     }
 
-    public String getConvertedDate(Date date){
+    public String getConvertedDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/y HH:mm");
         return dateFormat.format(date);
     }

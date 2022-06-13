@@ -19,16 +19,20 @@ public class FragmentProgramViewModel extends AndroidViewModel {
         super(application);
         planRepository = new PlanRepository(application);
     }
-    public void insertPlan(Plan plan){
+
+    public void insertPlan(Plan plan) {
         planRepository.insertPlan(plan);
     }
-    public void deletePlan(Plan plan){
+
+    public void deletePlan(Plan plan) {
         planRepository.deletePlan(plan);
     }
-    public void updatePlan(Plan plan){
+
+    public void updatePlan(Plan plan) {
         planRepository.updatePlan(plan);
     }
-    public LiveData<List<Plan>>getSortedPlans(){
+
+    public LiveData<List<Plan>> getSortedPlans() {
         return planRepository.getSortedPlans();
     }
 }

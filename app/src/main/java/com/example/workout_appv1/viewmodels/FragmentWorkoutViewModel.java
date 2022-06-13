@@ -26,7 +26,7 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
     private final WorkoutParamsRepository wp_repository;
     private final RoutineRepository routineRepository;
     private int routineId;
-    private Date currentDate;
+    private final Date currentDate;
     List<ExerciseWithSeries> exerciseWithSeriesList;
     List<WorkoutParamsSeries> userWorkout;
     private int exercise_position;
@@ -38,33 +38,31 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
         this.repository = new ExerciseInRoutineRepository(application);
         this.wp_repository = new WorkoutParamsRepository(application);
         this.routineRepository = new RoutineRepository(application);
-        currentDate= new Date();
+        currentDate = new Date();
     }
 
-    public ExerciseWithOneSeries getNextSeries(ExerciseWithOneSeries exercise, String reps, String weight){
-        updateUserParams(reps,weight);
-        if(series_position<series_count-1){
+    public ExerciseWithOneSeries getNextSeries(ExerciseWithOneSeries exercise, String reps, String weight) {
+        updateUserParams(reps, weight);
+        if (series_position < series_count - 1) {
             series_position++;
-            return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position );
-        }
-        else{
-            if(exercise_position<exerciseWithSeriesList.size()-1){
+            return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position), getSeriesByPosition(series_position), series_count, series_position);
+        } else {
+            if (exercise_position < exerciseWithSeriesList.size() - 1) {
                 exercise_position++;
-                series_position= 0;
+                series_position = 0;
                 setSeries_count(exercise_position);
-                return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position);
-            }
-            else{
+                return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position), getSeriesByPosition(series_position), series_count, series_position);
+            } else {
                 saveWorkout();
                 return null;
             }
         }
     }
 
-    public ExerciseWithOneSeries initializeVariables(int routineId){
-        this.routineId=routineId;
+    public ExerciseWithOneSeries initializeVariables(int routineId) {
+        this.routineId = routineId;
         getExercisesInRoutineWithSeries(routineId);
-        return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position),getSeriesByPosition(series_position),series_count,series_position);
+        return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position), getSeriesByPosition(series_position), series_count, series_position);
     }
 
     private void getExercisesInRoutineWithSeries(int routineId) {
@@ -75,64 +73,67 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
         setSeries_count(exercise_position);
     }
 
-    private void updateUserParams(String reps, String weight){
+    private void updateUserParams(String reps, String weight) {
         int iReps = Integer.parseInt(reps);
         double dWeight = Double.parseDouble(weight);
         this.userWorkout.get(exercise_position).getSeriesList().get(series_position).setReps(iReps);
         this.userWorkout.get(exercise_position).getSeriesList().get(series_position).setWeight(dWeight);
     }
 
-    private void initWorkoutParamsSeriesList(){
+    private void initWorkoutParamsSeriesList() {
         this.userWorkout = new ArrayList<>();
-        for (ExerciseWithSeries ex:this.exerciseWithSeriesList) {
+        for (ExerciseWithSeries ex : this.exerciseWithSeriesList) {
             ExerciseInRoutineWorkoutParams exercise = ex.getExerciseInRoutineWorkoutParams();
-            WorkoutParams workoutParams = new WorkoutParams(0,this.currentDate,exercise.exerciseInRoutineId);
-            List<Series>seriesList = new ArrayList<>();
-            for(Series series : ex.getSeriesList()){
-                Series user_series = new Series(0,0,series.getRate(),series.getRestTime(),series.getNote(),series.getFk_workoutParamsId());
+            WorkoutParams workoutParams = new WorkoutParams(0, this.currentDate, exercise.exerciseInRoutineId);
+            List<Series> seriesList = new ArrayList<>();
+            for (Series series : ex.getSeriesList()) {
+                Series user_series = new Series(0, 0, series.getRate(), series.getRestTime(), series.getNote(), series.getFk_workoutParamsId());
                 seriesList.add(user_series);
             }
-            this.userWorkout.add(new WorkoutParamsSeries(workoutParams,seriesList));
+            this.userWorkout.add(new WorkoutParamsSeries(workoutParams, seriesList));
         }
     }
-    private void saveWorkout(){
-        routineRepository.saveUserWorkout(userWorkout,routineId,currentDate);
+
+    private void saveWorkout() {
+        routineRepository.saveUserWorkout(userWorkout, routineId, currentDate);
     }
 
-    private void setSeries_count(int exercise_position){
+    private void setSeries_count(int exercise_position) {
         ExerciseWithSeries exerciseWithSeries = exerciseWithSeriesList.get(exercise_position);
         this.series_count = exerciseWithSeries.getSeriesList().size();
     }
 
-    private Series getSeriesByPosition(int position){
+    private Series getSeriesByPosition(int position) {
         return exerciseWithSeriesList.get(exercise_position).getSeriesList().get(position);
     }
-    private Exercise getExerciseByPosition(int position){
+
+    private Exercise getExerciseByPosition(int position) {
         return exerciseWithSeriesList.get(position).getExercise();
     }
 
-    public void pauseWorkout(){
+    public void pauseWorkout() {
         this.saveWorkout();
     }
 
-    public String validateReps(String etReps){
-        if(etReps==null||etReps.isEmpty()){
+    //region Input validation
+    public String validateReps(String etReps) {
+        if (etReps == null || etReps.isEmpty()) {
             return "Pole nie może być puste";
-        }
-        else if(!ValueParser.isPositiveInteger(etReps)){
+        } else if (!ValueParser.isPositiveInteger(etReps)) {
             return "Niepoprawna wartość";
-        }else{
+        } else {
             return "";
         }
     }
-    public String validateWeight(String etWeight){
-        if(etWeight==null||etWeight.trim().isEmpty()){
+
+    public String validateWeight(String etWeight) {
+        if (etWeight == null || etWeight.trim().isEmpty()) {
             return "Pole nie może być puste";
-        }
-        else if(!ValueParser.isDouble(etWeight)){
+        } else if (!ValueParser.isDouble(etWeight)) {
             return "Niepoprawna wartość";
-        }else{
+        } else {
             return "";
         }
     }
+    //endregion
 }

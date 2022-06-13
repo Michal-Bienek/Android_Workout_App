@@ -23,14 +23,14 @@ public class FragmentHomeViewModel extends AndroidViewModel {
 
     }
 
-    public LiveData<List<Routine>>getRoutinesFromActivePlans(){
+    public LiveData<List<Routine>> getRoutinesFromActivePlans() {
         return routineRepository.getRoutinesFromActivePlans();
     }
 
-    public String getDayShortcut(int day_of_week){
+    public String getDayShortcut(int day_of_week) {
         String shortcut = "NI";
-        if(day_of_week<=6&&day_of_week>=0)
-            shortcut=dayShortcuts[day_of_week];
+        if (day_of_week <= 6 && day_of_week >= 0)
+            shortcut = dayShortcuts[day_of_week];
         return shortcut;
 
     }
