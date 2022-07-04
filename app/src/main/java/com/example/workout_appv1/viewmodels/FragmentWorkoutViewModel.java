@@ -1,9 +1,12 @@
 package com.example.workout_appv1.viewmodels;
 
 import android.app.Application;
+import android.os.CountDownTimer;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.workout_appv1.data.entities.Exercise;
 import com.example.workout_appv1.data.entities.Series;
@@ -15,6 +18,7 @@ import com.example.workout_appv1.data.joinEntities.WorkoutParamsSeries;
 import com.example.workout_appv1.data.repositories.ExerciseInRoutineRepository;
 import com.example.workout_appv1.data.repositories.RoutineRepository;
 import com.example.workout_appv1.data.repositories.WorkoutParamsRepository;
+import com.example.workout_appv1.helpers.CustomTimer;
 import com.example.workout_appv1.helpers.ValueParser;
 
 import java.util.ArrayList;
@@ -32,6 +36,8 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
     private int exercise_position;
     private int series_position;
     private int series_count;
+    private MutableLiveData<Long> remainingTimeM =new MutableLiveData<>();
+    private CountDownTimer countdownTimer;
 
     public FragmentWorkoutViewModel(@NonNull Application application) {
         super(application);
@@ -45,9 +51,11 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
         updateUserParams(reps, weight);
         if (series_position < series_count - 1) {
             series_position++;
+            startTimer(exercise.getSeries().getRestTime());
             return new ExerciseWithOneSeries(getExerciseByPosition(exercise_position), getSeriesByPosition(series_position), series_count, series_position);
         } else {
             if (exercise_position < exerciseWithSeriesList.size() - 1) {
+                startTimer(exercise.getSeries().getRestTime());
                 exercise_position++;
                 series_position = 0;
                 setSeries_count(exercise_position);
@@ -113,6 +121,22 @@ public class FragmentWorkoutViewModel extends AndroidViewModel {
 
     public void pauseWorkout() {
         this.saveWorkout();
+    }
+
+    public void startTimer(long time){
+        long time_ms=time*1000;
+        if(countdownTimer!=null){
+            countdownTimer.cancel();
+        }
+        countdownTimer= new CustomTimer(time_ms,1000L) {
+            @Override
+            public void getRemainingTime(long remainingTime) {
+                remainingTimeM.postValue(remainingTime);
+            }
+        }.start();
+    }
+    public LiveData<Long> getRemainingTimeM(){
+        return remainingTimeM;
     }
 
     //region Input validation

@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -86,6 +87,13 @@ public class FragmentWorkout extends Fragment {
 
         exercise = viewModel.initializeVariables(routineId);
         setViews(exercise);
+
+        viewModel.getRemainingTimeM().observe(getViewLifecycleOwner(), aLong -> {
+            if(aLong==0){
+                tvRestTimeFragmentWorkout.setTextColor(Color.rgb(220,20,60));
+            }
+            tvRestTimeFragmentWorkout.setText(String.valueOf(aLong));
+        });
 
         btnNextFragmentWorkout.setOnClickListener(view1 -> {
             if (validateInputs()) {
