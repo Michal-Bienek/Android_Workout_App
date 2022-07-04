@@ -88,12 +88,7 @@ public class FragmentWorkout extends Fragment {
         exercise = viewModel.initializeVariables(routineId);
         setViews(exercise);
 
-        viewModel.getRemainingTimeM().observe(getViewLifecycleOwner(), aLong -> {
-            if(aLong==0){
-                tvRestTimeFragmentWorkout.setTextColor(Color.rgb(220,20,60));
-            }
-            tvRestTimeFragmentWorkout.setText(String.valueOf(aLong));
-        });
+        viewModel.getRemainingTimeM().observe(getViewLifecycleOwner(), aLong -> tvRestTimeFragmentWorkout.setText(String.valueOf(aLong)));
 
         btnNextFragmentWorkout.setOnClickListener(view1 -> {
             if (validateInputs()) {
