@@ -1,4 +1,4 @@
-# Android Training App
+# Android Training App (June 2022)
 
 ## Table of Contents
 - [Installation](#installation)
